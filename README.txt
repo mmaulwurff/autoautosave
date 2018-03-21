@@ -1,6 +1,12 @@
 Features:
 
 Autosave on certain events:
+Done:
+- all monsters are killed
+- all items are found
+- a secret is found
+
+Todo:
 - blue armor is picked up
 - health increased by 100
 - New weapon is picked up
@@ -10,9 +16,6 @@ Autosave on certain events:
 - Cyberdemon is killed
 - Spidermastermind is killed
 - N minutes has passed.
-- all monsters are killed
-- all items are found
-- a secret is found
 
 Autosave will not happen if:
 - previous auto autosave was made in N seconds.

@@ -4,7 +4,8 @@
 script "m8f_Autosaver2" Enter
 {
   bool allMonstersKilledOld = AS_IsAllMonsterKilled();
-  bool allItemsFoundOld = AS_IsAllItemsFound();
+  bool allItemsFoundOld     = AS_IsAllItemsFound();
+  int  secretsFoundOld      = AS_SecretsFound();
 
   while (true)
   {
@@ -21,6 +22,14 @@ script "m8f_Autosaver2" Enter
     {
       allItemsFoundOld = allItemsFound;
       AS_AutosaveWithMessage("All items found.");
+      continue;
+    }
+
+    int secretsFound = AS_SecretsFound();
+    if (secretsFoundOld != secretsFound)
+    {
+      secretsFoundOld = secretsFound;
+      Autosave();
       continue;
     }
 
@@ -46,4 +55,9 @@ function bool AS_IsAllItemsFound(void)
   int totalItems = GetLevelInfo(LEVELINFO_TOTAL_ITEMS);
   int foundItems = GetLevelInfo(LEVELINFO_FOUND_ITEMS);
   return (totalItems == foundItems);
+}
+
+function int AS_SecretsFound(void)
+{
+  return GetLevelInfo(LEVELINFO_FOUND_SECRETS);
 }
