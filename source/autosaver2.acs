@@ -13,6 +13,7 @@ script "m8f_Autosaver2" Enter
   bool radSuitActiveOld     = AS_IsRadSuitActive();
   int  cyberdemonCountOld   = AS_GetMonsterCount("Cyberdemon");
   int  spidermasterCountOld = AS_GetMonsterCount("SpiderMastermind");
+  bool isBFGInInventoryOld  = AS_IsBFGInInventory();
 
   int saveMinWait = 1;
   int autosavePeriod = 5 * 60; // 5 minutes
@@ -23,14 +24,15 @@ script "m8f_Autosaver2" Enter
     ++timeCounter;
     bool mustAutosave = false;
 
-    int radSuitActive = AS_IsRadSuitActive();
-    int health = AS_GetHealth();
-    str armor = AS_GetArmor();
+    int  radSuitActive = AS_IsRadSuitActive();
+    int  health = AS_GetHealth();
+    str  armor = AS_GetArmor();
     bool allMonstersKilled = AS_IsAllMonsterKilled();
     bool allItemsFound = AS_IsAllItemsFound();
-    int secretsFound = AS_SecretsFound();
-    int cyberDemonCount = AS_GetMonsterCount("Cyberdemon");
-    int spidermasterCount = AS_GetMonsterCount("SpiderMastermind");
+    int  secretsFound = AS_SecretsFound();
+    int  cyberDemonCount = AS_GetMonsterCount("Cyberdemon");
+    int  spidermasterCount = AS_GetMonsterCount("SpiderMastermind");
+    bool isBFGInInventory = AS_IsBFGInInventory();
 
     mustAutosave = (radSuitActive && radSuitActive != radSuitActiveOld)
       || (health > healthOld + 25) // heal more than 25? You found something good!
@@ -41,6 +43,7 @@ script "m8f_Autosaver2" Enter
       || (timeCounter >= autosavePeriod)
       || (cyberdemonCountOld > cyberdemonCount)
       || (spidermasterCountOld > spidermasterCount)
+      || (isBFGInInventory > isBFGInInventoryOld)
       ;
 
     radSuitActiveOld = radSuitActive;
@@ -51,6 +54,7 @@ script "m8f_Autosaver2" Enter
     secretsFoundOld = secretsFound;
     cyberdemonCountOld = cyberdemonCount;
     spidermasterCountOld = spidermasterCount;
+    isBFGInInventoryOld = isBFGInInventory;
 
     if (mustAutosave && timeCounter > saveMinWait && health > healthLimit)
     {
@@ -105,4 +109,9 @@ function bool AS_IsRadSuitActive(void)
 function int AS_GetMonsterCount(str monster)
 {
   return ThingCountName(monster, 0);
+}
+
+function bool AS_IsBFGInInventory(void)
+{
+  return (CheckInventory("BFG9000") > 0);
 }

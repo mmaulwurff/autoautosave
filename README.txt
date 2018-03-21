@@ -10,10 +10,10 @@ Done:
 - Radsuit is picked up
 - Cyberdemon is killed
 - Spidermastermind is killed
-- N minutes has passed.
+- N minutes has passed
+- BFG is picked up
 
 Todo:
-- New weapon is picked up
 - Invulnerability is picked up
 - Key or skull is picked up
 
