@@ -12,10 +12,10 @@ Done:
 - Spidermastermind is killed
 - N minutes has passed
 - BFG is picked up
+- Key or skull is picked up
 
 Todo:
 - Invulnerability is picked up
-- Key or skull is picked up
 
 Autosave will not happen if:
 - previous auto autosave was made in N seconds.

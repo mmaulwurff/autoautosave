@@ -14,6 +14,7 @@ script "m8f_Autosaver2" Enter
   int  cyberdemonCountOld   = AS_GetMonsterCount("Cyberdemon");
   int  spidermasterCountOld = AS_GetMonsterCount("SpiderMastermind");
   bool isBFGInInventoryOld  = AS_IsBFGInInventory();
+  int  keyCountOld          = AS_GetKeyCount();
 
   int saveMinWait = 1;
   int autosavePeriod = 5 * 60; // 5 minutes
@@ -33,6 +34,7 @@ script "m8f_Autosaver2" Enter
     int  cyberDemonCount = AS_GetMonsterCount("Cyberdemon");
     int  spidermasterCount = AS_GetMonsterCount("SpiderMastermind");
     bool isBFGInInventory = AS_IsBFGInInventory();
+    int  keyCount = AS_GetKeyCount();
 
     mustAutosave = (radSuitActive && radSuitActive != radSuitActiveOld)
       || (health > healthOld + 25) // heal more than 25? You found something good!
@@ -44,6 +46,7 @@ script "m8f_Autosaver2" Enter
       || (cyberdemonCountOld > cyberdemonCount)
       || (spidermasterCountOld > spidermasterCount)
       || (isBFGInInventory > isBFGInInventoryOld)
+      || (keyCount > keyCountOld)
       ;
 
     radSuitActiveOld = radSuitActive;
@@ -55,6 +58,7 @@ script "m8f_Autosaver2" Enter
     cyberdemonCountOld = cyberdemonCount;
     spidermasterCountOld = spidermasterCount;
     isBFGInInventoryOld = isBFGInInventory;
+    keyCountOld = keyCount;
 
     if (mustAutosave && timeCounter > saveMinWait && health > healthLimit)
     {
@@ -64,12 +68,6 @@ script "m8f_Autosaver2" Enter
 
     Delay(35);
   }
-}
-
-function void AS_AutosaveWithMessage(str message)
-{
-  Log(s:message);
-  Autosave();
 }
 
 function bool AS_IsAllMonsterKilled(void)
@@ -114,4 +112,15 @@ function int AS_GetMonsterCount(str monster)
 function bool AS_IsBFGInInventory(void)
 {
   return (CheckInventory("BFG9000") > 0);
+}
+
+function int AS_GetKeyCount(void)
+{
+  return CheckInventory("BlueCard")
+    + CheckInventory("BlueSkull")
+    + CheckInventory("RedCard")
+    + CheckInventory("RedSkull")
+    + CheckInventory("YellowCard")
+    + CheckInventory("YellowSkull")
+    ;
 }
