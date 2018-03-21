@@ -1,0 +1,49 @@
+#library "Autosaver2"
+#include "zcommon.acs"
+
+script "m8f_Autosaver2" Enter
+{
+  bool allMonstersKilledOld = AS_IsAllMonsterKilled();
+  bool allItemsFoundOld = AS_IsAllItemsFound();
+
+  while (true)
+  {
+    bool allMonstersKilled = AS_IsAllMonsterKilled();
+    if (allMonstersKilledOld != allMonstersKilled)
+    {
+      allMonstersKilledOld = allMonstersKilled;
+      AS_AutosaveWithMessage("Level clear.");
+      continue;
+    }
+
+    bool allItemsFound = AS_IsAllItemsFound();
+    if (allItemsFoundOld != allItemsFound)
+    {
+      allItemsFoundOld = allItemsFound;
+      AS_AutosaveWithMessage("All items found.");
+      continue;
+    }
+
+    Delay(35);
+  }
+}
+
+function void AS_AutosaveWithMessage(str message)
+{
+  Log(s:message);
+  Autosave();
+}
+
+function bool AS_IsAllMonsterKilled(void)
+{
+  int totalMonsters  = GetLevelInfo(LEVELINFO_TOTAL_MONSTERS);
+  int killedMonsters = GetLevelInfo(LEVELINFO_KILLED_MONSTERS);
+  return (totalMonsters == killedMonsters);
+}
+
+function bool AS_IsAllItemsFound(void)
+{
+  int totalItems = GetLevelInfo(LEVELINFO_TOTAL_ITEMS);
+  int foundItems = GetLevelInfo(LEVELINFO_FOUND_ITEMS);
+  return (totalItems == foundItems);
+}
