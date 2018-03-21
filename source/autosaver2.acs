@@ -9,12 +9,26 @@ script "m8f_Autosaver2" Enter
   bool allItemsFoundOld     = AS_IsAllItemsFound();
   int  secretsFoundOld      = AS_SecretsFound();
   str  armorOld             = AS_GetArmor();
+  int  healthOld            = AS_GetHealth();
 
   int saveMinWait = 1;
 
   while (true)
   {
     ++timeCounter;
+
+    int health = AS_GetHealth();
+    if (health > healthOld + 25) // heal more than 25? You found something good!
+    {
+      healthOld = health;
+      if (timeCounter > saveMinWait)
+      {
+        Autosave();
+        timeCounter = 0;
+      }
+      Delay(35);
+      continue;
+    }
 
     str armor = AS_GetArmor();
     if (armorOld != armor)
@@ -100,4 +114,9 @@ function int AS_SecretsFound(void)
 function str AS_GetArmor(void)
 {
   return GetArmorInfo(ARMORINFO_CLASSNAME);
+}
+
+function str AS_GetHealth(void)
+{
+  return GetActorProperty(0, APROP_HEALTH);
 }

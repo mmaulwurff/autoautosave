@@ -6,9 +6,9 @@ Done:
 - all items are found
 - a secret is found
 - armor type changed
+- health increased more than 25
 
 Todo:
-- health increased by 100
 - New weapon is picked up
 - Radsuit is picked up
 - Invulnerability is picked up
