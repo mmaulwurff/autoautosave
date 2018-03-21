@@ -7,10 +7,10 @@ Done:
 - a secret is found
 - armor type changed
 - health increased more than 25
+- Radsuit is picked up
 
 Todo:
 - New weapon is picked up
-- Radsuit is picked up
 - Invulnerability is picked up
 - Key or skull is picked up
 - Cyberdemon is killed

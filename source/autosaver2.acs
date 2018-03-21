@@ -10,76 +10,41 @@ script "m8f_Autosaver2" Enter
   int  secretsFoundOld      = AS_SecretsFound();
   str  armorOld             = AS_GetArmor();
   int  healthOld            = AS_GetHealth();
+  bool radSuitActiveOld     = AS_IsRadSuitActive();
 
   int saveMinWait = 1;
 
   while (true)
   {
     ++timeCounter;
+    bool mustAutosave = false;
 
+    int radSuitActive = AS_IsRadSuitActive();
     int health = AS_GetHealth();
-    if (health > healthOld + 25) // heal more than 25? You found something good!
-    {
-      healthOld = health;
-      if (timeCounter > saveMinWait)
-      {
-        Autosave();
-        timeCounter = 0;
-      }
-      Delay(35);
-      continue;
-    }
-
     str armor = AS_GetArmor();
-    if (armorOld != armor)
-    {
-      armorOld = armor;
-      if (timeCounter > saveMinWait)
-      {
-        Autosave();
-        timeCounter = 0;
-      }
-      Delay(35);
-      continue;
-    }
-
     bool allMonstersKilled = AS_IsAllMonsterKilled();
-    if (allMonstersKilledOld != allMonstersKilled)
-    {
-      allMonstersKilledOld = allMonstersKilled;
-      if (timeCounter > saveMinWait)
-      {
-        AS_AutosaveWithMessage("Level clear.");
-        timeCounter = 0;
-      }
-      Delay(35);
-      continue;
-    }
-
     bool allItemsFound = AS_IsAllItemsFound();
-    if (allItemsFoundOld != allItemsFound)
-    {
-      allItemsFoundOld = allItemsFound;
-      if (timeCounter > saveMinWait)
-      {
-        AS_AutosaveWithMessage("All items found.");
-        timeCounter = 0;
-      }
-      Delay(35);
-      continue;
-    }
-
     int secretsFound = AS_SecretsFound();
-    if (secretsFoundOld != secretsFound)
+
+    mustAutosave = (radSuitActive && radSuitActive != radSuitActiveOld)
+      || (health > healthOld + 25) // heal more than 25? You found something good!
+      || (armorOld != armor)
+      || (allMonstersKilledOld != allMonstersKilled)
+      || (allItemsFoundOld != allItemsFound)
+      || (secretsFoundOld != secretsFound)
+      ;
+
+    radSuitActiveOld = radSuitActive;
+    healthOld = health;
+    armorOld = armor;
+    allMonstersKilledOld = allMonstersKilled;
+    allItemsFoundOld = allItemsFound;
+    secretsFoundOld = secretsFound;
+
+    if (mustAutosave && timeCounter > saveMinWait)
     {
-      secretsFoundOld = secretsFound;
-      if (timeCounter > saveMinWait)
-      {
-        Autosave();
-        timeCounter = 0;
-      }
-      Delay(35);
-      continue;
+      Autosave();
+      timeCounter = 0;
     }
 
     Delay(35);
@@ -119,4 +84,9 @@ function str AS_GetArmor(void)
 function str AS_GetHealth(void)
 {
   return GetActorProperty(0, APROP_HEALTH);
+}
+
+function bool AS_IsRadSuitActive(void)
+{
+  return (GetActorPowerupTics(0, "PowerIronFeet") != 0);
 }
