@@ -16,6 +16,7 @@ script "m8f_Autosaver2" Enter
 
   int saveMinWait = 1;
   int autosavePeriod = 5 * 60; // 5 minutes
+  int healthLimit = 25;
 
   while (true)
   {
@@ -51,7 +52,7 @@ script "m8f_Autosaver2" Enter
     cyberdemonCountOld = cyberdemonCount;
     spidermasterCountOld = spidermasterCount;
 
-    if (mustAutosave && timeCounter > saveMinWait)
+    if (mustAutosave && timeCounter > saveMinWait && health > healthLimit)
     {
       Autosave();
       timeCounter = 0;
