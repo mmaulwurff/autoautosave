@@ -8,16 +8,32 @@ script "m8f_Autosaver2" Enter
   bool allMonstersKilledOld = AS_IsAllMonsterKilled();
   bool allItemsFoundOld     = AS_IsAllItemsFound();
   int  secretsFoundOld      = AS_SecretsFound();
+  str  armorOld             = AS_GetArmor();
+
+  int saveMinWait = 1;
 
   while (true)
   {
     ++timeCounter;
 
+    str armor = AS_GetArmor();
+    if (armorOld != armor)
+    {
+      armorOld = armor;
+      if (timeCounter > saveMinWait)
+      {
+        Autosave();
+        timeCounter = 0;
+      }
+      Delay(35);
+      continue;
+    }
+
     bool allMonstersKilled = AS_IsAllMonsterKilled();
     if (allMonstersKilledOld != allMonstersKilled)
     {
       allMonstersKilledOld = allMonstersKilled;
-      if (timeCounter > 30)
+      if (timeCounter > saveMinWait)
       {
         AS_AutosaveWithMessage("Level clear.");
         timeCounter = 0;
@@ -30,7 +46,7 @@ script "m8f_Autosaver2" Enter
     if (allItemsFoundOld != allItemsFound)
     {
       allItemsFoundOld = allItemsFound;
-      if (timeCounter > 30)
+      if (timeCounter > saveMinWait)
       {
         AS_AutosaveWithMessage("All items found.");
         timeCounter = 0;
@@ -43,7 +59,7 @@ script "m8f_Autosaver2" Enter
     if (secretsFoundOld != secretsFound)
     {
       secretsFoundOld = secretsFound;
-      if (timeCounter > 30)
+      if (timeCounter > saveMinWait)
       {
         Autosave();
         timeCounter = 0;
@@ -79,4 +95,9 @@ function bool AS_IsAllItemsFound(void)
 function int AS_SecretsFound(void)
 {
   return GetLevelInfo(LEVELINFO_FOUND_SECRETS);
+}
+
+function str AS_GetArmor(void)
+{
+  return GetArmorInfo(ARMORINFO_CLASSNAME);
 }

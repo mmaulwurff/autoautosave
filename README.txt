@@ -5,9 +5,9 @@ Done:
 - all monsters are killed
 - all items are found
 - a secret is found
+- armor type changed
 
 Todo:
-- blue armor is picked up
 - health increased by 100
 - New weapon is picked up
 - Radsuit is picked up
