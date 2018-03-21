@@ -13,6 +13,7 @@ script "m8f_Autosaver2" Enter
   bool radSuitActiveOld     = AS_IsRadSuitActive();
 
   int saveMinWait = 1;
+  int autosavePeriod = 5 * 60; // 5 minutes
 
   while (true)
   {
@@ -32,6 +33,7 @@ script "m8f_Autosaver2" Enter
       || (allMonstersKilledOld != allMonstersKilled)
       || (allItemsFoundOld != allItemsFound)
       || (secretsFoundOld != secretsFound)
+      || (timeCounter >= autosavePeriod)
       ;
 
     radSuitActiveOld = radSuitActive;
