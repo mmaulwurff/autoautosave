@@ -3,17 +3,26 @@
 
 script "m8f_Autosaver2" Enter
 {
+  int timeCounter = 0;
+
   bool allMonstersKilledOld = AS_IsAllMonsterKilled();
   bool allItemsFoundOld     = AS_IsAllItemsFound();
   int  secretsFoundOld      = AS_SecretsFound();
 
   while (true)
   {
+    ++timeCounter;
+
     bool allMonstersKilled = AS_IsAllMonsterKilled();
     if (allMonstersKilledOld != allMonstersKilled)
     {
       allMonstersKilledOld = allMonstersKilled;
-      AS_AutosaveWithMessage("Level clear.");
+      if (timeCounter > 30)
+      {
+        AS_AutosaveWithMessage("Level clear.");
+        timeCounter = 0;
+      }
+      Delay(35);
       continue;
     }
 
@@ -21,7 +30,12 @@ script "m8f_Autosaver2" Enter
     if (allItemsFoundOld != allItemsFound)
     {
       allItemsFoundOld = allItemsFound;
-      AS_AutosaveWithMessage("All items found.");
+      if (timeCounter > 30)
+      {
+        AS_AutosaveWithMessage("All items found.");
+        timeCounter = 0;
+      }
+      Delay(35);
       continue;
     }
 
@@ -29,7 +43,12 @@ script "m8f_Autosaver2" Enter
     if (secretsFoundOld != secretsFound)
     {
       secretsFoundOld = secretsFound;
-      Autosave();
+      if (timeCounter > 30)
+      {
+        Autosave();
+        timeCounter = 0;
+      }
+      Delay(35);
       continue;
     }
 
