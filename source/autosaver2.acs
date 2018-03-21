@@ -11,6 +11,8 @@ script "m8f_Autosaver2" Enter
   str  armorOld             = AS_GetArmor();
   int  healthOld            = AS_GetHealth();
   bool radSuitActiveOld     = AS_IsRadSuitActive();
+  int  cyberdemonCountOld   = AS_GetMonsterCount("Cyberdemon");
+  int  spidermasterCountOld = AS_GetMonsterCount("SpiderMastermind");
 
   int saveMinWait = 1;
   int autosavePeriod = 5 * 60; // 5 minutes
@@ -26,6 +28,8 @@ script "m8f_Autosaver2" Enter
     bool allMonstersKilled = AS_IsAllMonsterKilled();
     bool allItemsFound = AS_IsAllItemsFound();
     int secretsFound = AS_SecretsFound();
+    int cyberDemonCount = AS_GetMonsterCount("Cyberdemon");
+    int spidermasterCount = AS_GetMonsterCount("SpiderMastermind");
 
     mustAutosave = (radSuitActive && radSuitActive != radSuitActiveOld)
       || (health > healthOld + 25) // heal more than 25? You found something good!
@@ -34,6 +38,8 @@ script "m8f_Autosaver2" Enter
       || (allItemsFoundOld != allItemsFound)
       || (secretsFoundOld != secretsFound)
       || (timeCounter >= autosavePeriod)
+      || (cyberdemonCountOld > cyberdemonCount)
+      || (spidermasterCountOld > spidermasterCount)
       ;
 
     radSuitActiveOld = radSuitActive;
@@ -42,6 +48,8 @@ script "m8f_Autosaver2" Enter
     allMonstersKilledOld = allMonstersKilled;
     allItemsFoundOld = allItemsFound;
     secretsFoundOld = secretsFound;
+    cyberdemonCountOld = cyberdemonCount;
+    spidermasterCountOld = spidermasterCount;
 
     if (mustAutosave && timeCounter > saveMinWait)
     {
@@ -91,4 +99,9 @@ function str AS_GetHealth(void)
 function bool AS_IsRadSuitActive(void)
 {
   return (GetActorPowerupTics(0, "PowerIronFeet") != 0);
+}
+
+function int AS_GetMonsterCount(str monster)
+{
+  return ThingCountName(monster, 0);
 }

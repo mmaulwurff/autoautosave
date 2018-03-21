@@ -8,14 +8,14 @@ Done:
 - armor type changed
 - health increased more than 25
 - Radsuit is picked up
+- Cyberdemon is killed
+- Spidermastermind is killed
+- N minutes has passed.
 
 Todo:
 - New weapon is picked up
 - Invulnerability is picked up
 - Key or skull is picked up
-- Cyberdemon is killed
-- Spidermastermind is killed
-- N minutes has passed.
 
 Autosave will not happen if:
 - previous auto autosave was made in N seconds.
