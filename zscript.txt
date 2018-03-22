@@ -1,0 +1,32 @@
+version "3.2.5"
+
+class AutoautosaveEventHandler : EventHandler
+{
+  override void WorldThingSpawned(WorldEvent e)
+  {
+    Actor a = e.Thing;
+    vector3 p = a.Pos;
+    if      (a is "Key")          { Actor.Spawn("AutoautosaveTokenKey",     p); }
+    else if (a is "Weapon")       { Actor.Spawn("AutoautosaveTokenWeapon",  p); }
+    else if (a is "PowerupGiver") { Actor.Spawn("AutoautosaveTokenPowerup", p); }
+  }
+}
+
+class AutoautosaveToken : Inventory
+{
+  Default
+  {
+    Inventory.MaxAmount 999;
+    +INVENTORY.QUIET
+  }
+  States
+  {
+  Spawn:
+    AWI3 A -1;
+    stop;
+  }
+}
+
+class AutoautosaveTokenKey     : AutoautosaveToken {}
+class AutoautosaveTokenWeapon  : AutoautosaveToken {}
+class AutoautosaveTokenPowerup : AutoautosaveToken {}

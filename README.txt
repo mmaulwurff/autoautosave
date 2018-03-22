@@ -10,13 +10,12 @@ Autosave on certain events:
 - BFG is picked up.
 - Key or skull is picked up.
 - Invulnerability is picked up.
+- player pressed assigned manual autosave key
 
 Todo:
-- universal boss kill
-  ideas:
-  spot boss like monster scouter, register, check tid - not robust, needs mouselook
-- universal key pickup
-- universal powerup pickup?
+- universal key pickup - by token
+- universal powerup pickup - by token
+- universal weapon pickup - by token
 
 Autosave will not happen if:
 - previous auto autosave was made in 30 seconds.

@@ -1,0 +1,3 @@
+addkeysection "Autoautosave" AutoautosaveKeys
+
+addmenukey "Manual autosave" "pukename m8f_ManualAutoSave"
