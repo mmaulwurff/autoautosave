@@ -39,6 +39,12 @@ script "m8f_Autoautosave" Enter
   int autosavePeriod = 5 * 60; // 5 minutes
   int healthLimit = 24;
 
+  int healthThresholdDown = 50;
+  int healthThresholdUp   = 101;
+
+  int armorThresholdDown = 25;
+  int armorThresholdUp = 101;
+
   while (true)
   {
     ++timeCounter;
@@ -68,6 +74,12 @@ script "m8f_Autoautosave" Enter
       || (keyCount > keyCountOld)
       || (weaponCount > weaponCountOld)
       || (powerupCount > powerupCountOld)
+
+      || (healthOld > healthThresholdDown && health <= healthThresholdDown)
+      || (healthOld < healthThresholdUp   && health >= healthThresholdUp)
+
+      || (armorOld > armorThresholdDown && armor <= armorThresholdDown)
+      || (armorOld < armorThresholdUp   && armor >= armorThresholdUp)
       ;
 
     healthOld = health;
