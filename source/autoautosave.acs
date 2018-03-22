@@ -1,24 +1,36 @@
-#library "Autosaver2"
+#library "Autoautosave"
 #include "zcommon.acs"
 
-script "m8f_Autosaver2" Enter
-{
-  int timeCounter = 0;
+int timeCounter = 0;
+int health = 0;
 
+script "m8f_CheckKill" Kill
+{
+  int saveMinWait = 30;
+  int healthLimit = 24;
+  int maxHealth = GetActorProperty(0, APROP_SpawnHealth);
+  if (maxHealth >= 2000 && timeCounter > saveMinWait && health > healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
+}
+
+script "m8f_Autoautosave" Enter
+{
   bool allMonstersKilledOld = AS_IsAllMonsterKilled();
   bool allItemsFoundOld     = AS_IsAllItemsFound();
   int  secretsFoundOld      = AS_SecretsFound();
   str  armorOld             = AS_GetArmor();
   int  healthOld            = AS_GetHealth();
   bool radSuitActiveOld     = AS_IsRadSuitActive();
-  int  cyberdemonCountOld   = AS_GetMonsterCount("Cyberdemon");
-  int  spidermasterCountOld = AS_GetMonsterCount("SpiderMastermind");
   bool isBFGInInventoryOld  = AS_IsBFGInInventory();
   int  keyCountOld          = AS_GetKeyCount();
+  bool invulnerabilityOld   = AS_IsInvulnerabilityActive();
 
-  int saveMinWait = 1;
+  int saveMinWait = 30;
   int autosavePeriod = 5 * 60; // 5 minutes
-  int healthLimit = 25;
+  int healthLimit = 24;
 
   while (true)
   {
@@ -26,27 +38,25 @@ script "m8f_Autosaver2" Enter
     bool mustAutosave = false;
 
     int  radSuitActive = AS_IsRadSuitActive();
-    int  health = AS_GetHealth();
+    health = AS_GetHealth();
     str  armor = AS_GetArmor();
     bool allMonstersKilled = AS_IsAllMonsterKilled();
     bool allItemsFound = AS_IsAllItemsFound();
     int  secretsFound = AS_SecretsFound();
-    int  cyberDemonCount = AS_GetMonsterCount("Cyberdemon");
-    int  spidermasterCount = AS_GetMonsterCount("SpiderMastermind");
     bool isBFGInInventory = AS_IsBFGInInventory();
     int  keyCount = AS_GetKeyCount();
+    bool invulnerability = AS_IsInvulnerabilityActive();
 
     mustAutosave = (radSuitActive && radSuitActive != radSuitActiveOld)
       || (health > healthOld + 25) // heal more than 25? You found something good!
-      || (armorOld != armor)
+      || (armorOld != armor && StrCmp(armor, "None"))
       || (allMonstersKilledOld != allMonstersKilled)
       || (allItemsFoundOld != allItemsFound)
       || (secretsFoundOld != secretsFound)
       || (timeCounter >= autosavePeriod)
-      || (cyberdemonCountOld > cyberdemonCount)
-      || (spidermasterCountOld > spidermasterCount)
       || (isBFGInInventory > isBFGInInventoryOld)
       || (keyCount > keyCountOld)
+      || (invulnerability && invulnerability != invulnerabilityOld)
       ;
 
     radSuitActiveOld = radSuitActive;
@@ -55,10 +65,9 @@ script "m8f_Autosaver2" Enter
     allMonstersKilledOld = allMonstersKilled;
     allItemsFoundOld = allItemsFound;
     secretsFoundOld = secretsFound;
-    cyberdemonCountOld = cyberdemonCount;
-    spidermasterCountOld = spidermasterCount;
     isBFGInInventoryOld = isBFGInInventory;
     keyCountOld = keyCount;
+    invulnerabilityOld = invulnerability;
 
     if (mustAutosave && timeCounter > saveMinWait && health > healthLimit)
     {
@@ -104,11 +113,6 @@ function bool AS_IsRadSuitActive(void)
   return (GetActorPowerupTics(0, "PowerIronFeet") != 0);
 }
 
-function int AS_GetMonsterCount(str monster)
-{
-  return ThingCountName(monster, 0);
-}
-
 function bool AS_IsBFGInInventory(void)
 {
   return (CheckInventory("BFG9000") > 0);
@@ -116,6 +120,7 @@ function bool AS_IsBFGInInventory(void)
 
 function int AS_GetKeyCount(void)
 {
+  return CheckInventory("Key");
   return CheckInventory("BlueCard")
     + CheckInventory("BlueSkull")
     + CheckInventory("RedCard")
@@ -123,4 +128,9 @@ function int AS_GetKeyCount(void)
     + CheckInventory("YellowCard")
     + CheckInventory("YellowSkull")
     ;
+}
+
+function bool AS_IsInvulnerabilityActive(void)
+{
+  return (GetActorPowerupTics(0, "PowerInvulnerable") != 0);
 }
