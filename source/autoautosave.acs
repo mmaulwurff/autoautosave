@@ -69,6 +69,16 @@ script "m8f_Autoautosave" Enter
     int armorThresholdDown  = GetUserCVar(playerN, "M8fAasArmorThresholdDown")  >> 16;
     int armorThresholdUp    = GetUserCVar(playerN, "M8fAasArmorThresholdUp")    >> 16;
 
+    bool autosaveOnKey = GetUserCVar(playerN, "M8fAasSaveOnKeys");
+    bool autosaveOnWeapon = GetUserCVar(playerN, "M8fAasSaveOnWeapon");
+    bool autosaveOnPowerup = GetUserCVar(playerN, "M8fAasSaveOnPowerup");
+
+    bool saveOnBigHeal     = GetUserCVar(playerN, "M8fAasSaveOnBigHeal");
+    bool saveOnArmorChange = GetUserCVar(playerN, "M8fAasSaveOnArmorChange");
+    bool saveOnAllKilled   = GetUserCVar(playerN, "M8fAasSaveOnAllKilled");
+    bool saveOnAllFound    = GetUserCVar(playerN, "M8fAasSaveOnAllFound");
+    bool saveOnSecret      = GetUserCVar(playerN, "M8fAasSaveOnSecret");
+
     ++timeCounter;
 
     health    = AS_GetHealth();
@@ -82,19 +92,18 @@ script "m8f_Autoautosave" Enter
     int weaponCount  = AS_GetWeaponCount();
     int powerupCount = AS_GetPowerupCount();
 
-    bool mustAutosave =
-         (health > healthOld + 25) // heal more than 25? You found something good!
-      || (armorOld != armor && StrCmp(armor, "None"))
+    bool mustAutosave = (saveOnBigHeal && health > healthOld + 25)
+      || (saveOnArmorChange && armorOld != armor && StrCmp(armor, "None"))
 
-      || (allMonstersKilledOld != allMonstersKilled)
-      || (allItemsFoundOld != allItemsFound)
-      || (secretsFoundOld != secretsFound)
+      || (saveOnAllKilled && allMonstersKilledOld != allMonstersKilled)
+      || (saveOnAllFound && allItemsFoundOld != allItemsFound)
+      || (saveOnSecret && secretsFoundOld != secretsFound)
 
       || (autosavePeriod != 0 && timeCounter >= autosavePeriod)
 
-      || (keyCount > keyCountOld)
-      || (weaponCount > weaponCountOld)
-      || (powerupCount > powerupCountOld)
+      || (autosaveOnKey && keyCount > keyCountOld)
+      || (autosaveOnWeapon && weaponCount > weaponCountOld)
+      || (autosaveOnPowerup && powerupCount > powerupCountOld)
 
       || (healthOld >= healthThresholdDown && health < healthThresholdDown)
       || (healthOld <= healthThresholdUp   && health > healthThresholdUp)

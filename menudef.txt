@@ -1,3 +1,9 @@
+OptionValue "AutoautosaveNoYes"
+{
+    0, "No"
+    1, "Yes"
+}
+
 OptionMenu "AutoautosaveOptions"
 {
   Title "Autoautosave Options"
@@ -29,6 +35,18 @@ OptionMenu "AutoautosaveOptions"
   Slider "Autosave if health rises above", "M8fAasHealthThresholdUp", 5.0, 200.0, 1.0, 0
   Slider "Autosave if armor drops below", "M8fAasArmorThresholdDown", 5.0, 200.0, 1.0, 0
   Slider "Autosave if armor rises above", "M8fAasArmorThresholdUp", 5.0, 200.0, 1.0, 0
+
+  StaticText ""
+  StaticText "Autosave on:"
+  Option "key pickup", "M8fAasSaveOnKeys", "AutoautosaveNoYes"
+  Option "weapon pickup", "M8fAasSaveOnWeapon", "AutoautosaveNoYes"
+  Option "powerup pickup", "M8fAasSaveOnPowerup", "AutoautosaveNoYes"
+
+  Option "big heal", "M8fAasSaveOnBigHeal", "AutoautosaveNoYes"
+  Option "armor change", "M8fAasSaveOnArmorChange", "AutoautosaveNoYes"
+  Option "all monsters killed", "M8fAasSaveOnAllKilled", "AutoautosaveNoYes"
+  Option "all items found", "M8fAasSaveOnAllFound", "AutoautosaveNoYes"
+  Option "secret found", "M8fAasSaveOnSecret", "AutoautosaveNoYes"
 
   StaticText ""
   Control "Manual autosave key", "pukename m8f_ManualAutoSave"

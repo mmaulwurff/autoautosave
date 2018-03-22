@@ -12,11 +12,11 @@ Autosave on certain events:
 - Invulnerability is picked up.
 - player pressed assigned manual autosave key
 - option: toggle autoautosave on/off
-
-Todo:
 - option for autosave on keys
 - option for autosave on weapons
 - option for autosave on powerups
+
+Todo:
 - option for autosave on big heal
 - option for autosave on armor change
 - option for autosave on all monsters
