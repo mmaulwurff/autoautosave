@@ -11,23 +11,24 @@ Autosave on certain events:
 - Key or skull is picked up.
 - Invulnerability is picked up.
 - player pressed assigned manual autosave key
+- option: toggle autoautosave on/off
 
 Todo:
-- universal key pickup - by token
-- universal powerup pickup - by token
-- universal weapon pickup - by token
+- option for autosave on keys
+- option for autosave on weapons
+- option for autosave on powerups
+- option for autosave on big heal
+- option for autosave on armor change
+- option for autosave on all monsters
+- option for autosave on all items
+- option for autosave on secret
 
 Autosave will not happen if:
 - previous auto autosave was made in 30 seconds.
 - player has less than 25 health.
 
-Plans:
-- make autosave on every event optional
-- make time periods configurable
-- make health limit corfigurable
-- more events (what?)
-- other games and mods
-
 Author: m8f
+
+Version: 0.2
 
 License: CC BY 4.0

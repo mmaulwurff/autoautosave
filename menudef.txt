@@ -29,6 +29,10 @@ OptionMenu "AutoautosaveOptions"
   Slider "Autosave if health rises above", "M8fAasHealthThresholdUp", 5.0, 200.0, 1.0, 0
   Slider "Autosave if armor drops below", "M8fAasArmorThresholdDown", 5.0, 200.0, 1.0, 0
   Slider "Autosave if armor rises above", "M8fAasArmorThresholdUp", 5.0, 200.0, 1.0, 0
+
+  StaticText ""
+  Control "Manual autosave key", "pukename m8f_ManualAutoSave"
+  Control "Toggle autoautosave key", "pukename m8f_AasToggle"
 }
 
 AddOptionMenu "OptionsMenu"

@@ -1,3 +1,4 @@
 addkeysection "Autoautosave" AutoautosaveKeys
 
 addmenukey "Manual autosave" "pukename m8f_ManualAutoSave"
+addmenukey "Toggle autoautosave" "pukename m8f_AasToggle"

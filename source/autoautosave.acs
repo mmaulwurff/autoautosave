@@ -8,6 +8,22 @@ int minBossHealth;
 int saveMinWait;
 int healthLimit;
 
+script "m8f_AasToggle" (void)
+{
+  int playerN = PlayerNumber();
+  bool enabled = GetUserCVar(playerN, "M8fAasEnabled");
+  enabled = !enabled;
+  SetUserCVar(playerN, "M8fAasEnabled", enabled);
+  if (enabled)
+  {
+    Log(s:"Autoautosave is on.");
+  }
+  else
+  {
+    Log(s:"Autoautosave is off.");
+  }
+}
+
 script "m8f_ManualAutoSave" (void)
 {
   Autosave();
@@ -98,7 +114,13 @@ script "m8f_Autoautosave" Enter
     weaponCountOld  = weaponCount;
     powerupCountOld = powerupCount;
 
-    if (mustAutosave && timeCounter > saveMinWait && health >= healthLimit)
+    bool enabled = GetUserCVar(playerN, "M8fAasEnabled");
+
+    if (mustAutosave
+        && timeCounter > saveMinWait
+        && health >= healthLimit
+        && enabled
+        )
     {
       Autosave();
       timeCounter = 0;
