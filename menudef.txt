@@ -22,7 +22,13 @@ OptionMenu "AutoautosaveOptions"
 
   StaticText ""
   Slider "Autosave every", "M8fAasAutosavePeriod", 0.0, 10.0, 1.0, 0
-  StaticText "minutes."
+  StaticText "minutes. Set this to 0 to disable periodic autosaves."
+
+  StaticText ""
+  Slider "Autosave if health drops below", "M8fAasHealthThresholdDown", 5.0, 200.0, 1.0, 0
+  Slider "Autosave if health rises above", "M8fAasHealthThresholdUp", 5.0, 200.0, 1.0, 0
+  Slider "Autosave if armor drops below", "M8fAasArmorThresholdDown", 5.0, 200.0, 1.0, 0
+  Slider "Autosave if armor rises above", "M8fAasArmorThresholdUp", 5.0, 200.0, 1.0, 0
 }
 
 AddOptionMenu "OptionsMenu"

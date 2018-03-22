@@ -39,14 +39,7 @@ script "m8f_Autoautosave" Enter
   int  weaponCountOld       = AS_GetWeaponCount();
   int  powerupCountOld      = AS_GetPowerupCount();
 
-  int healthThresholdDown = 50;
-  int healthThresholdUp   = 101;
-
-  int armorThresholdDown = 25;
-  int armorThresholdUp = 101;
-
   int playerN = PlayerNumber();
-
 
   while (true)
   {
@@ -54,6 +47,11 @@ script "m8f_Autoautosave" Enter
     minBossHealth = GetUserCVar(playerN, "M8fAasMinBossHealth") >> 16;
     healthLimit   = GetUserCVar(playerN, "M8fAasHealthLimit")   >> 16;
     int autosavePeriod = (GetUserCVar(playerN, "M8fAasAutosavePeriod") >> 16) * 60;
+
+    int healthThresholdDown = GetUserCVar(playerN, "M8fAasHealthThresholdDown") >> 16;
+    int healthThresholdUp   = GetUserCVar(playerN, "M8fAasHealthThresholdUp")   >> 16;
+    int armorThresholdDown  = GetUserCVar(playerN, "M8fAasArmorThresholdDown")  >> 16;
+    int armorThresholdUp    = GetUserCVar(playerN, "M8fAasArmorThresholdUp")    >> 16;
 
     ++timeCounter;
 
@@ -82,11 +80,11 @@ script "m8f_Autoautosave" Enter
       || (weaponCount > weaponCountOld)
       || (powerupCount > powerupCountOld)
 
-      || (healthOld > healthThresholdDown && health <= healthThresholdDown)
-      || (healthOld < healthThresholdUp   && health >= healthThresholdUp)
+      || (healthOld >= healthThresholdDown && health < healthThresholdDown)
+      || (healthOld <= healthThresholdUp   && health > healthThresholdUp)
 
-      || (armorOld > armorThresholdDown && armor <= armorThresholdDown)
-      || (armorOld < armorThresholdUp   && armor >= armorThresholdUp)
+      || (armorOld >= armorThresholdDown && armor < armorThresholdDown)
+      || (armorOld <= armorThresholdUp   && armor > armorThresholdUp)
       ;
 
     healthOld = health;

@@ -2,3 +2,8 @@ user float M8fAasMinSaveWait = 30.0; // seconds
 user float M8fAasMinBossHealth = 2000.0;
 user float M8fAasHealthLimit = 25.0;
 user float M8fAasAutosavePeriod = 5.0; // minutes
+
+user float M8fAasHealthThresholdDown = 50.0;
+user float M8fAasHealthThresholdUp   = 100.0;
+user float M8fAasArmorThresholdDown  = 25.0;
+user float M8fAasArmorThresholdUp    = 100.0;
