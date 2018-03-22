@@ -1,0 +1,32 @@
+OptionMenu "AutoautosaveOptions"
+{
+  Title "Autoautosave Options"
+
+  StaticText "This must be set to ALWAYS"
+  Option "$MISCMNU_ENABLEAUTOSAVES", "disableautosave", "Autosave"
+  Slider "$MISCMNU_AUTOSAVECOUNT", "autosavecount", 1, 20, 1, 0
+
+  StaticText ""
+  Slider "At least", "M8fAasMinSaveWait", 0.0, 60.0, 1.0, 0
+  StaticText "seconds must pass before new autoautosave."
+  StaticText "Set this to 0 to autoautosave every time."
+
+  StaticText ""
+  Slider "Monster must have at least", "M8fAasMinBossHealth", 1000.0, 10000.0, 100.0, 0
+  StaticText "health to trigger autosave on death."
+
+  StaticText ""
+  Slider "Player must have at least", "M8fAasHealthLimit", 0.0, 200.0, 1.0, 0
+  StaticText "health for autoautosave to happen."
+  StaticText "Set this to 0 to disable health limit."
+
+  StaticText ""
+  Slider "Autosave every", "M8fAasAutosavePeriod", 0.0, 10.0, 1.0, 0
+  StaticText "minutes."
+}
+
+AddOptionMenu "OptionsMenu"
+{
+  StaticText ""
+  Submenu "Autoautosave Options", "AutoautosaveOptions"
+}

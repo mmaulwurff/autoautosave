@@ -4,6 +4,10 @@
 int timeCounter = 0;
 int health = 0;
 
+int minBossHealth;
+int saveMinWait;
+int healthLimit;
+
 script "m8f_ManualAutoSave" (void)
 {
   Autosave();
@@ -12,10 +16,10 @@ script "m8f_ManualAutoSave" (void)
 
 script "m8f_CheckKill" Kill
 {
-  int saveMinWait = 30;
-  int healthLimit = 24;
   int maxHealth = GetActorProperty(0, APROP_SpawnHealth);
-  if (maxHealth >= 2000 && timeCounter > saveMinWait && health > healthLimit)
+  if (maxHealth >= minBossHealth
+      && timeCounter > saveMinWait
+      && health >= healthLimit)
   {
     Autosave();
     timeCounter = 0;
@@ -35,20 +39,23 @@ script "m8f_Autoautosave" Enter
   int  weaponCountOld       = AS_GetWeaponCount();
   int  powerupCountOld      = AS_GetPowerupCount();
 
-  int saveMinWait = 30;
-  int autosavePeriod = 5 * 60; // 5 minutes
-  int healthLimit = 24;
-
   int healthThresholdDown = 50;
   int healthThresholdUp   = 101;
 
   int armorThresholdDown = 25;
   int armorThresholdUp = 101;
 
+  int playerN = PlayerNumber();
+
+
   while (true)
   {
+    saveMinWait   = GetUserCVar(playerN, "M8fAasMinSaveWait")   >> 16;
+    minBossHealth = GetUserCVar(playerN, "M8fAasMinBossHealth") >> 16;
+    healthLimit   = GetUserCVar(playerN, "M8fAasHealthLimit")   >> 16;
+    int autosavePeriod = (GetUserCVar(playerN, "M8fAasAutosavePeriod") >> 16) * 60;
+
     ++timeCounter;
-    bool mustAutosave = false;
 
     health    = AS_GetHealth();
     str armor = AS_GetArmor();
@@ -61,7 +68,7 @@ script "m8f_Autoautosave" Enter
     int weaponCount  = AS_GetWeaponCount();
     int powerupCount = AS_GetPowerupCount();
 
-    mustAutosave =
+    bool mustAutosave =
          (health > healthOld + 25) // heal more than 25? You found something good!
       || (armorOld != armor && StrCmp(armor, "None"))
 
@@ -69,7 +76,7 @@ script "m8f_Autoautosave" Enter
       || (allItemsFoundOld != allItemsFound)
       || (secretsFoundOld != secretsFound)
 
-      || (timeCounter >= autosavePeriod)
+      || (autosavePeriod != 0 && timeCounter >= autosavePeriod)
 
       || (keyCount > keyCountOld)
       || (weaponCount > weaponCountOld)
@@ -93,7 +100,7 @@ script "m8f_Autoautosave" Enter
     weaponCountOld  = weaponCount;
     powerupCountOld = powerupCount;
 
-    if (mustAutosave && timeCounter > saveMinWait && health > healthLimit)
+    if (mustAutosave && timeCounter > saveMinWait && health >= healthLimit)
     {
       Autosave();
       timeCounter = 0;
