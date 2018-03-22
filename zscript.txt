@@ -4,11 +4,23 @@ class AutoautosaveEventHandler : EventHandler
 {
   override void WorldThingSpawned(WorldEvent e)
   {
-    Actor a = e.Thing;
-    vector3 p = a.Pos;
-    if      (a is "Key")          { Actor.Spawn("AutoautosaveTokenKey",     p); }
-    else if (a is "Weapon")       { Actor.Spawn("AutoautosaveTokenWeapon",  p); }
-    else if (a is "PowerupGiver") { Actor.Spawn("AutoautosaveTokenPowerup", p); }
+    Inventory a = Inventory(e.Thing);
+    if (a == Null) { return; }
+
+    Actor o = a.owner;
+    if (o == Null)
+    {
+      vector3 p = a.SpawnPoint;
+      if      (a is "Key")          { Actor.Spawn("AutoautosaveTokenKey",     p); }
+      else if (a is "Weapon")       { Actor.Spawn("AutoautosaveTokenWeapon",  p); }
+      else if (a is "PowerupGiver") { Actor.Spawn("AutoautosaveTokenPowerup", p); }
+    }
+    else
+    {
+      if      (a is "Key")          { o.GiveInventory("AutoautosaveTokenKey",     1); }
+      else if (a is "Weapon")       { o.GiveInventory("AutoautosaveTokenWeapon",  1); }
+      else if (a is "PowerupGiver") { o.GiveInventory("AutoautosaveTokenPowerup", 1); }
+    }
   }
 }
 
@@ -16,7 +28,7 @@ class AutoautosaveToken : Inventory
 {
   Default
   {
-    Inventory.MaxAmount 999;
+    Inventory.MaxAmount 99999;
     +INVENTORY.QUIET
   }
   States
