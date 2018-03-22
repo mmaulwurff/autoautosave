@@ -78,6 +78,7 @@ script "m8f_Autoautosave" Enter
     bool saveOnAllKilled   = GetUserCVar(playerN, "M8fAasSaveOnAllKilled");
     bool saveOnAllFound    = GetUserCVar(playerN, "M8fAasSaveOnAllFound");
     bool saveOnSecret      = GetUserCVar(playerN, "M8fAasSaveOnSecret");
+    bool saveOnHealthArmorChanges = GetUserCVar(playerN, "M8fAasSaveOnHealthArmorChange");
 
     ++timeCounter;
 
@@ -105,11 +106,14 @@ script "m8f_Autoautosave" Enter
       || (autosaveOnWeapon && weaponCount > weaponCountOld)
       || (autosaveOnPowerup && powerupCount > powerupCountOld)
 
-      || (healthOld >= healthThresholdDown && health < healthThresholdDown)
-      || (healthOld <= healthThresholdUp   && health > healthThresholdUp)
-
-      || (armorOld >= armorThresholdDown && armor < armorThresholdDown)
-      || (armorOld <= armorThresholdUp   && armor > armorThresholdUp)
+      || ( saveOnHealthArmorChanges &&
+           (
+              (healthOld >= healthThresholdDown && health < healthThresholdDown)
+           || (healthOld <= healthThresholdUp   && health > healthThresholdUp)
+           || (armorOld >= armorThresholdDown && armor < armorThresholdDown)
+           || (armorOld <= armorThresholdUp   && armor > armorThresholdUp)
+           )
+         )
       ;
 
     healthOld = health;

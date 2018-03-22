@@ -31,10 +31,11 @@ OptionMenu "AutoautosaveOptions"
   StaticText "minutes. Set this to 0 to disable periodic autosaves."
 
   StaticText ""
-  Slider "Autosave if health drops below", "M8fAasHealthThresholdDown", 5.0, 2000.0, 5.0, 0
-  Slider "Autosave if health rises above", "M8fAasHealthThresholdUp", 5.0, 2000.0, 5.0, 0
-  Slider "Autosave if armor drops below", "M8fAasArmorThresholdDown", 5.0, 2000.0, 5.0, 0
-  Slider "Autosave if armor rises above", "M8fAasArmorThresholdUp", 5.0, 2000.0, 5.0, 0
+  Option "Save on health and armor changes", "M8fAasSaveOnHealthArmorChange", "AutoautosaveNoYes"
+  NumberField "Save if health drops below", "M8fAasHealthThresholdDown", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
+  NumberField "Save if health rises above", "M8fAasHealthThresholdUp", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
+  NumberField "Save if armor drops below", "M8fAasArmorThresholdDown", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
+  NumberField "Save if armor rises above", "M8fAasArmorThresholdUp", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
 
   StaticText ""
   StaticText "Autosave on:"
