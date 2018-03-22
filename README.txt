@@ -1,31 +1,33 @@
-Autosave on certain events:
-- all monsters are killed.
-- all items are found.
-- a secret is found.
-- armor type changed.
-- health increased more than 25.
-- Radsuit is picked up.
-- Monster with health >= 2000 is killed.
-- 5 minutes have passed.
-- BFG is picked up.
-- Key or skull is picked up.
-- Invulnerability is picked up.
-- player pressed assigned manual autosave key
-- option: toggle autoautosave on/off
-- option for autosave on keys
-- option for autosave on weapons
-- option for autosave on powerups
+This archive contains Autoautosave, a universal autosaver for GZDoom.
+It is designed to be compatible with any monster and weapon mod, and any map.
 
-Todo:
-- option for autosave on big heal
-- option for autosave on armor change
-- option for autosave on all monsters
-- option for autosave on all items
-- option for autosave on secret
+Autosave on certain events:
+- all monsters are killed
+- boss is killed
+- all items are found
+- a secret is found
+- armor type changed
+- health increased much
+- powerup is picked up
+- weapon is picked up
+- key is picked up
+- some time has passed
+- health drops below some level
+- health rises above some level
+- armor drops below some level
+- armor rises above some level
+
+Keys for:
+- manual autosave
+- toggle autoautosave on and off
 
 Autosave will not happen if:
-- previous auto autosave was made in 30 seconds.
-- player has less than 25 health.
+- previous auto autosave was made in some time
+- player has not enough health
+
+Options:
+- every event can be turned off
+- all values can be configured
 
 Author: m8f
 
