@@ -50,8 +50,11 @@ OptionMenu "AutoautosaveOptions"
   Option "secret found", "M8fAasSaveOnSecret", "AutoautosaveNoYes"
 
   StaticText ""
-  Control "Manual autosave key", "pukename m8f_ManualAutoSave"
-  Control "Toggle autoautosave key", "pukename m8f_AasToggle"
+  StaticText "Keys"
+  Control "Quicksave", "quicksave"
+  Control "Quickload", "quickload"
+  Control "Manual autosave", "pukename m8f_ManualAutoSave"
+  Control "Toggle autoautosave", "pukename m8f_AasToggle"
 }
 
 AddOptionMenu "OptionsMenu"
