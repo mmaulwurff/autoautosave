@@ -8,6 +8,11 @@ int minBossHealth;
 int saveMinWait;
 int healthLimit;
 
+bool massiveAlertEnabled;
+bool bossAlertEnabled;
+int alertLimit;
+int alertCountOld = 0;
+
 script "m8f_AasToggle" (void)
 {
   int playerN = PlayerNumber();
@@ -28,6 +33,31 @@ script "m8f_ManualAutoSave" (void)
 {
   Autosave();
   timeCounter = 0;
+}
+
+script "m8f_AlertSave" (void)
+{
+  if (!massiveAlertEnabled) { terminate; }
+
+  int alertCount = ThingCountName("AutoautosaveAlertToken", 0) - alertCountOld;
+  alertCountOld = alertCount;
+
+  if (alertCount >= alertLimit && timeCounter > saveMinWait && health >= healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
+}
+
+script "m8f_BossAlertSave" (void)
+{
+  if (!bossAlertEnabled) { terminate; }
+
+  if (timeCounter > saveMinWait && health >= healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
 }
 
 script "m8f_CheckKill" Kill
@@ -63,6 +93,10 @@ script "m8f_Autoautosave" Enter
     minBossHealth = GetUserCVar(playerN, "M8fAasMinBossHealth") >> 16;
     healthLimit   = GetUserCVar(playerN, "M8fAasHealthLimit")   >> 16;
     int autosavePeriod = (GetUserCVar(playerN, "M8fAasAutosavePeriod") >> 16) * 60;
+
+    alertLimit          = GetUserCVar(playerN, "M8fAasMassiveAlertThreshold") >> 16;
+    massiveAlertEnabled = GetUserCVar(playerN, "M8fAasSaveOnMassiveAlert");
+    bossAlertEnabled    = GetUserCVar(playerN, "M8fAasSaveOnBossAlert");
 
     int healthThresholdDown = GetUserCVar(playerN, "M8fAasHealthThresholdDown") >> 16;
     int healthThresholdUp   = GetUserCVar(playerN, "M8fAasHealthThresholdUp")   >> 16;

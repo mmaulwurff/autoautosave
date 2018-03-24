@@ -4,8 +4,28 @@ class AutoautosaveEventHandler : EventHandler
 {
   override void WorldThingSpawned(WorldEvent e)
   {
-    Inventory a = Inventory(e.Thing);
-    if (a == Null) { return; }
+    Actor thing = e.Thing;
+
+    Inventory a = Inventory(thing);
+    if (a == Null)
+    {
+      if (thing.bISMONSTER)
+      {
+        vector3 p = thing.SpawnPoint;
+        Actor spawned;
+        float minBossHealth = CVar.FindCVar("M8fAasMinBossHealth").GetFloat();
+        if (thing.health >= minBossHealth)
+        {
+          spawned = Actor.Spawn("AutoautosaveBossAlerter", p);
+        }
+        else
+        {
+          spawned = Actor.Spawn("AutoautosaveAlerter", p);
+        }
+        spawned.Angle = thing.Angle;
+      }
+      return;
+    }
 
     Actor o = a.owner;
     if (o == Null)
@@ -42,3 +62,32 @@ class AutoautosaveToken : Inventory
 class AutoautosaveTokenKey     : AutoautosaveToken {}
 class AutoautosaveTokenWeapon  : AutoautosaveToken {}
 class AutoautosaveTokenPowerup : AutoautosaveToken {}
+
+class AutoautosaveAlertToken : Actor {}
+
+class AutoautosaveAlerter : Actor
+{
+  States
+  {
+  Spawn:
+    TNT1 A 10 A_Look;
+    Loop;
+  See:
+    TNT1 A 1 A_SpawnItemEx("AutoautosaveAlertToken");
+    TNT1 A 1 ACS_NamedExecute("m8f_AlertSave", 0);
+    Stop;
+  }
+}
+
+class AutoautosaveBossAlerter : Actor
+{
+  States
+  {
+  Spawn:
+    TNT1 A 10 A_Look;
+    Loop;
+  See:
+    TNT1 A 1 ACS_NamedExecute("m8f_BossAlertSave", 0);
+    Stop;
+  }
+}

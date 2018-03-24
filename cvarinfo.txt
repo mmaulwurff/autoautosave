@@ -1,5 +1,5 @@
 user float M8fAasMinSaveWait = 30.0; // seconds
-user float M8fAasMinBossHealth = 2000.0;
+server float M8fAasMinBossHealth = 2000.0;
 user float M8fAasHealthLimit = 25.0;
 user float M8fAasAutosavePeriod = 5.0; // minutes
 
@@ -20,3 +20,8 @@ user bool M8fAasSaveOnAllFound = true;
 user bool M8fAasSaveOnSecret = true;
 
 user bool M8fAasSaveOnHealthArmorChange = false;
+
+user bool M8fAasSaveOnMassiveAlert = true;
+user float M8fAasMassiveAlertThreshold = 10;
+
+user bool M8fAasSaveOnBossAlert = true;

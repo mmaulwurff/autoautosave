@@ -19,7 +19,12 @@ OptionMenu "AutoautosaveOptions"
 
   StaticText ""
   Slider "Monster must have at least", "M8fAasMinBossHealth", 1000.0, 10000.0, 100.0, 0
-  StaticText "health to trigger autosave on death."
+  StaticText "health to be considered a boss"
+  StaticText "and trigger autosave on death."
+
+  StaticText ""
+  Slider "At least", "M8fAasMassiveAlertThreshold", 0.0, 50.0, 1.0, 0
+  StaticText "monsters must be alerted to trigger massive alert"
 
   StaticText ""
   Slider "Player must have at least", "M8fAasHealthLimit", 0.0, 200.0, 1.0, 0
@@ -48,6 +53,11 @@ OptionMenu "AutoautosaveOptions"
   Option "all monsters killed", "M8fAasSaveOnAllKilled", "AutoautosaveNoYes"
   Option "all items found", "M8fAasSaveOnAllFound", "AutoautosaveNoYes"
   Option "secret found", "M8fAasSaveOnSecret", "AutoautosaveNoYes"
+
+  Option "Massive alert", "M8fAasSaveOnMassiveAlert", "AutoautosaveNoYes"
+  Option "Boss alert", "M8fAasSaveOnBossAlert", "AutoautosaveNoYes"
+  StaticText "For this option, boss health option"
+  StaticText "takes effect only on next map"
 
   StaticText ""
   StaticText "Keys"
