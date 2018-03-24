@@ -35,6 +35,36 @@ script "m8f_ManualAutoSave" (void)
   timeCounter = 0;
 }
 
+script "m8f_WeaponPickupAutoSave" (void)
+{
+  bool autosaveOnWeapon = GetCVar("M8fAasSaveOnWeapon");
+  if (autosaveOnWeapon && timeCounter > saveMinWait && health >= healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
+}
+
+script "m8f_KeyPickupAutoSave" (void)
+{
+  bool autosaveOnKey = GetCVar("M8fAasSaveOnKeys");
+  if (autosaveOnKey && timeCounter > saveMinWait && health >= healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
+}
+
+script "m8f_PowerupPickupAutoSave" (void)
+{
+  bool autosaveOnPowerup = GetCVar("M8fAasSaveOnPowerup");
+  if (autosaveOnPowerup && timeCounter > saveMinWait && health >= healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
+}
+
 script "m8f_AlertSave" (void)
 {
   if (!massiveAlertEnabled) { terminate; }
@@ -81,10 +111,6 @@ script "m8f_Autoautosave" Enter
   str  armorOld             = AS_GetArmor();
   int  healthOld            = AS_GetHealth();
 
-  int  keyCountOld          = AS_GetKeyCount();
-  int  weaponCountOld       = AS_GetWeaponCount();
-  int  powerupCountOld      = AS_GetPowerupCount();
-
   int playerN = PlayerNumber();
 
   while (true)
@@ -103,10 +129,6 @@ script "m8f_Autoautosave" Enter
     int armorThresholdDown  = GetUserCVar(playerN, "M8fAasArmorThresholdDown")  >> 16;
     int armorThresholdUp    = GetUserCVar(playerN, "M8fAasArmorThresholdUp")    >> 16;
 
-    bool autosaveOnKey = GetUserCVar(playerN, "M8fAasSaveOnKeys");
-    bool autosaveOnWeapon = GetUserCVar(playerN, "M8fAasSaveOnWeapon");
-    bool autosaveOnPowerup = GetUserCVar(playerN, "M8fAasSaveOnPowerup");
-
     bool saveOnBigHeal     = GetUserCVar(playerN, "M8fAasSaveOnBigHeal");
     bool saveOnArmorChange = GetUserCVar(playerN, "M8fAasSaveOnArmorChange");
     bool saveOnAllKilled   = GetUserCVar(playerN, "M8fAasSaveOnAllKilled");
@@ -123,10 +145,6 @@ script "m8f_Autoautosave" Enter
     bool allItemsFound     = AS_IsAllItemsFound();
     int  secretsFound      = AS_SecretsFound();
 
-    int keyCount     = AS_GetKeyCount();
-    int weaponCount  = AS_GetWeaponCount();
-    int powerupCount = AS_GetPowerupCount();
-
     bool mustAutosave = (saveOnBigHeal && health > healthOld + 25)
       || (saveOnArmorChange && armorOld != armor && StrCmp(armor, "None"))
 
@@ -135,10 +153,6 @@ script "m8f_Autoautosave" Enter
       || (saveOnSecret && secretsFoundOld != secretsFound)
 
       || (autosavePeriod != 0 && timeCounter >= autosavePeriod)
-
-      || (autosaveOnKey && keyCount > keyCountOld)
-      || (autosaveOnWeapon && weaponCount > weaponCountOld)
-      || (autosaveOnPowerup && powerupCount > powerupCountOld)
 
       || ( saveOnHealthArmorChanges &&
            (
@@ -156,10 +170,6 @@ script "m8f_Autoautosave" Enter
     allMonstersKilledOld = allMonstersKilled;
     allItemsFoundOld     = allItemsFound;
     secretsFoundOld      = secretsFound;
-
-    keyCountOld     = keyCount;
-    weaponCountOld  = weaponCount;
-    powerupCountOld = powerupCount;
 
     bool enabled = GetUserCVar(playerN, "M8fAasEnabled");
 
@@ -204,19 +214,4 @@ function str AS_GetArmor(void)
 function str AS_GetHealth(void)
 {
   return GetActorProperty(0, APROP_HEALTH);
-}
-
-function int AS_GetKeyCount(void)
-{
-  return CheckInventory("AutoautosaveTokenKey");
-}
-
-function int AS_GetWeaponCount(void)
-{
-  return CheckInventory("AutoautosaveTokenWeapon");
-}
-
-function int AS_GetPowerupCount(void)
-{
-  return CheckInventory("AutoautosaveTokenPowerup");
 }

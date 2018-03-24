@@ -9,9 +9,9 @@ user float M8fAasArmorThresholdDown  = 25.0;
 user float M8fAasArmorThresholdUp    = 100.0;
 
 user bool M8fAasEnabled = true;
-user bool M8fAasSaveOnKeys = true;
-user bool M8fAasSaveOnWeapon = true;
-user bool M8fAasSaveOnPowerup = true;
+server bool M8fAasSaveOnKeys = true;
+server bool M8fAasSaveOnWeapon = true;
+server bool M8fAasSaveOnPowerup = true;
 
 user bool M8fAasSaveOnBigHeal = true;
 user bool M8fAasSaveOnArmorChange = true;
