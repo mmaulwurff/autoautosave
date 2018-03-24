@@ -90,7 +90,7 @@ script "m8f_Autoautosave" Enter
   while (true)
   {
     saveMinWait   = GetUserCVar(playerN, "M8fAasMinSaveWait")   >> 16;
-    minBossHealth = GetUserCVar(playerN, "M8fAasMinBossHealth") >> 16;
+    minBossHealth = GetCVar("M8fAasMinBossHealth") >> 16;
     healthLimit   = GetUserCVar(playerN, "M8fAasHealthLimit")   >> 16;
     int autosavePeriod = (GetUserCVar(playerN, "M8fAasAutosavePeriod") >> 16) * 60;
 
