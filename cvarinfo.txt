@@ -19,7 +19,10 @@ user bool M8fAasSaveOnAllKilled = true;
 user bool M8fAasSaveOnAllFound = true;
 user bool M8fAasSaveOnSecret = true;
 
-user bool M8fAasSaveOnHealthArmorChange = false;
+user bool M8fAasSaveOnHealthDrop = false;
+user bool M8fAasSaveOnHealthRise = false;
+user bool M8fAasSaveOnArmorDrop  = false;
+user bool M8fAasSaveOnArmorRise  = false;
 
 user bool M8fAasSaveOnMassiveAlert = true;
 user float M8fAasMassiveAlertThreshold = 10;

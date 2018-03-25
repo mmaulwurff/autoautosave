@@ -110,6 +110,7 @@ script "m8f_Autoautosave" Enter
 
   str  armorOld             = AS_GetArmor();
   int  healthOld            = AS_GetHealth();
+  int  armorValueOld        = AS_GetArmorValue();
 
   int playerN = PlayerNumber();
 
@@ -134,12 +135,18 @@ script "m8f_Autoautosave" Enter
     bool saveOnAllKilled   = GetUserCVar(playerN, "M8fAasSaveOnAllKilled");
     bool saveOnAllFound    = GetUserCVar(playerN, "M8fAasSaveOnAllFound");
     bool saveOnSecret      = GetUserCVar(playerN, "M8fAasSaveOnSecret");
-    bool saveOnHealthArmorChanges = GetUserCVar(playerN, "M8fAasSaveOnHealthArmorChange");
+
+    bool saveOnHealthDrop = GetUserCVar(playerN, "M8fAasSaveOnHealthDrop");
+    bool saveOnHealthRise = GetUserCVar(playerN, "M8fAasSaveOnHealthRise");
+    bool saveOnArmorDrop  = GetUserCVar(playerN, "M8fAasSaveOnArmorDrop");
+    bool saveOnArmorRise  = GetUserCVar(playerN, "M8fAasSaveOnArmorRise");
 
     ++timeCounter;
 
-    health    = AS_GetHealth();
-    str armor = AS_GetArmor();
+    health         = AS_GetHealth();
+    int armorValue = AS_GetArmorValue();
+    Log(s:"Armor thr:", i:armorValue);
+    str armor      = AS_GetArmor();
 
     bool allMonstersKilled = AS_IsAllMonsterKilled();
     bool allItemsFound     = AS_IsAllItemsFound();
@@ -154,18 +161,15 @@ script "m8f_Autoautosave" Enter
 
       || (autosavePeriod != 0 && timeCounter >= autosavePeriod)
 
-      || ( saveOnHealthArmorChanges &&
-           (
-              (healthOld >= healthThresholdDown && health < healthThresholdDown)
-           || (healthOld <= healthThresholdUp   && health > healthThresholdUp)
-           || (armorOld >= armorThresholdDown && armor < armorThresholdDown)
-           || (armorOld <= armorThresholdUp   && armor > armorThresholdUp)
-           )
-         )
+      || (saveOnHealthDrop && healthOld >= healthThresholdDown && health < healthThresholdDown)
+      || (saveOnHealthRise && healthOld <= healthThresholdUp   && health > healthThresholdUp)
+      || (saveOnArmorDrop  && armorValueOld >= armorThresholdDown && armorValue < armorThresholdDown)
+      || (saveOnArmorRise  && armorValueOld <= armorThresholdUp   && armorValue > armorThresholdUp)
       ;
 
     healthOld = health;
     armorOld  = armor;
+    armorValueOld = armorValue;
 
     allMonstersKilledOld = allMonstersKilled;
     allItemsFoundOld     = allItemsFound;
@@ -214,4 +218,9 @@ function str AS_GetArmor(void)
 function str AS_GetHealth(void)
 {
   return GetActorProperty(0, APROP_HEALTH);
+}
+
+function str AS_GetArmorValue(void)
+{
+  return CheckInventory("BasicArmor");
 }

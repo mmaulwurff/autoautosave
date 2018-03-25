@@ -36,11 +36,20 @@ OptionMenu "AutoautosaveOptions"
   StaticText "minutes. Set this to 0 to disable periodic autosaves."
 
   StaticText ""
-  Option "Save on health and armor changes", "M8fAasSaveOnHealthArmorChange", "AutoautosaveNoYes"
-  NumberField "Save if health drops below", "M8fAasHealthThresholdDown", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
-  NumberField "Save if health rises above", "M8fAasHealthThresholdUp", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
-  NumberField "Save if armor drops below", "M8fAasArmorThresholdDown", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
-  NumberField "Save if armor rises above", "M8fAasArmorThresholdUp", 5.0, 2000.0, 5.0, "M8fAasSaveOnHealthArmorChange"
+  Option "Save when health drops", "M8fAasSaveOnHealthDrop", "AutoautosaveNoYes"
+  TextField "below this value", "M8fAasHealthThresholdDown", "M8fAasSaveOnHealthDrop"
+
+  StaticText ""
+  Option "Save when health rises", "M8fAasSaveOnHealthRise", "AutoautosaveNoYes"
+  TextField "above this value", "M8fAasHealthThresholdUp", "M8fAasSaveOnHealthRise"
+
+  StaticText ""
+  Option "Save when armor drops", "M8fAasSaveOnArmorDrop", "AutoautosaveNoYes"
+  TextField "below this value", "M8fAasArmorThresholdDown", "M8fAasSaveOnArmorDrop"
+
+  StaticText ""
+  Option "Save when armor rises", "M8fAasSaveOnArmorRise", "AutoautosaveNoYes"
+  TextField "above this value", "M8fAasArmorThresholdUp", "M8fAasSaveOnArmorRise"
 
   StaticText ""
   StaticText "Autosave on:"
