@@ -7,6 +7,7 @@ int health = 0;
 int minBossHealth;
 int saveMinWait;
 int healthLimit;
+bool enabled;
 
 bool massiveAlertEnabled;
 bool bossAlertEnabled;
@@ -16,7 +17,7 @@ int alertCountOld = 0;
 script "m8f_AasToggle" (void)
 {
   int playerN = PlayerNumber();
-  bool enabled = GetUserCVar(playerN, "M8fAasEnabled");
+  enabled = GetUserCVar(playerN, "M8fAasEnabled");
   enabled = !enabled;
   SetUserCVar(playerN, "M8fAasEnabled", enabled);
   if (enabled)
@@ -38,7 +39,8 @@ script "m8f_ManualAutoSave" (void)
 script "m8f_WeaponPickupAutoSave" (void)
 {
   bool autosaveOnWeapon = GetCVar("M8fAasSaveOnWeapon");
-  if (autosaveOnWeapon && timeCounter > saveMinWait && health >= healthLimit)
+
+  if (enabled && autosaveOnWeapon && timeCounter > saveMinWait && health >= healthLimit)
   {
     Autosave();
     timeCounter = 0;
@@ -48,7 +50,8 @@ script "m8f_WeaponPickupAutoSave" (void)
 script "m8f_KeyPickupAutoSave" (void)
 {
   bool autosaveOnKey = GetCVar("M8fAasSaveOnKeys");
-  if (autosaveOnKey && timeCounter > saveMinWait && health >= healthLimit)
+
+  if (enabled && autosaveOnKey && timeCounter > saveMinWait && health >= healthLimit)
   {
     Autosave();
     timeCounter = 0;
@@ -58,7 +61,8 @@ script "m8f_KeyPickupAutoSave" (void)
 script "m8f_PowerupPickupAutoSave" (void)
 {
   bool autosaveOnPowerup = GetCVar("M8fAasSaveOnPowerup");
-  if (autosaveOnPowerup && timeCounter > saveMinWait && health >= healthLimit)
+
+  if (enabled && autosaveOnPowerup && timeCounter > saveMinWait && health >= healthLimit)
   {
     Autosave();
     timeCounter = 0;
@@ -67,7 +71,7 @@ script "m8f_PowerupPickupAutoSave" (void)
 
 script "m8f_AlertSave" (void)
 {
-  if (!massiveAlertEnabled) { terminate; }
+  if (!massiveAlertEnabled || !enabled) { terminate; }
 
   int alertCount = ThingCountName("AutoautosaveAlertToken", 0) - alertCountOld;
   alertCountOld = alertCount;
@@ -81,7 +85,7 @@ script "m8f_AlertSave" (void)
 
 script "m8f_BossAlertSave" (void)
 {
-  if (!bossAlertEnabled) { terminate; }
+  if (!bossAlertEnabled || !enabled) { terminate; }
 
   if (timeCounter > saveMinWait && health >= healthLimit)
   {
@@ -95,7 +99,8 @@ script "m8f_CheckKill" Kill
   int maxHealth = GetActorProperty(0, APROP_SpawnHealth);
   if (maxHealth >= minBossHealth
       && timeCounter > saveMinWait
-      && health >= healthLimit)
+      && health >= healthLimit
+      && enabled)
   {
     Autosave();
     timeCounter = 0;
@@ -116,6 +121,8 @@ script "m8f_Autoautosave" Enter
 
   while (true)
   {
+    enabled = GetUserCVar(playerN, "M8fAasEnabled");
+
     saveMinWait   = GetUserCVar(playerN, "M8fAasMinSaveWait")   >> 16;
     minBossHealth = GetCVar("M8fAasMinBossHealth") >> 16;
     healthLimit   = GetUserCVar(playerN, "M8fAasHealthLimit")   >> 16;
@@ -145,7 +152,6 @@ script "m8f_Autoautosave" Enter
 
     health         = AS_GetHealth();
     int armorValue = AS_GetArmorValue();
-    Log(s:"Armor thr:", i:armorValue);
     str armor      = AS_GetArmor();
 
     bool allMonstersKilled = AS_IsAllMonsterKilled();
@@ -174,8 +180,6 @@ script "m8f_Autoautosave" Enter
     allMonstersKilledOld = allMonstersKilled;
     allItemsFoundOld     = allItemsFound;
     secretsFoundOld      = secretsFound;
-
-    bool enabled = GetUserCVar(playerN, "M8fAasEnabled");
 
     if (mustAutosave
         && timeCounter > saveMinWait
