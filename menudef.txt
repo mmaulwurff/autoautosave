@@ -56,6 +56,8 @@ OptionMenu "AutoautosaveOptions"
   Option "key pickup", "M8fAasSaveOnKeys", "AutoautosaveNoYes"
   Option "weapon pickup", "M8fAasSaveOnWeapon", "AutoautosaveNoYes"
   Option "powerup pickup", "M8fAasSaveOnPowerup", "AutoautosaveNoYes"
+  Option "backpack pickup", "M8fAasSaveOnBackpack", "AutoautosaveNoYes"
+  Option "dropped weapons, powerups, keys", "M8fAasSaveOnDropped", "AutoautosaveNoYes"
 
   Option "big heal", "M8fAasSaveOnBigHeal", "AutoautosaveNoYes"
   Option "armor change", "M8fAasSaveOnArmorChange", "AutoautosaveNoYes"

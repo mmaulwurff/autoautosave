@@ -12,6 +12,7 @@ user bool M8fAasEnabled = true;
 server bool M8fAasSaveOnKeys = true;
 server bool M8fAasSaveOnWeapon = true;
 server bool M8fAasSaveOnPowerup = true;
+server bool M8fAasSaveOnBackpack = true;
 
 user bool M8fAasSaveOnBigHeal = true;
 user bool M8fAasSaveOnArmorChange = true;
@@ -28,3 +29,6 @@ user bool M8fAasSaveOnMassiveAlert = true;
 user float M8fAasMassiveAlertThreshold = 10;
 
 user bool M8fAasSaveOnBossAlert = true;
+
+server bool M8fAasMapLoaded = true;
+server bool M8fAasSaveOnDropped = false;

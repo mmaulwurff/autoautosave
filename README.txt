@@ -11,6 +11,7 @@ Autosave on certain events:
 - powerup is picked up
 - weapon is picked up
 - key is picked up
+- backpack is picked up
 - some time has passed
 - health drops below some level
 - health rises above some level
@@ -31,6 +32,6 @@ Options:
 
 Author: m8f
 
-Version: 0.2
+Version: 0.7
 
 License: CC BY 4.0

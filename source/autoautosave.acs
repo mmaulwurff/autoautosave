@@ -40,7 +40,10 @@ script "m8f_WeaponPickupAutoSave" (void)
 {
   bool autosaveOnWeapon = GetCVar("M8fAasSaveOnWeapon");
 
-  if (enabled && autosaveOnWeapon && timeCounter > saveMinWait && health >= healthLimit)
+  if (enabled
+     && autosaveOnWeapon
+     && timeCounter > saveMinWait
+     && health >= healthLimit)
   {
     Autosave();
     timeCounter = 0;
@@ -63,6 +66,17 @@ script "m8f_PowerupPickupAutoSave" (void)
   bool autosaveOnPowerup = GetCVar("M8fAasSaveOnPowerup");
 
   if (enabled && autosaveOnPowerup && timeCounter > saveMinWait && health >= healthLimit)
+  {
+    Autosave();
+    timeCounter = 0;
+  }
+}
+
+script "m8f_BackpackPickupAutoSave" (void)
+{
+  bool autosaveOnBackpack = GetCVar("M8fAasSaveOnBackpack");
+
+  if (enabled && autosaveOnBackpack && timeCounter > saveMinWait && health >= healthLimit)
   {
     Autosave();
     timeCounter = 0;
@@ -96,6 +110,8 @@ script "m8f_BossAlertSave" (void)
 
 script "m8f_CheckKill" Kill
 {
+  SetCVar("M8fAasMapLoaded", true);
+
   int maxHealth = GetActorProperty(0, APROP_SpawnHealth);
   if (maxHealth >= minBossHealth
       && timeCounter > saveMinWait
