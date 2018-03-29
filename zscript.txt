@@ -39,22 +39,19 @@ class AutoautosaveEventHandler : EventHandler
     bool saveOnDropped = saveOnDroppedCVar.GetInt();
     if (!saveOnDropped && mapLoaded) { return; }
 
+    string trailblazerPowerupClass = "TBPowerupBase";
+
+    string tokenClass;
+    if      (a is "Key")           { tokenClass = "AutoautosaveTokenKey"; }
+    else if (a is "Weapon")        { tokenClass = "AutoautosaveTokenWeapon"; }
+    else if (a is "PowerupGiver")  { tokenClass = "AutoautosaveTokenPowerup"; }
+    else if (a is trailblazerPowerupClass) { tokenClass = "AutoautosaveTokenPowerup"; }
+    else if (a is "BackpackItem")  { tokenClass = "AutoautosaveTokenBackpack"; }
+    else { return; }
+
     Actor o = a.owner;
-    if (o == Null)
-    {
-      vector3 p = a.SpawnPoint;
-      if      (a is "Key")          { Actor.Spawn("AutoautosaveTokenKey",     p); }
-      else if (a is "Weapon")       { Actor.Spawn("AutoautosaveTokenWeapon",  p); }
-      else if (a is "PowerupGiver") { Actor.Spawn("AutoautosaveTokenPowerup", p); }
-      else if (a is "BackpackItem") { Actor.Spawn("AutoautosaveTokenBackpack", p); }
-    }
-    else
-    {
-      if      (a is "Key")          { o.GiveInventory("AutoautosaveTokenKey",     1); }
-      else if (a is "Weapon")       { o.GiveInventory("AutoautosaveTokenWeapon",  1); }
-      else if (a is "PowerupGiver") { o.GiveInventory("AutoautosaveTokenPowerup", 1); }
-      else if (a is "BackpackItem") { o.GiveInventory("AutoautosaveTokenBackpack", 1); }
-    }
+    if (o == Null) { Actor.Spawn(tokenClass, a.SpawnPoint); }
+    else           { o.GiveInventory(tokenClass, 1); }
   }
 }
 
@@ -62,7 +59,7 @@ class AutoautosaveToken : CustomInventory
 {
   Default
   {
-    Inventory.MaxAmount 99999;
+    Inventory.MaxAmount 0;
     +INVENTORY.QUIET
   }
   States
