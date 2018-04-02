@@ -13,6 +13,9 @@ OptionMenu "AutoautosaveOptions"
   Slider "$MISCMNU_AUTOSAVECOUNT", "autosavecount", 1, 20, 1, 0
 
   StaticText ""
+  Option "Autoautosave Enabled", "M8fAasEnabled", "AutoautosaveNoYes"
+
+  StaticText ""
   Slider "At least", "M8fAasMinSaveWait", 0.0, 60.0, 1.0, 0
   StaticText "seconds must pass before new autoautosave."
   StaticText "Set this to 0 to autoautosave every time."
@@ -64,6 +67,7 @@ OptionMenu "AutoautosaveOptions"
   Option "all monsters killed", "M8fAasSaveOnAllKilled", "AutoautosaveNoYes"
   Option "all items found", "M8fAasSaveOnAllFound", "AutoautosaveNoYes"
   Option "secret found", "M8fAasSaveOnSecret", "AutoautosaveNoYes"
+  Option "teleport", "M8fAasSaveOnTeleport", "AutoautosaveNoYes"
 
   Option "Massive alert", "M8fAasSaveOnMassiveAlert", "AutoautosaveNoYes"
   Option "Boss alert", "M8fAasSaveOnBossAlert", "AutoautosaveNoYes"

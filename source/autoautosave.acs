@@ -118,6 +118,7 @@ script "m8f_CheckKill" Kill
       && health >= healthLimit
       && enabled)
   {
+    Log(s:"Boss killed!");
     Autosave();
     timeCounter = 0;
   }
@@ -132,6 +133,9 @@ script "m8f_Autoautosave" Enter
   str  armorOld             = AS_GetArmor();
   int  healthOld            = AS_GetHealth();
   int  armorValueOld        = AS_GetArmorValue();
+
+  int  xOld = AS_GetX();
+  int  yOld = AS_GetY();
 
   int playerN = PlayerNumber();
 
@@ -158,6 +162,7 @@ script "m8f_Autoautosave" Enter
     bool saveOnAllKilled   = GetUserCVar(playerN, "M8fAasSaveOnAllKilled");
     bool saveOnAllFound    = GetUserCVar(playerN, "M8fAasSaveOnAllFound");
     bool saveOnSecret      = GetUserCVar(playerN, "M8fAasSaveOnSecret");
+    bool saveOnTeleport    = GetUserCVar(playerN, "M8fAasSaveOnTeleport");
 
     bool saveOnHealthDrop = GetUserCVar(playerN, "M8fAasSaveOnHealthDrop");
     bool saveOnHealthRise = GetUserCVar(playerN, "M8fAasSaveOnHealthRise");
@@ -174,12 +179,20 @@ script "m8f_Autoautosave" Enter
     bool allItemsFound     = AS_IsAllItemsFound();
     int  secretsFound      = AS_SecretsFound();
 
+    int x = AS_GetX();
+    int y = AS_GetY();
+    int deltaX = x - xOld;
+    int deltaY = y - yOld;
+    int dist = deltaX * deltaX + deltaY * deltaY;
+    int maxRunDist = 2500000;
+
     bool mustAutosave = (saveOnBigHeal && health > healthOld + 25)
       || (saveOnArmorChange && armorOld != armor && StrCmp(armor, "None"))
 
       || (saveOnAllKilled && allMonstersKilledOld != allMonstersKilled)
       || (saveOnAllFound && allItemsFoundOld != allItemsFound)
       || (saveOnSecret && secretsFoundOld != secretsFound)
+      || (saveOnTeleport   && dist > maxRunDist)
 
       || (autosavePeriod != 0 && timeCounter >= autosavePeriod)
 
@@ -196,6 +209,9 @@ script "m8f_Autoautosave" Enter
     allMonstersKilledOld = allMonstersKilled;
     allItemsFoundOld     = allItemsFound;
     secretsFoundOld      = secretsFound;
+
+    xOld = x;
+    yOld = y;
 
     if (mustAutosave
         && timeCounter > saveMinWait
@@ -243,4 +259,14 @@ function str AS_GetHealth(void)
 function str AS_GetArmorValue(void)
 {
   return CheckInventory("BasicArmor");
+}
+
+function int AS_GetX(void)
+{
+  return GetActorX(0) >> 16;
+}
+
+function int AS_GetY(void)
+{
+  return GetActorY(0) >> 16;
 }
