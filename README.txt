@@ -12,6 +12,7 @@ Autosave on certain events:
 - weapon is picked up
 - key is picked up
 - backpack is picked up
+- player is teleported to a significant distance
 - some time has passed
 - health drops below some level
 - health rises above some level
@@ -32,6 +33,6 @@ Options:
 
 Author: m8f
 
-Version: 0.7
+Version: 0.8
 
 License: CC BY 4.0
