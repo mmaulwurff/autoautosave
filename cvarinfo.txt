@@ -1,4 +1,4 @@
-user float M8fAasMinSaveWait = 30.0; // seconds
+user float M8fAasMinSaveWait = 10.0; // seconds
 server float M8fAasMinBossHealth = 2000.0;
 user float M8fAasHealthLimit = 25.0;
 user float M8fAasAutosavePeriod = 5.0; // minutes
