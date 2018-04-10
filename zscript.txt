@@ -40,10 +40,12 @@ class AutoautosaveEventHandler : EventHandler
     if (!saveOnDropped && mapLoaded) { return; }
 
     string trailblazerPowerupClass = "TBPowerupBase";
+    string squareGoonadesClass = "Goonades";
 
     string tokenClass;
     if      (a is "Key")           { tokenClass = "AutoautosaveTokenKey"; }
     else if (a is "Weapon")        { tokenClass = "AutoautosaveTokenWeapon"; }
+    else if (a is squareGoonadesClass) { tokenClass = "AutoautosaveTokenWeapon"; }
     else if (a is "PowerupGiver")  { tokenClass = "AutoautosaveTokenPowerup"; }
     else if (a is trailblazerPowerupClass) { tokenClass = "AutoautosaveTokenPowerup"; }
     else if (a is "BackpackItem")  { tokenClass = "AutoautosaveTokenBackpack"; }
