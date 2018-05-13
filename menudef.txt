@@ -14,6 +14,7 @@ OptionMenu "AutoautosaveOptions"
 
   StaticText ""
   Option "Autoautosave Enabled", "M8fAasEnabled", "AutoautosaveNoYes"
+  Option "Autoautosave Logs", "m8f_aas_LogEvents", "OnOff"
 
   StaticText ""
   Slider "At least", "M8fAasMinSaveWait", 0.0, 60.0, 1.0, 0
@@ -55,7 +56,7 @@ OptionMenu "AutoautosaveOptions"
   TextField "above this value", "M8fAasArmorThresholdUp", "M8fAasSaveOnArmorRise"
 
   StaticText ""
-  StaticText "Autosave on:"
+  StaticText "Autosave on:", "Blue"
   Option "key pickup", "M8fAasSaveOnKeys", "AutoautosaveNoYes"
   Option "weapon pickup", "M8fAasSaveOnWeapon", "AutoautosaveNoYes"
   Option "powerup pickup", "M8fAasSaveOnPowerup", "AutoautosaveNoYes"
@@ -75,11 +76,12 @@ OptionMenu "AutoautosaveOptions"
   StaticText "takes effect only on next map"
 
   StaticText ""
-  StaticText "Keys"
+  StaticText "Keys", "Blue"
   Control "Quicksave", "quicksave"
   Control "Quickload", "quickload"
   Control "Manual autosave", "pukename m8f_ManualAutoSave"
   Control "Toggle autoautosave", "pukename m8f_AasToggle"
+  StaticText ""
 }
 
 AddOptionMenu "OptionsMenu"

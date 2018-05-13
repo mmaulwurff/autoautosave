@@ -33,3 +33,5 @@ user bool M8fAasSaveOnBossAlert = true;
 
 server bool M8fAasMapLoaded = true;
 server bool M8fAasSaveOnDropped = false;
+
+user bool m8f_aas_LogEvents = false;

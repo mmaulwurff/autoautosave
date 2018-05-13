@@ -47,6 +47,7 @@ script "m8f_WeaponPickupAutoSave" (void)
   {
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: weapon found");
   }
 }
 
@@ -58,6 +59,7 @@ script "m8f_KeyPickupAutoSave" (void)
   {
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: key found");
   }
 }
 
@@ -69,6 +71,7 @@ script "m8f_PowerupPickupAutoSave" (void)
   {
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: powerup found");
   }
 }
 
@@ -80,6 +83,7 @@ script "m8f_BackpackPickupAutoSave" (void)
   {
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: backpack found");
   }
 }
 
@@ -94,6 +98,7 @@ script "m8f_AlertSave" (void)
   {
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: you were spotted");
   }
 }
 
@@ -105,6 +110,7 @@ script "m8f_BossAlertSave" (void)
   {
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: you were spotted by boss");
   }
 }
 
@@ -118,9 +124,9 @@ script "m8f_CheckKill" Kill
       && health >= healthLimit
       && enabled)
   {
-    Log(s:"Boss killed!");
     Autosave();
     timeCounter = 0;
+    AS_Log("Autosave: boss is killed");
   }
 }
 
@@ -269,4 +275,11 @@ function int AS_GetX(void)
 function int AS_GetY(void)
 {
   return GetActorY(0) >> 16;
+}
+
+function void AS_Log(str message)
+{
+  int playerN = PlayerNumber();
+  bool isEventLogEnabled = GetUserCVar(playerN, "m8f_aas_LogEvents");
+  if (isEventLogEnabled) { Log(s:message); }
 }
