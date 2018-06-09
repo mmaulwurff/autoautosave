@@ -12,5 +12,6 @@ acc source/autoautosave.acs acs/autoautosave.o && \
            -file \
            autoautosave.pk3 \
            ~/Programs/Games/wads/maps/DOOMTEST.wad \
+           "$1" "$2" \
            +map test \
            -nomonsters
