@@ -42,10 +42,10 @@ class m8f_aas_save_schedule : Thinker
 
     save_on_teleport, // done
 
-    save_on_time_period,
+    save_on_time_period, // done
 
-    save_on_health_drop,
-    save_on_health_rise,
+    save_on_health_drop, // done
+    save_on_health_rise, // done
     save_on_armor_drop,
     save_on_armor_rise,
 
@@ -214,6 +214,8 @@ class m8f_aas_event_handler : EventHandler
 
   vector3 old_pos;
 
+  int old_health;
+
   int seconds_from_last_save;
 
   override void OnRegister()
@@ -243,9 +245,10 @@ class m8f_aas_event_handler : EventHandler
     ++seconds_from_last_save;
 
     m8f_aas_save_schedule schedule = m8f_aas_save_schedule.get();
+    check_time_save(schedule);
     check_counter_events(schedule);
     check_map_events(schedule);
-    check_time_save(schedule);
+    check_player_events(schedule);
 
     bool saved = schedule.save();
     if (saved) { seconds_from_last_save = 0; }
@@ -254,7 +257,7 @@ class m8f_aas_event_handler : EventHandler
   void check_time_save(m8f_aas_save_schedule schedule)
   {
     // TODO: read from CVar
-    if (seconds_from_last_save >= 15)
+    if (seconds_from_last_save >= 2 * 60)
       {
         schedule.set_scheduled(m8f_aas_save_schedule.save_on_time_period);
       }
@@ -290,6 +293,11 @@ class m8f_aas_event_handler : EventHandler
         }
       old_item_count = item_count;
     }
+  }
+
+  void check_player_events(m8f_aas_save_schedule schedule)
+  {
+    PlayerInfo player = players[consoleplayer];
 
     {
       vector3 pos = player.mo.Pos;
@@ -302,6 +310,20 @@ class m8f_aas_event_handler : EventHandler
           schedule.set_scheduled(m8f_aas_save_schedule.save_on_teleport);
         }
       old_pos = pos;
+    }
+
+    {
+      int health = player.mo.health;
+      // TODO: read this from CVar
+      if (health != old_health && health < 50)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_drop);
+        }
+      else if (health != old_health && health > 100)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_rise);
+        }
+      old_health = health;
     }
   }
 
@@ -360,7 +382,8 @@ class m8f_aas_event_handler : EventHandler
 
     if (e.thing.Player == players[consoleplayer])
       {
-        old_pos = e.thing.Pos;
+        old_pos    = e.thing.Pos;
+        old_health = e.thing.Health;
       }
 
     Inventory item = Inventory(e.thing);
