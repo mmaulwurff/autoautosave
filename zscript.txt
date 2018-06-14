@@ -1,142 +1,424 @@
 version "3.2.5"
 
-class AutoautosaveEventHandler : EventHandler
+class m8f_aas_token : Inventory
 {
+  private int reason;
+
+  Default
+    {
+      +Inventory.Quiet;
+    }
+
+  void set_reason(int r)
+  {
+    reason = r;
+  }
+
+  override bool TryPickup(Actor toucher)
+  {
+    m8f_aas_save_schedule s = m8f_aas_save_schedule.get();
+    s.set_scheduled(reason);
+    GoAwayAndDie();
+    return true;
+  }
+}
+
+class m8f_aas_save_schedule : Thinker
+{
+  // Reasons to save
+  enum save_on
+  {
+    save_on_no_reason,
+
+    save_on_all_kill, // done
+    save_on_boss_kill, // done
+    save_on_group_kill, // done
+
+    save_on_group_alert, // done
+    save_on_boss_alert, // done
+
+    save_on_all_items_found, // done
+    save_on_secret_found, // done
+
+    save_on_teleport, // done
+
+    save_on_time_period,
+
+    save_on_health_drop,
+    save_on_health_rise,
+    save_on_armor_drop,
+    save_on_armor_rise,
+
+    save_on_verbose_limit = save_on_armor_rise,
+
+    save_on_powerup, // done
+    save_on_weapon, // done
+    save_on_key, // done
+    save_on_backpack, // done
+
+    save_on_new_armor,
+    save_on_big_heal,
+
+    end_of_reasons,
+  };
+
+  private static string message(save_on reason)
+  {
+    static const string messages[] =
+      {
+        "Absolutely no reason to save.",
+
+        "All enemies are eliminated.",
+        "Boss is eliminated.",
+        "No more active enemies.",
+
+        "New active enemies.",
+        "Boss is alerted.",
+
+        "All items are found.",
+        "Secret is found.",
+
+        "You are moved to another place.",
+
+        "Time has passed.",
+
+        "Health drops low.",
+        "Health rises high.",
+        "Armor drops low.",
+        "Armor rises high.",
+
+        "Powerup is found.",
+        "Weapon is found.",
+        "Key is found.",
+        "Backpack is found.",
+
+        "New armor type.",
+        "Major healing.",
+
+        "Autosave on unknown reason"
+      };
+
+    if (reason > end_of_reasons) { reason = end_of_reasons; }
+
+    return messages[reason];
+  }
+
+  private static bool saveEnabled(save_on reason)
+  {
+    static const string toggles[] =
+      {
+        "m8f_aas_save_on_all_kill",
+        "m8f_aas_save_on_boss_kill",
+        "m8f_aas_save_on_group_kill",
+
+        "m8f_aas_save_on_group_alert",
+        "m8f_aas_save_on_boss_alert",
+
+        "m8f_aas_save_on_all_items_found",
+        "m8f_aas_save_on_secret_found",
+
+        "m8f_aas_save_on_teleport",
+
+        "m8f_aas_save_on_time_period",
+
+        "m8f_aas_save_on_health_drop",
+        "m8f_aas_save_on_health_rise",
+        "m8f_aas_save_on_armor_drop",
+        "m8f_aas_save_on_armor_rise",
+
+        "m8f_aas_save_on_powerup",
+        "m8f_aas_save_on_weapon",
+        "m8f_aas_save_on_key",
+        "m8f_aas_save_on_backpack",
+
+        "m8f_aas_save_on_new_armor",
+        "m8f_aas_save_on_big_heal"
+      };
+
+    if (reason <= 0 || end_of_reasons <= reason) { return false; }
+
+    return CVar.GetCVar(toggles[reason - 1]).GetInt();
+  }
+
+  private save_on reason;
+
+  m8f_aas_save_schedule Init()
+  {
+    reason = save_on_no_reason;
+    ChangeStatNum(STAT_INFO);
+    return self;
+  }
+
+  static m8f_aas_save_schedule get()
+  {
+    ThinkerIterator it = ThinkerIterator.Create("m8f_aas_save_schedule", STAT_INFO);
+    let p = m8f_aas_save_schedule(it.Next());
+    if (p == null)
+      {
+        p = new("m8f_aas_save_schedule").Init();
+      }
+    return p;
+  }
+
+  void set_scheduled(save_on r)
+  {
+    reason = r;
+  }
+
+  int get_scheduled()
+  {
+    return reason;
+  }
+
+  bool save()
+  {
+    if (!saveEnabled(reason)) { return false; }
+
+    int messageVerbosity = CVar.GetCVar("m8f_aas_LogEvents").GetInt();
+    int maxLevel;
+    switch (messageVerbosity)
+      {
+      case 0:  maxLevel = 0; break; // no messages
+      case 1:  maxLevel = m8f_aas_save_schedule.save_on_verbose_limit; break;
+      default: maxLevel = m8f_aas_save_schedule.end_of_reasons; break;
+      }
+
+    if (reason < maxLevel)
+      {
+        Console.Printf(message(reason));
+      }
+
+    players[consoleplayer].mo.ACS_NamedExecute("m8f_aas_save", 0);
+
+    reason = m8f_aas_save_schedule.save_on_no_reason;
+
+    return true;
+  }
+
+}
+
+class m8f_aas_event_handler : EventHandler
+{
+  int tick;
+  bool loading_finished;
+  bool first_tick;
+  const ticksInSecond = 35;
+
+  int oldActiveCount;
+  int oldActiveBigCount;
+  int maxActive;
+
+  int old_kill_count;
+  int old_item_count;
+  int old_secret_count;
+
+  vector3 old_pos;
+
+  int seconds_from_last_save;
+
   override void OnRegister()
   {
-    CVar mapLoadedCVar = CVar.FindCVar("M8fAasMapLoaded");
-    mapLoadedCVar.SetInt(0);
+    tick = 0;
+    first_tick = true;
+    loading_finished = false;
+
+    oldActiveCount = 0;
+    oldActiveBigCount = 0;
+    maxActive = 0;
+
+    old_kill_count = 0;
+    old_item_count = 0;
+    old_secret_count = 0;
+  }
+
+  override void WorldTick()
+  {
+    if (first_tick) { first_tick = !first_tick; return; }
+
+    loading_finished = true;
+
+    if (tick < ticksInSecond) { ++tick; return; }
+
+    tick = 0;
+    ++seconds_from_last_save;
+
+    m8f_aas_save_schedule schedule = m8f_aas_save_schedule.get();
+    check_counter_events(schedule);
+    check_map_events(schedule);
+    check_time_save(schedule);
+
+    bool saved = schedule.save();
+    if (saved) { seconds_from_last_save = 0; }
+  }
+
+  void check_time_save(m8f_aas_save_schedule schedule)
+  {
+    // TODO: read from CVar
+    if (seconds_from_last_save >= 15)
+      {
+        schedule.set_scheduled(m8f_aas_save_schedule.save_on_time_period);
+      }
+  }
+
+  void check_map_events(m8f_aas_save_schedule schedule)
+  {
+    PlayerInfo player = players[consoleplayer];
+
+    {
+      int secret_count = player.secretcount;
+      if (secret_count > old_secret_count)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_secret_found);
+        }
+      old_secret_count = secret_count;
+    }
+
+    {
+      int kill_count = level.killed_monsters;
+      if (kill_count != old_kill_count && kill_count == level.total_monsters)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_all_kill);
+        }
+      old_kill_count = kill_count;
+    }
+
+    {
+      int item_count = level.found_items;
+      if (item_count != old_item_count && item_count == level.total_items)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_all_items_found);
+        }
+      old_item_count = item_count;
+    }
+
+    {
+      vector3 pos = player.mo.Pos;
+      float x_diff = (pos.x - old_pos.x);
+      float y_diff = (pos.y - old_pos.y);
+      float dist = x_diff * x_diff + y_diff * y_diff;
+      //Console.Printf("Distance: %f", dist);
+      if (dist > 1000000.0)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_teleport);
+        }
+      old_pos = pos;
+    }
+  }
+
+  void check_counter_events(m8f_aas_save_schedule schedule)
+  {
+    // count active monsters
+    ThinkerIterator i = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
+    int activeCount    = 0;
+    int activeBigCount = 0;
+    Actor a;
+    while (a = Actor(i.Next()))
+      {
+        if (a.bISMONSTER
+            && a.Target != null
+            && a.Health > 0)
+          {
+            // TODO: replace 2000 with cvar value
+            if (a.SpawnHealth() > 2000) { ++activeBigCount; }
+            ++activeCount;
+          }
+      }
+    //Console.Printf("Counts: %d, %d", activeCount, activeBigCount);
+
+    if (activeCount > maxActive) { maxActive = activeCount; }
+
+    // TODO: replace 5 with cvar value
+    if (activeCount >= oldActiveCount + 5)
+      {
+        schedule.set_scheduled(m8f_aas_save_schedule.save_on_group_alert);
+      }
+    else if (activeCount == 0)
+      {
+        if (maxActive >= 5)
+          {
+            schedule.set_scheduled(m8f_aas_save_schedule.save_on_group_kill);
+          }
+        maxActive = 0;
+      }
+    else if (activeBigCount > oldActiveBigCount)
+      {
+        schedule.set_scheduled(m8f_aas_save_schedule.save_on_boss_alert);
+      }
+    else if (activeBigCount < oldActiveBigCount)
+      {
+        schedule.set_scheduled(m8f_aas_save_schedule.save_on_boss_kill);
+      }
+
+    oldActiveCount = activeCount;
+    oldActiveBigCount = activeBigCount;
   }
 
   override void WorldThingSpawned(WorldEvent e)
   {
-    Actor thing = e.Thing;
+    // spawn special actor that saves the game when picked up
+    // alongside inventory items.
 
-    Inventory a = Inventory(thing);
-    if (a == Null)
-    {
-      if (thing.bISMONSTER)
+    if (e.thing.Player == players[consoleplayer])
       {
-        vector3 p = thing.SpawnPoint;
-        Actor spawned;
-        float minBossHealth = CVar.FindCVar("M8fAasMinBossHealth").GetFloat();
-        if (thing.health >= minBossHealth)
-        {
-          spawned = Actor.Spawn("AutoautosaveBossAlerter", p);
-        }
-        else
-        {
-          spawned = Actor.Spawn("AutoautosaveAlerter", p);
-        }
-        spawned.Angle = thing.Angle;
+        old_pos = e.thing.Pos;
       }
-      return;
-    }
 
-    CVar mapLoadedCVar     = CVar.FindCVar("M8fAasMapLoaded");
-    CVar saveOnDroppedCVar = CVar.FindCVar("M8fAasSaveOnDropped");
-    bool mapLoaded = mapLoadedCVar.GetInt();
-    bool saveOnDropped = saveOnDroppedCVar.GetInt();
-    if (!saveOnDropped && mapLoaded) { return; }
+    Inventory item = Inventory(e.thing);
+    if (item == null) { return; }
 
-    string trailblazerPowerupClass = "TBPowerupBase";
-    string squareGoonadesClass = "Goonades";
+    bool saveOnDropped = CVar.GetCVar("m8f_aas_SaveOnDropped").GetInt();
+    if (!saveOnDropped && loading_finished) { return; }
 
-    string tokenClass;
-    if      (a is "Key")           { tokenClass = "AutoautosaveTokenKey"; }
-    else if (a is "Weapon")        { tokenClass = "AutoautosaveTokenWeapon"; }
-    else if (a is squareGoonadesClass) { tokenClass = "AutoautosaveTokenWeapon"; }
-    else if (a is "PowerupGiver")  { tokenClass = "AutoautosaveTokenPowerup"; }
-    else if (a is trailblazerPowerupClass) { tokenClass = "AutoautosaveTokenPowerup"; }
-    else if (a is "BackpackItem")  { tokenClass = "AutoautosaveTokenBackpack"; }
-    else { return; }
+    static const string saveable_item_classes[] =
+      {
+        "Key",
 
-    Actor o = a.owner;
-    if (o == Null) { Actor.Spawn(tokenClass, a.SpawnPoint); }
-    else           { o.GiveInventory(tokenClass, 1); }
-  }
-}
+        "Weapon",
+        "Goonades",
 
-class AutoautosaveToken : CustomInventory
-{
-  Default
-  {
-    Inventory.MaxAmount 0;
-    +INVENTORY.QUIET
-  }
-  States
-  {
-  Spawn:
-    TNT1 A -1;
-    stop;
-  }
-}
+        "PowerupGiver",
+        "TBPowerupBase",
+        "MapRevealer",
+        "Berserk",
 
-class AutoautosaveTokenWeapon : AutoautosaveToken
-{
-  States
-  {
-    Pickup:
-      TNT1 A 1 ACS_NamedExecute("m8f_WeaponPickupAutoSave", 0);
-      stop;
-  }
-}
+        "BackpackItem"
+      };
+    static const int reasons[] =
+      {
+        m8f_aas_save_schedule.save_on_key,
 
-class AutoautosaveTokenKey : AutoautosaveToken
-{
-  States
-  {
-    Pickup:
-      TNT1 A 1 ACS_NamedExecute("m8f_KeyPickupAutoSave", 0);
-      stop;
-  }
-}
+        m8f_aas_save_schedule.save_on_weapon,
+        m8f_aas_save_schedule.save_on_weapon,
 
-class AutoautosaveTokenPowerup : AutoautosaveToken
-{
-  States
-  {
-    Pickup:
-      TNT1 A 1 ACS_NamedExecute("m8f_PowerupPickupAutoSave", 0);
-      stop;
-  }
-}
+        m8f_aas_save_schedule.save_on_powerup,
+        m8f_aas_save_schedule.save_on_powerup,
+        m8f_aas_save_schedule.save_on_powerup,
+        m8f_aas_save_schedule.save_on_powerup,
 
-class AutoautosaveTokenBackpack: AutoautosaveToken
-{
-  States
-  {
-    Pickup:
-      TNT1 A 1 ACS_NamedExecute("m8f_BackpackPickupAutoSave", 0);
-      stop;
-  }
-}
+        m8f_aas_save_schedule.save_on_backpack
+      };
+    int n_saveable_items_classes = 8;
 
-class AutoautosaveAlertToken : Actor {}
-
-class AutoautosaveAlerter : Actor
-{
-  States
-  {
-  Spawn:
-    TNT1 A 10 A_Look;
-    Loop;
-  See:
-    TNT1 A 1 A_SpawnItemEx("AutoautosaveAlertToken");
-    TNT1 A 1 ACS_NamedExecute("m8f_AlertSave", 0);
-    Stop;
-  }
-}
-
-class AutoautosaveBossAlerter : Actor
-{
-  States
-  {
-  Spawn:
-    TNT1 A 10 A_Look;
-    Loop;
-  See:
-    TNT1 A 1 ACS_NamedExecute("m8f_BossAlertSave", 0);
-    Stop;
+    int reason = m8f_aas_save_schedule.save_on_no_reason;
+    for (int i = 0; i < n_saveable_items_classes; ++i)
+      {
+        if (item is saveable_item_classes[i])
+          {
+            reason = reasons[i];
+            m8f_aas_token token;
+            Actor owner = item.owner;
+            if (owner == null)
+              {
+                token = m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint));
+              }
+            else if (loading_finished) // don't save on obtaining starting weapons
+              {
+                token = m8f_aas_token(Actor.Spawn("m8f_aas_token"));
+                owner.AddInventory(token);
+              }
+            token.set_reason(reason);
+            break;
+          }
+      }
   }
 }

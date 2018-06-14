@@ -1,5 +1,4 @@
 gameinfo
 {
-  ForceKillScripts = true
-  AddEventHandlers = "AutoautosaveEventHandler"
+  AddEventHandlers = "m8f_aas_event_handler"
 }

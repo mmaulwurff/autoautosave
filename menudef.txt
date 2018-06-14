@@ -81,6 +81,8 @@ OptionMenu "AutoautosaveOptions"
   Control "Quickload", "quickload"
   Control "Manual autosave", "pukename m8f_ManualAutoSave"
   Control "Toggle autoautosave", "pukename m8f_AasToggle"
+
+  Slider "At least", "m8f_aas_HealthThresholdDown", 0, 60, 1, 0
   StaticText ""
 }
 

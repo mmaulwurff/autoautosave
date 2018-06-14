@@ -1,37 +1,46 @@
-user float M8fAasMinSaveWait = 10.0; // seconds
-server float M8fAasMinBossHealth = 2000.0;
-user float M8fAasHealthLimit = 25.0;
-user float M8fAasAutosavePeriod = 5.0; // minutes
+// Global toggle
+server bool m8f_aas_Enabled          = true;
 
-user float M8fAasHealthThresholdDown = 50.0;
-user float M8fAasHealthThresholdUp   = 100.0;
-user float M8fAasArmorThresholdDown  = 25.0;
-user float M8fAasArmorThresholdUp    = 100.0;
+// Individual toggles
+server bool m8f_aas_save_on_all_kill = true;
+server bool m8f_aas_save_on_boss_kill = true;
+server bool m8f_aas_save_on_group_kill = true;
 
-user bool M8fAasEnabled = true;
-server bool M8fAasSaveOnKeys = true;
-server bool M8fAasSaveOnWeapon = true;
-server bool M8fAasSaveOnPowerup = true;
-server bool M8fAasSaveOnBackpack = true;
+server bool m8f_aas_save_on_group_alert = true;
+server bool m8f_aas_save_on_boss_alert = true;
 
-user bool M8fAasSaveOnBigHeal = true;
-user bool M8fAasSaveOnArmorChange = true;
-user bool M8fAasSaveOnAllKilled = true;
-user bool M8fAasSaveOnAllFound = true;
-user bool M8fAasSaveOnSecret = true;
-user bool M8fAasSaveOnTeleport = false;
+server bool m8f_aas_save_on_all_items_found = true;
+server bool m8f_aas_save_on_secret_found = true;
 
-user bool M8fAasSaveOnHealthDrop = false;
-user bool M8fAasSaveOnHealthRise = false;
-user bool M8fAasSaveOnArmorDrop  = false;
-user bool M8fAasSaveOnArmorRise  = false;
+server bool m8f_aas_save_on_teleport = true;
 
-user bool M8fAasSaveOnMassiveAlert = true;
-user float M8fAasMassiveAlertThreshold = 10;
+server bool m8f_aas_save_on_time_period = true;
 
-user bool M8fAasSaveOnBossAlert = true;
+server bool m8f_aas_save_on_health_drop = true;
+server bool m8f_aas_save_on_health_rise = true;
+server bool m8f_aas_save_on_armor_drop = true;
+server bool m8f_aas_save_on_armor_rise = true;
 
-server bool M8fAasMapLoaded = true;
-server bool M8fAasSaveOnDropped = false;
+server bool m8f_aas_save_on_powerup = true;
+server bool m8f_aas_save_on_weapon = true;
+server bool m8f_aas_save_on_key = true;
+server bool m8f_aas_save_on_backpack = true;
 
-user bool m8f_aas_LogEvents = false;
+server bool m8f_aas_save_on_new_armor = true;
+server bool m8f_aas_save_on_big_heal = true;
+
+server int  m8f_aas_MinBossHealth  = 2000;
+server int  m8f_aas_HealthLimit    = 25;
+server int  m8f_aas_MinSaveWait    = 10; // seconds
+server int  m8f_aas_AutosavePeriod = 5;  // minutes
+
+server int  m8f_aas_HealthThresholdDown = 50;
+server int  m8f_aas_HealthThresholdUp   = 100;
+server int  m8f_aas_ArmorThresholdDown  = 25;
+server int  m8f_aas_ArmorThresholdUp    = 100;
+
+server int  m8f_aas_MassAlertThreshold = 10;
+
+server bool m8f_aas_SaveOnDropped = false;
+
+server int  m8f_aas_LogEvents = 1;
