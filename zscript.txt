@@ -46,8 +46,8 @@ class m8f_aas_save_schedule : Thinker
 
     save_on_health_drop, // done
     save_on_health_rise, // done
-    save_on_armor_drop,
-    save_on_armor_rise,
+    save_on_armor_drop,  // done
+    save_on_armor_rise,  // done
 
     save_on_verbose_limit = save_on_armor_rise,
 
@@ -215,6 +215,7 @@ class m8f_aas_event_handler : EventHandler
   vector3 old_pos;
 
   int old_health;
+  int old_armor;
 
   int seconds_from_last_save;
 
@@ -315,15 +316,28 @@ class m8f_aas_event_handler : EventHandler
     {
       int health = player.mo.health;
       // TODO: read this from CVar
-      if (health != old_health && health < 50)
+      if (health < 50 && old_health >= 50)
         {
           schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_drop);
         }
-      else if (health != old_health && health > 100)
+      else if (health > 100 && old_health <= 100)
         {
           schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_rise);
         }
       old_health = health;
+    }
+
+    {
+      int armor_count = player.mo.CountInv("BasicArmor");
+      if (armor_count < 50 && old_armor >= 50)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_armor_drop);
+        }
+      else if (armor_count > 100 && old_armor <= 100)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_armor_rise);
+        }
+      old_armor = armor_count;
     }
   }
 
@@ -384,6 +398,7 @@ class m8f_aas_event_handler : EventHandler
       {
         old_pos    = e.thing.Pos;
         old_health = e.thing.Health;
+        old_armor  = e.thing.CountInv("BasicArmor");
       }
 
     Inventory item = Inventory(e.thing);
