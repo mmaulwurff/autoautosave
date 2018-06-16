@@ -1,17 +1,25 @@
+#!/bin/bash
+
+name=autoautosave
+
 acc source/autoautosave.acs acs/autoautosave.o \
 && \
-rm -f autoautosave.pk3 \
+git log --pretty=format:"-%d %ai %s%n" > changelog.txt \
 && \
-zip autoautosave.pk3 \
+rm -f $name.pk3 \
+&& \
+zip $name.pk3 \
     acs/autoautosave.o \
     *.txt \
     *.md \
     source/autoautosave.acs \
     sounds/*.wav \
 && \
+cp $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
+&& \
 gzdoom -glversion 3 \
        -file \
-       autoautosave.pk3 \
+       $name.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \
        "$1" "$2" \
        +map test \
