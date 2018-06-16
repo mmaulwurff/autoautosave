@@ -15,7 +15,7 @@ zip $name.pk3 \
     *.txt \
     *.md \
     source/autoautosave.acs \
-    sounds/*.wav \
+    sounds/*.ogg \
 && \
 cp $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
 && \
