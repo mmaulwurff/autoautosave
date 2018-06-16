@@ -56,7 +56,7 @@ class m8f_aas_save_schedule : Thinker
     save_on_key, // done
     save_on_backpack, // done
 
-    save_on_new_armor,
+    save_on_new_armor, // done
     save_on_big_heal,
 
     end_of_reasons,
@@ -216,6 +216,7 @@ class m8f_aas_event_handler : EventHandler
 
   int old_health;
   int old_armor;
+  double old_armor_save;
 
   int seconds_from_last_save;
 
@@ -339,6 +340,19 @@ class m8f_aas_event_handler : EventHandler
         }
       old_armor = armor_count;
     }
+
+    {
+      BasicArmor armor = BasicArmor(player.mo.FindInventory("BasicArmor"));
+      if (armor != null)
+        {
+          double save_percent = armor.SavePercent;
+          if (save_percent != 0.0 && save_percent != old_armor_save)
+            {
+              schedule.set_scheduled(m8f_aas_save_schedule.save_on_new_armor);
+            }
+          old_armor_save = save_percent;
+        }
+    }
   }
 
   void check_counter_events(m8f_aas_save_schedule schedule)
@@ -399,6 +413,10 @@ class m8f_aas_event_handler : EventHandler
         old_pos    = e.thing.Pos;
         old_health = e.thing.Health;
         old_armor  = e.thing.CountInv("BasicArmor");
+
+        BasicArmor armor = BasicArmor(e.thing.FindInventory("BasicArmor"));
+        if (armor) { old_armor_save = armor.SavePercent; }
+        else       { old_armor_save = 0.0; }
       }
 
     Inventory item = Inventory(e.thing);

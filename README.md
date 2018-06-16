@@ -1,7 +1,7 @@
 This archive contains Autoautosave, a universal autosaver for GZDoom.
 It is designed to be compatible with any monster and weapon mod, and any map.
 
-Autosave on certain events:
+# Autosave on certain events:
 - all monsters are killed
 - boss is killed
 - all items are found
@@ -19,15 +19,15 @@ Autosave on certain events:
 - armor drops below some level
 - armor rises above some level
 
-Keys for:
+# Keys for:
 - manual autosave
 - toggle autoautosave on and off
 
-Autosave will not happen if:
+# Autosave will not happen if:
 - previous auto autosave was made in some time
 - player has not enough health
 
-Options:
+# Options:
 - every event can be turned off
 - all values can be configured
 
