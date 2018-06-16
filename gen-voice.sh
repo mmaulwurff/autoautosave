@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -r sounds/*
+rm sounds/*
 
 params="-s140 -p0 -g10 -v english"
 

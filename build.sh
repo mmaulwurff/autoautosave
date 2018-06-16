@@ -8,6 +8,8 @@ git log --pretty=format:"-%d %ai %s%n" > changelog.txt \
 && \
 rm -f $name.pk3 \
 && \
+./gen-voice.sh \
+&& \
 zip $name.pk3 \
     acs/autoautosave.o \
     *.txt \
