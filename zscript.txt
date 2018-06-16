@@ -172,7 +172,7 @@ class m8f_aas_save_schedule : Thinker
     return reason;
   }
 
-  bool save()
+  bool save(int seconds_from_last_save)
   {
     if (reason <= m8f_aas_save_schedule.save_on_no_reason ||
         reason >= m8f_aas_save_schedule.end_of_reasons) { return false; }
@@ -196,6 +196,8 @@ class m8f_aas_save_schedule : Thinker
         Object.S_Sound(voice_file, 0);
       }
 
+    int min_save_wait = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
+    if (seconds_from_last_save < min_save_wait) { return false; }
     if (!saveEnabled(reason)) { return false; }
 
     players[consoleplayer].mo.ACS_NamedExecute("m8f_aas_save", 0);
@@ -260,12 +262,9 @@ class m8f_aas_event_handler : EventHandler
     check_map_events(schedule);
     check_player_events(schedule);
 
-    int min_save_wait = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
-    if (seconds_from_last_save < min_save_wait) { return; }
-
-    bool saved = schedule.save();
-    schedule.set_scheduled(m8f_aas_save_schedule.save_on_no_reason);
+    bool saved = schedule.save(seconds_from_last_save);
     if (saved) { seconds_from_last_save = 0; }
+    schedule.set_scheduled(m8f_aas_save_schedule.save_on_no_reason);
   }
 
   void check_time_save(m8f_aas_save_schedule schedule)
