@@ -68,29 +68,29 @@ class m8f_aas_save_schedule : Thinker
         "Absolutely no reason to save.",
 
         // other
-        "All enemies are eliminated.",
-        "Boss is eliminated.",
+        "All enemies eliminated.",
+        "Boss eliminated.",
         "No more active enemies.",
 
         "New active enemies.",
-        "Boss is alerted.",
+        "Boss alerted.",
 
-        "All items are found.",
-        "Time has passed.",
+        "All items found.",
+        "Time passed.",
         "You are moved to another place.",
 
         // evident
-        "Health drops low.",
-        "Health rises high.",
-        "Armor drops low.",
-        "Armor rises high.",
-        "Secret is found.",
+        "Health low.",
+        "Health high.",
+        "Armor low.",
+        "Armor high.",
+        "Secret found.",
 
         // pickups
         "Powerup is found.",
         "Weapon is found.",
-        "Key is found.",
-        "Backpack is found.",
+        "Key found.",
+        "Backpack found.",
         "New armor type.",
         "Major healing.",
 
