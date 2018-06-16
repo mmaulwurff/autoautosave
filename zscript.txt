@@ -49,15 +49,13 @@ class m8f_aas_save_schedule : Thinker
     save_on_armor_drop,  // done
     save_on_armor_rise,  // done
 
-    save_on_verbose_limit = save_on_armor_rise,
-
     save_on_powerup, // done
     save_on_weapon, // done
     save_on_key, // done
     save_on_backpack, // done
 
     save_on_new_armor, // done
-    save_on_big_heal,
+    save_on_big_heal, // done
 
     end_of_reasons,
   };
@@ -174,16 +172,8 @@ class m8f_aas_save_schedule : Thinker
   {
     if (!saveEnabled(reason)) { return false; }
 
-    int messageVerbosity = CVar.GetCVar("m8f_aas_LogEvents").GetInt();
-    int maxLevel;
-    switch (messageVerbosity)
-      {
-      case 0:  maxLevel = 0; break; // no messages
-      case 1:  maxLevel = m8f_aas_save_schedule.save_on_verbose_limit; break;
-      default: maxLevel = m8f_aas_save_schedule.end_of_reasons; break;
-      }
-
-    if (reason < maxLevel)
+    int messageLevel = CVar.GetCVar("m8f_aas_LogEvents").GetInt();
+    if (reason < messageLevel)
       {
         Console.Printf(message(reason));
       }
@@ -324,6 +314,10 @@ class m8f_aas_event_handler : EventHandler
       else if (health > 100 && old_health <= 100)
         {
           schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_rise);
+        }
+      else if (health >= old_health + 50)
+        {
+          schedule.set_scheduled(m8f_aas_save_schedule.save_on_big_heal);
         }
       old_health = health;
     }
