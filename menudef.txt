@@ -67,6 +67,11 @@ OptionMenu "AutoautosaveOptions"
   StaticText "Verbose: enemies/time/teleport/items/health/armor", "Black"
 
   StaticText ""
+  StaticText "Controls", "Blue"
+  Control "Manual autosave",     "pukename m8f_aas_save"
+  Control "Toggle autoautosave", "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
+
+  StaticText ""
 }
 
 AddOptionMenu "OptionsMenu"
