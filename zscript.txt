@@ -434,6 +434,7 @@ class m8f_aas_event_handler : EventHandler
   {
     // spawn special actor that saves the game when picked up
     // alongside inventory items.
+    if (e.thing.GetClassName() == "m8f_aas_token") { return; }
 
     if (e.thing.Player == players[consoleplayer])
       {
@@ -444,6 +445,7 @@ class m8f_aas_event_handler : EventHandler
         BasicArmor armor = BasicArmor(e.thing.FindInventory("BasicArmor"));
         if (armor) { old_armor_save = armor.SavePercent; }
         else       { old_armor_save = 0.0; }
+        return;
       }
 
     Inventory item = Inventory(e.thing);
@@ -491,19 +493,19 @@ class m8f_aas_event_handler : EventHandler
       {
         if (item is saveable_item_classes[i])
           {
-            reason = reasons[i];
-            m8f_aas_token token;
             Actor owner = item.owner;
             if (owner == null)
               {
-                token = m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint));
+                m8f_aas_token token =
+                  m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint));
+                token.set_reason(reasons[i]);
               }
             else if (loading_finished) // don't save on obtaining starting weapons
               {
-                token = m8f_aas_token(Actor.Spawn("m8f_aas_token"));
+                m8f_aas_token token = m8f_aas_token(Actor.Spawn("m8f_aas_token"));
+                token.set_reason(reasons[i]);
                 owner.AddInventory(token);
               }
-            token.set_reason(reason);
             break;
           }
       }
