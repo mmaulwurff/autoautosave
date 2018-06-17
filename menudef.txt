@@ -68,7 +68,7 @@ OptionMenu "AutoautosaveOptions"
 
   StaticText ""
   StaticText "Controls", "Blue"
-  Control "Manual autosave",     "pukename m8f_aas_save"
+  Control "Manual autosave",     "m8f_aas_manual_autosave"
   Control "Toggle autoautosave", "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
 
   StaticText ""

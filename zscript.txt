@@ -253,6 +253,7 @@ class m8f_aas_event_handler : EventHandler
         gameaction = ga_autosave;
         autosave_request.SetInt(0);
         seconds_from_last_save = 0;
+        return;
       }
 
     if (first_tick) { first_tick = !first_tick; return; }
@@ -325,9 +326,9 @@ class m8f_aas_event_handler : EventHandler
       float x_diff = (pos.x - old_pos.x);
       float y_diff = (pos.y - old_pos.y);
       float dist = x_diff * x_diff + y_diff * y_diff;
-      //Console.Printf("Distance: %f", dist);
-      if (dist > 1000000.0)
+      if (dist > 2000000.0)
         {
+          Console.Printf("Distance: %f", dist);
           schedule.set_scheduled(m8f_aas_save_schedule.save_on_teleport);
         }
       old_pos = pos;
