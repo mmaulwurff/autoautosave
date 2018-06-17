@@ -200,7 +200,7 @@ class m8f_aas_save_schedule : Thinker
     if (seconds_from_last_save < min_save_wait) { return false; }
     if (!saveEnabled(reason)) { return false; }
 
-    players[consoleplayer].mo.ACS_NamedExecute("m8f_aas_save", 0);
+    gameaction = ga_autosave;
 
     return true;
   }
@@ -247,6 +247,14 @@ class m8f_aas_event_handler : EventHandler
 
   override void WorldTick()
   {
+    CVar autosave_request = CVar.GetCVar("m8f_aas_autosave_requested");
+    if (autosave_request.GetInt())
+      {
+        gameaction = ga_autosave;
+        autosave_request.SetInt(0);
+        seconds_from_last_save = 0;
+      }
+
     if (first_tick) { first_tick = !first_tick; return; }
 
     loading_finished = true;
