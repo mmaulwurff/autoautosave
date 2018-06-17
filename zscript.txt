@@ -456,7 +456,9 @@ class m8f_aas_event_handler : EventHandler
         "MapRevealer",
         "Berserk",
 
-        "BackpackItem"
+        "BackpackItem",
+        "Backpack2",
+        "BlueprintItem"
       };
     static const int reasons[] =
       {
@@ -470,9 +472,11 @@ class m8f_aas_event_handler : EventHandler
         m8f_aas_save_schedule.save_on_powerup,
         m8f_aas_save_schedule.save_on_powerup,
 
+        m8f_aas_save_schedule.save_on_backpack,
+        m8f_aas_save_schedule.save_on_backpack,
         m8f_aas_save_schedule.save_on_backpack
       };
-    int n_saveable_items_classes = 8;
+    int n_saveable_items_classes = 10;
 
     int reason = m8f_aas_save_schedule.save_on_no_reason;
     for (int i = 0; i < n_saveable_items_classes; ++i)
