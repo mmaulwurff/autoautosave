@@ -13,7 +13,7 @@ zip $name.pk3 \
     *.md \
     sounds/*.ogg \
 && \
-cp $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
+cp -f $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
 && \
 gzdoom -glversion 3 \
        -file \

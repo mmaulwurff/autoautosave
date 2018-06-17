@@ -1,7 +1,0 @@
-#library "Autoautosave"
-#include "zcommon.acs"
-
-script "m8f_aas_save" (void)
-{
-  Autosave();
-}
