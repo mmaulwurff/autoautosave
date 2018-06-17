@@ -56,7 +56,7 @@ OptionMenu "AutoautosaveOptions"
   Slider "Don't save when health is lower than", "m8f_aas_health_limit", 0, 500, 5, 0
   Slider "Don't save until seconds passed", "m8f_aas_min_save_wait", 0, 120, 5, 0
   Slider "Autosave every N seconds", "m8f_aas_autosave_period", 30, 600, 30, 0
-
+  Option "Save on dropped items", "m8f_aas_save_on_dropped", "OnOff"
 
   StaticText ""
   StaticText "Log and announcer options", "Blue"
