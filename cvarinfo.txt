@@ -53,6 +53,7 @@ server int  m8f_aas_console_log_level = 8;
 server int  m8f_aas_screen_level      = 0;
 server int  m8f_aas_voice_level       = 0;
 
-server bool m8f_aas_autosave_requested = false;
+server int  m8f_aas_request = -1;
 
-server bool m8f_aas_stub = false;
+server bool m8f_aas_false = false;
+server bool m8f_aas_true  = true;

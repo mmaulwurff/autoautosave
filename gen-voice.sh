@@ -36,6 +36,7 @@ i=$(($i+1)); espeak "Backpack found."                 $params -w $filename$i".wa
 i=$(($i+1)); espeak "New armor type."                 $params -w $filename$i".wav"; echo "aas/voice$i m8faas$i" >> sndinfo.txt
 i=$(($i+1)); espeak "Major healing."                  $params -w $filename$i".wav"; echo "aas/voice$i m8faas$i" >> sndinfo.txt
 i=$(($i+1)); espeak "Manual save."                    $params -w $filename$i".wav"; echo "aas/voice$i m8faas$i" >> sndinfo.txt
+i=$(($i+1)); espeak "Pomodoro."                       $params -w $filename$i".wav"; echo "aas/voice$i m8faas$i" >> sndinfo.txt
 
 cd sounds_wav
 for f in *;

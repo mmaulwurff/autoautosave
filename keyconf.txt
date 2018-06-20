@@ -1,6 +1,6 @@
 addkeysection "Autoautosave" AutoautosaveKeys
 
-alias m8f_aas_manual_autosave "m8f_aas_autosave_requested 1"
+alias m8f_aas_manual_autosave "m8f_aas_request 20"
 addmenukey "Manual autosave" m8f_aas_manual_autosave
 
 alias m8f_aas_on  "m8f_aas_enabled 1; echo Autoautosave enabled"

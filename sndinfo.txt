@@ -23,3 +23,4 @@ aas/voice17 m8faas17
 aas/voice18 m8faas18
 aas/voice19 m8faas19
 aas/voice20 m8faas20
+aas/voice21 m8faas21

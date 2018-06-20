@@ -59,7 +59,10 @@ class m8f_aas_event
     backpack,
     new_armor,
     big_heal,
+
+    // other
     manual,
+    pomodoro,
 
     end_of_types
   };
@@ -95,7 +98,10 @@ class m8f_aas_event
         "Backpack found.",
         "New armor type.",
         "Major healing.",
+
+        // other
         "Manual save",
+        "Pomodoro",
 
         "Autosave on unknown reason"
       };
@@ -212,6 +218,8 @@ class m8f_aas_saver : m8f_aas_event_handler
 
   private static bool saveEnabled(int event_type)
   {
+    if (event_type == m8f_aas_event.manual) { return true; }
+
     static const string toggles[] =
       {
         "m8f_aas_save_on_all_kill",
@@ -222,7 +230,7 @@ class m8f_aas_saver : m8f_aas_event_handler
         "m8f_aas_save_on_boss_alert",
 
         "m8f_aas_save_on_all_items_found",
-        "m8f_aas_stub",
+        "m8f_aas_false",
         "m8f_aas_save_on_time_period",
         "m8f_aas_save_on_teleport",
 
@@ -238,7 +246,10 @@ class m8f_aas_saver : m8f_aas_event_handler
         "m8f_aas_save_on_backpack",
         "m8f_aas_save_on_new_armor",
         "m8f_aas_save_on_big_heal",
-        "m8f_aas_stub"
+
+        // other
+        "m8f_aas_true",
+        "m8f_aas_true"
       };
 
     if (CVar.GetCVar("m8f_aas_enabled").GetInt() == false) { return false; }
@@ -271,7 +282,8 @@ class m8f_aas_saver : m8f_aas_event_handler
       }
 
     int min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
-    if (time_from_last_save_s < min_save_wait_s) { return; }
+    if (time_from_last_save_s < min_save_wait_s
+        && event_type != m8f_aas_event.manual) { return; }
 
     if (!saveEnabled(event_type)) { return; }
 
@@ -320,17 +332,17 @@ class m8f_aas_event_source : EventHandler
 
   override void WorldTick()
   {
-    CVar autosave_request = CVar.GetCVar("m8f_aas_autosave_requested");
-    if (autosave_request.GetInt())
+    CVar autosave_request_cvar = CVar.GetCVar("m8f_aas_request");
+    int  autosave_request      = autosave_request_cvar.GetInt();
+    if (autosave_request != -1)
       {
-        handler.on_event(m8f_aas_event.manual);
-        autosave_request.SetInt(0);
+        handler.on_event(autosave_request);
+        autosave_request_cvar.SetInt(-1);
         return;
       }
 
     if (level.time == 0) { return; }
-
-    loading_finished = true;
+    else { loading_finished = true; }
 
     int tick_inside_second = level.time % ticks_in_second;
     switch (tick_inside_second)
