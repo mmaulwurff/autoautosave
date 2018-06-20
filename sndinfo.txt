@@ -1,3 +1,8 @@
+// This file is generated automatically!
+// All changed will be lost!
+// see gen-voice.sh for details.
+
+aas/voice0 m8faas0
 aas/voice1 m8faas1
 aas/voice2 m8faas2
 aas/voice3 m8faas3
@@ -17,3 +22,4 @@ aas/voice16 m8faas16
 aas/voice17 m8faas17
 aas/voice18 m8faas18
 aas/voice19 m8faas19
+aas/voice20 m8faas20

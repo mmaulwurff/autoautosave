@@ -1,72 +1,73 @@
 version "3.2.5"
 
+// Creates an m8f_aas_event when pickup up
+// TODO: rewrite for new structure
 class m8f_aas_token : Inventory
 {
-  private int reason;
+  private int event_type;
 
   Default
     {
       +Inventory.Quiet;
     }
 
-  void set_reason(int r)
-  {
-    reason = r;
-  }
+  m8f_aas_token init(int type) { event_type = type; return self; }
 
   override bool TryPickup(Actor toucher)
   {
-    m8f_aas_save_schedule s = m8f_aas_save_schedule.get();
-    s.set_scheduled(reason);
+    let dispatcher = new("m8f_aas_event_dispatcher").init();
+    dispatcher.on_event(event_type);
     GoAwayAndDie();
     return true;
   }
 }
 
-class m8f_aas_save_schedule : Thinker
+// Represents all events that can happend in Autoautosaver
+class m8f_aas_event
 {
-  // Reasons to save
-  // less important first
-  enum save_on
+  // Reasons to save, more important first
+  enum event_type
   {
-    save_on_no_reason,
-
     // other
-    save_on_all_kill,
-    save_on_boss_kill,
-    save_on_group_kill,
+    all_kill,
+    boss_kill,
+    group_kill,
 
-    save_on_group_alert,
-    save_on_boss_alert,
+    group_alert,
+    boss_alert,
 
-    save_on_all_items_found,
-    save_on_time_period,
-    save_on_teleport, // 8
+    all_items_found,
+    tick,
+    time_period,
+    teleport, // 8
+
+    quiet_limit = teleport,
 
     // evident
-    save_on_health_drop,
-    save_on_health_rise,
-    save_on_armor_drop,
-    save_on_armor_rise,
-    save_on_secret_found, // 13
+    health_drop,
+    health_rise,
+    armor_drop,
+    armor_rise,
+    secret_found, // 13
+
+    verbose_limit = secret_found,
 
     // pickups
-    save_on_powerup,
-    save_on_weapon,
-    save_on_key,
-    save_on_backpack,
-    save_on_new_armor,
-    save_on_big_heal, // 19
+    powerup,
+    weapon,
+    key,
+    backpack,
+    new_armor,
+    big_heal,
+    manual,
 
-    end_of_reasons,
+    end_of_types
   };
 
-  private static string message(save_on reason)
+  static string message(int type)
   {
     static const string messages[] =
       {
-        "Absolutely no reason to save.",
-
         // other
         "All enemies eliminated.",
         "Boss eliminated.",
@@ -76,6 +77,7 @@ class m8f_aas_save_schedule : Thinker
         "Boss alerted.",
 
         "All items found.",
+        "Tick.",
         "Time passed.",
         "You are moved to another place.",
 
@@ -93,16 +95,122 @@ class m8f_aas_save_schedule : Thinker
         "Backpack found.",
         "New armor type.",
         "Major healing.",
+        "Manual save",
 
         "Autosave on unknown reason"
       };
 
-    if (reason > end_of_reasons) { reason = end_of_reasons; }
+    if (type > end_of_types) { return messages[end_of_types]; }
 
-    return messages[reason];
+    return messages[type];
+  }
+}
+
+// Base class for all Aas event handlers
+class m8f_aas_event_handler : Thinker
+{
+  virtual m8f_aas_event_handler init() { return self; }
+
+  virtual void on_event(int event_type) {}
+}
+
+// Global list of Aas event handlers
+class m8f_aas_event_handler_list : Thinker
+{
+  Array<m8f_aas_event_handler> handlers;
+
+  m8f_aas_event_handler_list init()
+  {
+    ChangeStatNum(STAT_INFO);
+    handlers.Push(new("m8f_aas_saver"  ).init());
+    handlers.Push(new("m8f_aas_logger" ).init());
+    handlers.Push(new("m8f_aas_printer").init());
+    handlers.Push(new("m8f_aas_voice"  ).init());
+    return self;
   }
 
-  private static bool saveEnabled(save_on reason)
+  static m8f_aas_event_handler_list get()
+  {
+    let it = ThinkerIterator.Create("m8f_aas_event_handler_list", STAT_INFO);
+    let p  = m8f_aas_event_handler_list(it.Next());
+
+    if (p != null) { return p; }
+    else           { return new("m8f_aas_event_handler_list").init(); }
+  }
+}
+
+class m8f_aas_event_dispatcher : m8f_aas_event_handler
+{
+  override void on_event(int event_type)
+  {
+    let  list       = m8f_aas_event_handler_list.get();
+    uint n_handlers = list.handlers.Size();
+
+    for (uint i = 0; i < n_handlers; ++i)
+      {
+        list.handlers[i].on_event(event_type);
+      }
+  }
+}
+
+class m8f_aas_logger : m8f_aas_event_handler
+{
+  override void on_event(int event_type)
+  {
+    int console_level = CVar.GetCVar("m8f_aas_console_log_level").GetInt();
+    if (event_type <= console_level
+        && event_type != m8f_aas_event.tick)
+      {
+        Console.Printf(m8f_aas_event.message(event_type));
+      }
+  }
+}
+
+class m8f_aas_printer : m8f_aas_event_handler
+{
+  override void on_event(int event_type)
+  {
+    int screen_level = CVar.GetCVar("m8f_aas_screen_level").GetInt();
+    if (event_type <= screen_level
+        && event_type != m8f_aas_event.tick)
+      {
+        Console.MidPrint("smallfont", m8f_aas_event.message(event_type), true);
+      }
+  }
+}
+
+class m8f_aas_voice : m8f_aas_event_handler
+{
+  int last_save_time;
+
+  override m8f_aas_event_handler init()
+  {
+    last_save_time = 0;
+    return self;
+  }
+
+  override void on_event(int event_type)
+  {
+    int current_time          = level.time;
+    int time_from_last_save_s = (current_time - last_save_time) / 35;
+    if (time_from_last_save_s < 1) { return; }
+
+    int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
+    if (event_type <= voice_level
+        && event_type != m8f_aas_event.tick)
+      {
+        string voice_file = String.Format("aas/voice%d", event_type);
+        Object.S_Sound(voice_file, 0);
+        last_save_time = current_time;
+      }
+  }
+}
+
+class m8f_aas_saver : m8f_aas_event_handler
+{
+  int last_save_time;
+
+  private static bool saveEnabled(int event_type)
   {
     static const string toggles[] =
       {
@@ -114,6 +222,7 @@ class m8f_aas_save_schedule : Thinker
         "m8f_aas_save_on_boss_alert",
 
         "m8f_aas_save_on_all_items_found",
+        "m8f_aas_stub",
         "m8f_aas_save_on_time_period",
         "m8f_aas_save_on_teleport",
 
@@ -128,7 +237,8 @@ class m8f_aas_save_schedule : Thinker
         "m8f_aas_save_on_key",
         "m8f_aas_save_on_backpack",
         "m8f_aas_save_on_new_armor",
-        "m8f_aas_save_on_big_heal"
+        "m8f_aas_save_on_big_heal",
+        "m8f_aas_stub"
       };
 
     if (CVar.GetCVar("m8f_aas_enabled").GetInt() == false) { return false; }
@@ -137,82 +247,43 @@ class m8f_aas_save_schedule : Thinker
     int min_health = CVar.GetCVar("m8f_aas_health_limit").GetInt();
     if (health < min_health) { return false; }
 
-    if (reason <= 0 || end_of_reasons <= reason) { return false; }
-
-    return CVar.GetCVar(toggles[reason - 1]).GetInt();
+    return CVar.GetCVar(toggles[event_type]).GetInt();
   }
 
-  private save_on reason;
-
-  m8f_aas_save_schedule Init()
+  override m8f_aas_event_handler init()
   {
-    reason = save_on_no_reason;
-    ChangeStatNum(STAT_INFO);
+    last_save_time = 0;
     return self;
   }
 
-  static m8f_aas_save_schedule get()
+  override void on_event(int event_type)
   {
-    ThinkerIterator it = ThinkerIterator.Create("m8f_aas_save_schedule", STAT_INFO);
-    let p = m8f_aas_save_schedule(it.Next());
-    if (p == null)
+    int current_time          = level.time;
+    int time_from_last_save_s = (current_time - last_save_time) / 35;
+    int autosave_period_s     = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
+
+    if (event_type == m8f_aas_event.tick
+        && time_from_last_save_s > autosave_period_s)
       {
-        p = new("m8f_aas_save_schedule").Init();
-      }
-    return p;
-  }
-
-  void set_scheduled(save_on r)
-  {
-    reason = r;
-  }
-
-  int get_scheduled()
-  {
-    return reason;
-  }
-
-  bool save(int seconds_from_last_save)
-  {
-    if (reason <= m8f_aas_save_schedule.save_on_no_reason ||
-        reason >= m8f_aas_save_schedule.end_of_reasons) { return false; }
-
-    int console_level = CVar.GetCVar("m8f_aas_console_log_level").GetInt();
-    if (reason <= console_level)
-      {
-        Console.Printf(message(reason));
+        let dispatcher = new("m8f_aas_event_dispatcher").init();
+        dispatcher.on_event(m8f_aas_event.time_period);
+        return;
       }
 
-    int screen_level = CVar.GetCVar("m8f_aas_screen_level").GetInt();
-    if (reason <= screen_level)
-      {
-        Console.MidPrint("smallfont", message(reason), true);
-      }
+    int min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
+    if (time_from_last_save_s < min_save_wait_s) { return; }
 
-    int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
-    if (reason <= voice_level)
-      {
-        string voice_file = String.Format("aas/voice%d", reason);
-        Object.S_Sound(voice_file, 0);
-      }
+    if (!saveEnabled(event_type)) { return; }
 
-    int min_save_wait = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
-    if (seconds_from_last_save < min_save_wait) { return false; }
-    if (!saveEnabled(reason)) { return false; }
-
+    last_save_time = current_time;
     gameaction = ga_autosave;
-
-    return true;
   }
-
 }
 
-class m8f_aas_event_handler : EventHandler
+class m8f_aas_event_source : EventHandler
 {
-  int tick;
   bool loading_finished;
-  bool first_tick;
-  const ticksInSecond = 35;
+  const ticks_in_second = 35;
 
   int oldActiveCount;
   int oldActiveBigCount;
@@ -230,10 +301,10 @@ class m8f_aas_event_handler : EventHandler
 
   int seconds_from_last_save;
 
+  m8f_aas_event_handler handler;
+
   override void OnRegister()
   {
-    tick = 0;
-    first_tick = true;
     loading_finished = false;
 
     oldActiveCount = 0;
@@ -243,6 +314,8 @@ class m8f_aas_event_handler : EventHandler
     old_kill_count = 0;
     old_item_count = 0;
     old_secret_count = 0;
+
+    handler = new("m8f_aas_event_dispatcher").init();
   }
 
   override void WorldTick()
@@ -250,42 +323,27 @@ class m8f_aas_event_handler : EventHandler
     CVar autosave_request = CVar.GetCVar("m8f_aas_autosave_requested");
     if (autosave_request.GetInt())
       {
-        gameaction = ga_autosave;
+        handler.on_event(m8f_aas_event.manual);
         autosave_request.SetInt(0);
-        seconds_from_last_save = 0;
         return;
       }
 
-    if (first_tick) { first_tick = !first_tick; return; }
+    if (level.time == 0) { return; }
 
     loading_finished = true;
 
-    if (tick < ticksInSecond) { ++tick; return; }
-
-    tick = 0;
-    ++seconds_from_last_save;
-
-    m8f_aas_save_schedule schedule = m8f_aas_save_schedule.get();
-    check_time_save(schedule);
-    check_counter_events(schedule);
-    check_map_events(schedule);
-    check_player_events(schedule);
-
-    bool saved = schedule.save(seconds_from_last_save);
-    if (saved) { seconds_from_last_save = 0; }
-    schedule.set_scheduled(m8f_aas_save_schedule.save_on_no_reason);
-  }
-
-  void check_time_save(m8f_aas_save_schedule schedule)
-  {
-    int autosave_period = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
-    if (seconds_from_last_save >= autosave_period)
+    int tick_inside_second = level.time % ticks_in_second;
+    switch (tick_inside_second)
       {
-        schedule.set_scheduled(m8f_aas_save_schedule.save_on_time_period);
+      case  0: handler.on_event(m8f_aas_event.tick); break;
+      case  9: check_counter_events(); return;
+      case 18: check_map_events(); return;
+      case 27: check_player_events(); return;
+      default: return;
       }
   }
 
-  void check_map_events(m8f_aas_save_schedule schedule)
+  void check_map_events()
   {
     PlayerInfo player = players[consoleplayer];
 
@@ -293,7 +351,7 @@ class m8f_aas_event_handler : EventHandler
       int secret_count = player.secretcount;
       if (secret_count > old_secret_count)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_secret_found);
+          handler.on_event(m8f_aas_event.secret_found);
         }
       old_secret_count = secret_count;
     }
@@ -302,7 +360,7 @@ class m8f_aas_event_handler : EventHandler
       int kill_count = level.killed_monsters;
       if (kill_count != old_kill_count && kill_count == level.total_monsters)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_all_kill);
+          handler.on_event(m8f_aas_event.all_kill);
         }
       old_kill_count = kill_count;
     }
@@ -311,13 +369,13 @@ class m8f_aas_event_handler : EventHandler
       int item_count = level.found_items;
       if (item_count != old_item_count && item_count == level.total_items)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_all_items_found);
+          handler.on_event(m8f_aas_event.all_items_found);
         }
       old_item_count = item_count;
     }
   }
 
-  void check_player_events(m8f_aas_save_schedule schedule)
+  void check_player_events()
   {
     PlayerInfo player = players[consoleplayer];
 
@@ -329,7 +387,7 @@ class m8f_aas_event_handler : EventHandler
       if (dist > 2000000.0)
         {
           //Console.Printf("Distance: %f", dist);
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_teleport);
+          handler.on_event(m8f_aas_event.teleport);
         }
       old_pos = pos;
     }
@@ -340,15 +398,15 @@ class m8f_aas_event_handler : EventHandler
       int health_up   = CVar.GetCVar("m8f_aas_health_threshold_up").GetInt();
       if (health < health_down && old_health >= health_down)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_drop);
+          handler.on_event(m8f_aas_event.health_drop);
         }
       else if (health > health_up && old_health <= health_up)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_health_rise);
+          handler.on_event(m8f_aas_event.health_rise);
         }
       else if (health >= old_health + 50)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_big_heal);
+          handler.on_event(m8f_aas_event.big_heal);
         }
       old_health = health;
     }
@@ -359,11 +417,11 @@ class m8f_aas_event_handler : EventHandler
       int armor_up    = CVar.GetCVar("m8f_aas_armor_threshold_up").GetInt();
       if (armor_count < armor_down && old_armor >= armor_down)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_armor_drop);
+          handler.on_event(m8f_aas_event.armor_drop);
         }
       else if (armor_count > armor_up && old_armor <= armor_up)
         {
-          schedule.set_scheduled(m8f_aas_save_schedule.save_on_armor_rise);
+          handler.on_event(m8f_aas_event.armor_rise);
         }
       old_armor = armor_count;
     }
@@ -375,14 +433,14 @@ class m8f_aas_event_handler : EventHandler
           double save_percent = armor.SavePercent;
           if (save_percent != 0.0 && save_percent != old_armor_save)
             {
-              schedule.set_scheduled(m8f_aas_save_schedule.save_on_new_armor);
+              handler.on_event(m8f_aas_event.new_armor);
             }
           old_armor_save = save_percent;
         }
     }
   }
 
-  void check_counter_events(m8f_aas_save_schedule schedule)
+  void check_counter_events()
   {
     // count active monsters
     ThinkerIterator i   = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
@@ -408,23 +466,23 @@ class m8f_aas_event_handler : EventHandler
     int group_number = CVar.GetCVar("m8f_aas_group_number").GetInt();
     if (activeCount >= oldActiveCount + group_number)
       {
-        schedule.set_scheduled(m8f_aas_save_schedule.save_on_group_alert);
+        handler.on_event(m8f_aas_event.group_alert);
       }
     else if (activeCount == 0)
       {
         if (maxActive >= group_number)
           {
-            schedule.set_scheduled(m8f_aas_save_schedule.save_on_group_kill);
+            handler.on_event(m8f_aas_event.group_kill);
           }
         maxActive = 0;
       }
     else if (activeBigCount > oldActiveBigCount)
       {
-        schedule.set_scheduled(m8f_aas_save_schedule.save_on_boss_alert);
+        handler.on_event(m8f_aas_event.boss_alert);
       }
     else if (activeBigCount < oldActiveBigCount)
       {
-        schedule.set_scheduled(m8f_aas_save_schedule.save_on_boss_kill);
+        handler.on_event(m8f_aas_event.boss_kill);
       }
 
     oldActiveCount = activeCount;
@@ -471,44 +529,41 @@ class m8f_aas_event_handler : EventHandler
         "Backpack2",
         "BlueprintItem"
       };
-    static const int reasons[] =
+    static const int types[] =
       {
-        m8f_aas_save_schedule.save_on_key,
+        m8f_aas_event.key,
 
-        m8f_aas_save_schedule.save_on_weapon,
-        m8f_aas_save_schedule.save_on_weapon,
+        m8f_aas_event.weapon,
+        m8f_aas_event.weapon,
 
-        m8f_aas_save_schedule.save_on_powerup,
-        m8f_aas_save_schedule.save_on_powerup,
-        m8f_aas_save_schedule.save_on_powerup,
-        m8f_aas_save_schedule.save_on_powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
 
-        m8f_aas_save_schedule.save_on_backpack,
-        m8f_aas_save_schedule.save_on_backpack,
-        m8f_aas_save_schedule.save_on_backpack
+        m8f_aas_event.backpack,
+        m8f_aas_event.backpack,
+        m8f_aas_event.backpack
       };
     int n_saveable_items_classes = 10;
 
-    int reason = m8f_aas_save_schedule.save_on_no_reason;
     for (int i = 0; i < n_saveable_items_classes; ++i)
       {
-        if (item is saveable_item_classes[i])
+        if (!(item is saveable_item_classes[i])) { continue; }
+
+        Actor owner = item.owner;
+        if (owner == null)
           {
-            Actor owner = item.owner;
-            if (owner == null)
-              {
-                m8f_aas_token token =
-                  m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint));
-                token.set_reason(reasons[i]);
-              }
-            else if (loading_finished) // don't save on obtaining starting weapons
-              {
-                m8f_aas_token token = m8f_aas_token(Actor.Spawn("m8f_aas_token"));
-                token.set_reason(reasons[i]);
-                owner.AddInventory(token);
-              }
-            break;
+            m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint))
+              .init(types[i]);
           }
+        else if (loading_finished) // don't save on obtaining starting weapons
+          {
+            let token = m8f_aas_token(Actor.Spawn("m8f_aas_token"))
+              .init(types[i]);
+            owner.AddInventory(token);
+          }
+        break;
       }
   }
 }

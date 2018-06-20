@@ -54,3 +54,5 @@ server int  m8f_aas_screen_level      = 0;
 server int  m8f_aas_voice_level       = 0;
 
 server bool m8f_aas_autosave_requested = false;
+
+server bool m8f_aas_stub = false;
