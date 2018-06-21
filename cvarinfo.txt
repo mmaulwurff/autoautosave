@@ -1,35 +1,7 @@
 // Global toggle
 server bool m8f_aas_enabled = true;
 
-// Individual toggles
-server bool m8f_aas_save_on_all_kill   = true;
-server bool m8f_aas_save_on_boss_kill  = true;
-server bool m8f_aas_save_on_group_kill = false;
-
-server bool m8f_aas_save_on_group_alert = false;
-server bool m8f_aas_save_on_boss_alert  = true;
-
-server bool m8f_aas_save_on_all_items_found = true;
-server bool m8f_aas_save_on_secret_found    = true;
-
-server bool m8f_aas_save_on_teleport    = false;
-server bool m8f_aas_save_on_time_period = false;
-
-server bool m8f_aas_save_on_health_drop = false;
-server bool m8f_aas_save_on_health_rise = false;
-server bool m8f_aas_save_on_armor_drop  = false;
-server bool m8f_aas_save_on_armor_rise  = false;
-
-server bool m8f_aas_save_on_powerup  = true;
-server bool m8f_aas_save_on_weapon   = true;
-server bool m8f_aas_save_on_key      = true;
-server bool m8f_aas_save_on_backpack = true;
-
-server bool m8f_aas_save_on_new_armor = true;
-server bool m8f_aas_save_on_big_heal  = true;
-
 // Event tuning
-
 server int  m8f_aas_min_boss_health = 2000;
 server int  m8f_aas_health_limit    = 25;
 server int  m8f_aas_min_save_wait   = 10;  // seconds
@@ -54,6 +26,3 @@ server int  m8f_aas_screen_level      = 0;
 server int  m8f_aas_voice_level       = 0;
 
 server int  m8f_aas_request = -1;
-
-server bool m8f_aas_false = false;
-server bool m8f_aas_true  = true;

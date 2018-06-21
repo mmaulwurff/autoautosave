@@ -1,0 +1,91 @@
+// This file is generated from event_types.org by gen-files.sh.
+// All manual changes will be lost.
+
+class m8f_aas_event
+{
+  enum event_type
+  {
+    all_kill         =   0,
+    boss_kill        =   1,
+    group_kill       =   2,
+    group_alert      =   3,
+    boss_alert       =   4,
+    all_items_found  =   5,
+    tick             =   6,
+    time_period      =   7,
+    teleport         =   8,
+    manual           =   9,
+    pomodoro         =  10,
+    health_drop      = 100,
+    health_rise      = 101,
+    armor_drop       = 102,
+    armor_rise       = 103,
+    secret_found     = 104,
+    powerup          = 200,
+    weapon           = 201,
+    key              = 202,
+    backpack         = 203,
+    new_armor        = 204,
+    big_heal         = 205,
+  }
+
+  static string message(int type)
+  {
+    switch (type)
+      {
+      case all_kill         : return "All enemies eliminated.";
+      case boss_kill        : return "Boss eliminated.";
+      case group_kill       : return "No more active enemies.";
+      case group_alert      : return "New active enemies.";
+      case boss_alert       : return "Boss alerted.";
+      case all_items_found  : return "All items found.";
+      case tick             : return "Tick.";
+      case time_period      : return "Time passed.";
+      case teleport         : return "You are moved to another place.";
+      case manual           : return "Manual save.";
+      case pomodoro         : return "Pomodoro.";
+      case health_drop      : return "Health low.";
+      case health_rise      : return "Health high.";
+      case armor_drop       : return "Armor low.";
+      case armor_rise       : return "Armor high.";
+      case secret_found     : return "Secret found.";
+      case powerup          : return "Powerup is found.";
+      case weapon           : return "Weapon is found.";
+      case key              : return "Key found.";
+      case backpack         : return "Backpack found.";
+      case new_armor        : return "New armor type.";
+      case big_heal         : return "Major healing.";
+      default: return "Unknown event type.";
+      }
+  }
+
+  static string toggle_name(int type)
+  {
+    switch (type)
+      {
+      case all_kill         : return "m8f_aas_save_on_all_kill";
+      case boss_kill        : return "m8f_aas_save_on_boss_kill";
+      case group_kill       : return "m8f_aas_save_on_group_kill";
+      case group_alert      : return "m8f_aas_save_on_group_alert";
+      case boss_alert       : return "m8f_aas_save_on_boss_alert";
+      case all_items_found  : return "m8f_aas_save_on_all_items_found";
+      case tick             : return "m8f_aas_false";
+      case time_period      : return "m8f_aas_save_on_time_period";
+      case teleport         : return "m8f_aas_save_on_teleport";
+      case manual           : return "m8f_aas_true";
+      case pomodoro         : return "m8f_aas_true";
+      case health_drop      : return "m8f_aas_save_on_health_drop";
+      case health_rise      : return "m8f_aas_save_on_health_rise";
+      case armor_drop       : return "m8f_aas_save_on_armor_drop";
+      case armor_rise       : return "m8f_aas_save_on_armor_rise";
+      case secret_found     : return "m8f_aas_save_on_secret_found";
+      case powerup          : return "m8f_aas_save_on_powerup";
+      case weapon           : return "m8f_aas_save_on_weapon";
+      case key              : return "m8f_aas_save_on_key";
+      case backpack         : return "m8f_aas_save_on_backpack";
+      case new_armor        : return "m8f_aas_save_on_new_armor";
+      case big_heal         : return "m8f_aas_save_on_big_heal";
+      default: return "m8f_aas_false";
+      }
+  }
+}

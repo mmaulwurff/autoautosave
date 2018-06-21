@@ -1,0 +1,30 @@
+* This file contains event definitions for Autoautosave.
+
+|   N | Enum            | CVar                            | Default | Text                            |
+|-----+-----------------+---------------------------------+---------+---------------------------------|
+|   0 | all_kill        | m8f_aas_save_on_all_kill        | true    | All enemies eliminated.         |
+|   1 | boss_kill       | m8f_aas_save_on_boss_kill       | true    | Boss eliminated.                |
+|   2 | group_kill      | m8f_aas_save_on_group_kill      | false   | No more active enemies.         |
+|   3 | group_alert     | m8f_aas_save_on_group_alert     | false   | New active enemies.             |
+|   4 | boss_alert      | m8f_aas_save_on_boss_alert      | true    | Boss alerted.                   |
+|   5 | all_items_found | m8f_aas_save_on_all_items_found | true    | All items found.                |
+|   6 | tick            | m8f_aas_false                   | false   | Tick.                           |
+|   7 | time_period     | m8f_aas_save_on_time_period     | false   | Time passed.                    |
+|   8 | teleport        | m8f_aas_save_on_teleport        | false   | You are moved to another place. |
+|   9 | manual          | m8f_aas_true                    | true    | Manual save.                    |
+|  10 | pomodoro        | m8f_aas_true                    | true    | Pomodoro.                       |
+|-----+-----------------+---------------------------------+---------+---------------------------------|
+| 100 | health_drop     | m8f_aas_save_on_health_drop     | false   | Health low.                     |
+| 101 | health_rise     | m8f_aas_save_on_health_rise     | false   | Health high.                    |
+| 102 | armor_drop      | m8f_aas_save_on_armor_drop      | false   | Armor low.                      |
+| 103 | armor_rise      | m8f_aas_save_on_armor_rise      | false   | Armor high.                     |
+| 104 | secret_found    | m8f_aas_save_on_secret_found    | true    | Secret found.                   |
+|-----+-----------------+---------------------------------+---------+---------------------------------|
+| 200 | powerup         | m8f_aas_save_on_powerup         | true    | Powerup is found.               |
+| 201 | weapon          | m8f_aas_save_on_weapon          | true    | Weapon is found.                |
+| 202 | key             | m8f_aas_save_on_key             | true    | Key found.                      |
+| 203 | backpack        | m8f_aas_save_on_backpack        | true    | Backpack found.                 |
+| 204 | new_armor       | m8f_aas_save_on_new_armor       | true    | New armor type.                 |
+| 205 | big_heal        | m8f_aas_save_on_big_heal        | true    | Major healing.                  |
+|-----+-----------------+---------------------------------+---------+---------------------------------|
+|   N | Enum            | CVar                            |         | Text                            |

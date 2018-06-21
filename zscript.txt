@@ -1,5 +1,7 @@
 version "3.2.5"
 
+#include "m8f_aas_event.txt"
+
 // Creates an m8f_aas_event when pickup up
 // TODO: rewrite for new structure
 class m8f_aas_token : Inventory
@@ -19,96 +21,6 @@ class m8f_aas_token : Inventory
     dispatcher.on_event(event_type);
     GoAwayAndDie();
     return true;
-  }
-}
-
-// Represents all events that can happend in Autoautosaver
-class m8f_aas_event
-{
-  // Reasons to save, more important first
-  enum event_type
-  {
-    // other
-    all_kill,
-    boss_kill,
-    group_kill,
-
-    group_alert,
-    boss_alert,
-
-    all_items_found,
-    tick,
-    time_period,
-    teleport, // 8
-
-    quiet_limit = teleport,
-
-    // evident
-    health_drop,
-    health_rise,
-    armor_drop,
-    armor_rise,
-    secret_found, // 13
-
-    verbose_limit = secret_found,
-
-    // pickups
-    powerup,
-    weapon,
-    key,
-    backpack,
-    new_armor,
-    big_heal,
-
-    // other
-    manual,
-    pomodoro,
-
-    end_of_types
-  };
-
-  static string message(int type)
-  {
-    static const string messages[] =
-      {
-        // other
-        "All enemies eliminated.",
-        "Boss eliminated.",
-        "No more active enemies.",
-
-        "New active enemies.",
-        "Boss alerted.",
-
-        "All items found.",
-        "Tick.",
-        "Time passed.",
-        "You are moved to another place.",
-
-        // evident
-        "Health low.",
-        "Health high.",
-        "Armor low.",
-        "Armor high.",
-        "Secret found.",
-
-        // pickups
-        "Powerup is found.",
-        "Weapon is found.",
-        "Key found.",
-        "Backpack found.",
-        "New armor type.",
-        "Major healing.",
-
-        // other
-        "Manual save",
-        "Pomodoro",
-
-        "Autosave on unknown reason"
-      };
-
-    if (type > end_of_types) { return messages[end_of_types]; }
-
-    return messages[type];
   }
 }
 
@@ -220,45 +132,15 @@ class m8f_aas_saver : m8f_aas_event_handler
   {
     if (event_type == m8f_aas_event.manual) { return true; }
 
-    static const string toggles[] =
-      {
-        "m8f_aas_save_on_all_kill",
-        "m8f_aas_save_on_boss_kill",
-        "m8f_aas_save_on_group_kill",
-
-        "m8f_aas_save_on_group_alert",
-        "m8f_aas_save_on_boss_alert",
-
-        "m8f_aas_save_on_all_items_found",
-        "m8f_aas_false",
-        "m8f_aas_save_on_time_period",
-        "m8f_aas_save_on_teleport",
-
-        "m8f_aas_save_on_health_drop",
-        "m8f_aas_save_on_health_rise",
-        "m8f_aas_save_on_armor_drop",
-        "m8f_aas_save_on_armor_rise",
-        "m8f_aas_save_on_secret_found",
-
-        "m8f_aas_save_on_powerup",
-        "m8f_aas_save_on_weapon",
-        "m8f_aas_save_on_key",
-        "m8f_aas_save_on_backpack",
-        "m8f_aas_save_on_new_armor",
-        "m8f_aas_save_on_big_heal",
-
-        // other
-        "m8f_aas_true",
-        "m8f_aas_true"
-      };
-
     if (CVar.GetCVar("m8f_aas_enabled").GetInt() == false) { return false; }
 
     int health = players[consoleplayer].Health;
     int min_health = CVar.GetCVar("m8f_aas_health_limit").GetInt();
     if (health < min_health) { return false; }
 
-    return CVar.GetCVar(toggles[event_type]).GetInt();
+    string toggle_name = m8f_aas_event.toggle_name(event_type);
+
+    return CVar.GetCVar(toggle_name).GetInt();
   }
 
   override m8f_aas_event_handler init()
