@@ -201,16 +201,6 @@ class m8f_aas_event_source : EventHandler
   override void OnRegister()
   {
     loading_finished = false;
-
-    oldActiveCount = 0;
-    oldActiveBigCount = 0;
-    maxActive = 0;
-
-    old_kill_count = 0;
-    old_item_count = 0;
-    old_secret_count = 0;
-
-    handler = new("m8f_aas_event_dispatcher").init();
   }
 
   override void WorldTick()
@@ -299,8 +289,9 @@ class m8f_aas_event_source : EventHandler
         {
           handler.on_event(m8f_aas_event.health_rise);
         }
-      else if (health >= old_health + 50)
+      else if (health >= old_health + 50 && old_health > 0)
         {
+          Console.Printf("current: %d, old: %d", health, old_health);
           handler.on_event(m8f_aas_event.big_heal);
         }
       old_health = health;
@@ -384,23 +375,40 @@ class m8f_aas_event_source : EventHandler
     oldActiveBigCount = activeBigCount;
   }
 
+  override void PlayerEntered(PlayerEvent e)
+  {
+    if (e.PlayerNumber != consolePlayer) { return; }
+    init_player();
+  }
+
+  void init_player()
+  {
+    oldActiveCount = 0;
+    oldActiveBigCount = 0;
+    maxActive = 0;
+
+    old_kill_count = 0;
+    old_item_count = 0;
+
+    handler = new("m8f_aas_event_dispatcher").init();
+
+    PlayerInfo pInfo  = players[consolePlayer];
+    let player = PlayerPawn(pInfo.mo);
+    old_pos    = player.Pos;
+    old_health = player.Health;
+    old_armor  = player.CountInv("BasicArmor");
+    old_secret_count = pInfo.secretcount;
+
+    BasicArmor armor = BasicArmor(player.FindInventory("BasicArmor"));
+    if (armor) { old_armor_save = armor.SavePercent; }
+    else       { old_armor_save = 0.0; }
+  }
+
   override void WorldThingSpawned(WorldEvent e)
   {
     // spawn special actor that saves the game when picked up
     // alongside inventory items.
     if (e.thing.GetClassName() == "m8f_aas_token") { return; }
-
-    if (e.thing.Player == players[consoleplayer])
-      {
-        old_pos    = e.thing.Pos;
-        old_health = e.thing.Health;
-        old_armor  = e.thing.CountInv("BasicArmor");
-
-        BasicArmor armor = BasicArmor(e.thing.FindInventory("BasicArmor"));
-        if (armor) { old_armor_save = armor.SavePercent; }
-        else       { old_armor_save = 0.0; }
-        return;
-      }
 
     Inventory item = Inventory(e.thing);
     if (item == null) { return; }
