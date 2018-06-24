@@ -6,7 +6,7 @@ git log --pretty=format:"-%d %ai %s%n" > changelog.txt \
 && \
 rm -f $name.pk3 \
 && \
-./gen-voice.sh \
+./gen-files.sh \
 && \
 zip $name.pk3 \
     *.txt \

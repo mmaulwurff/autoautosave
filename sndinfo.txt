@@ -1,26 +1,26 @@
 // This file is generated automatically!
 // All changed will be lost!
-// see gen-voice.sh for details.
+// see gen-files.sh for details.
 
-aas/voice0 m8faas0
-aas/voice1 m8faas1
-aas/voice2 m8faas2
-aas/voice3 m8faas3
-aas/voice4 m8faas4
-aas/voice5 m8faas5
-aas/voice6 m8faas6
-aas/voice7 m8faas7
-aas/voice8 m8faas8
-aas/voice9 m8faas9
-aas/voice10 m8faas10
-aas/voice11 m8faas11
-aas/voice12 m8faas12
-aas/voice13 m8faas13
-aas/voice14 m8faas14
-aas/voice15 m8faas15
-aas/voice16 m8faas16
-aas/voice17 m8faas17
-aas/voice18 m8faas18
-aas/voice19 m8faas19
-aas/voice20 m8faas20
-aas/voice21 m8faas21
+ass/voice0 m8faas0
+ass/voice1 m8faas1
+ass/voice2 m8faas2
+ass/voice3 m8faas3
+ass/voice4 m8faas4
+ass/voice5 m8faas5
+ass/voice6 m8faas6
+ass/voice7 m8faas7
+ass/voice8 m8faas8
+ass/voice9 m8faas9
+ass/voice10 m8faas10
+ass/voice100 m8faas100
+ass/voice101 m8faas101
+ass/voice102 m8faas102
+ass/voice103 m8faas103
+ass/voice104 m8faas104
+ass/voice200 m8faas200
+ass/voice201 m8faas201
+ass/voice202 m8faas202
+ass/voice203 m8faas203
+ass/voice204 m8faas204
+ass/voice205 m8faas205

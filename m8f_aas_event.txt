@@ -43,7 +43,7 @@ class m8f_aas_event
       case time_period      : return "Time passed.";
       case teleport         : return "You are moved to another place.";
       case manual           : return "Manual save.";
-      case pomodoro         : return "Pomodoro.";
+      case pomodoro         : return "It's time to take a break.";
       case health_drop      : return "Health low.";
       case health_rise      : return "Health high.";
       case armor_drop       : return "Armor low.";
