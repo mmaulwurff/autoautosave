@@ -156,7 +156,8 @@ class m8f_aas_saver : m8f_aas_event_handler
     int autosave_period_s     = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
 
     if (event_type == m8f_aas_event.tick
-        && time_from_last_save_s > autosave_period_s)
+        && time_from_last_save_s > autosave_period_s
+        && CVar.GetCVar("m8f_aas_save_on_time_period").GetInt())
       {
         let dispatcher = new("m8f_aas_event_dispatcher").init();
         dispatcher.on_event(m8f_aas_event.time_period);
