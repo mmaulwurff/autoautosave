@@ -1,9 +1,9 @@
 OptionValue "m8f_aas_log_level_options"
 {
-  -1, "nothing"
-   8, "quiet"
-  13, "verbose"
-  99, "everything"
+   -1, "nothing"
+   99, "quiet"
+  199, "verbose"
+  999, "everything"
 }
 
 OptionMenu "AutoautosaveOptions"

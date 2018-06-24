@@ -421,7 +421,8 @@ class m8f_aas_event_source : EventHandler
 
         "BackpackItem",
         "Backpack2",
-        "BlueprintItem"
+        "BlueprintItem",
+        "NetronianBackpack"
       };
     static const int types[] =
       {
@@ -437,9 +438,10 @@ class m8f_aas_event_source : EventHandler
 
         m8f_aas_event.backpack,
         m8f_aas_event.backpack,
+        m8f_aas_event.backpack,
         m8f_aas_event.backpack
       };
-    int n_saveable_items_classes = 10;
+    int n_saveable_items_classes = 11;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
       {
@@ -451,11 +453,17 @@ class m8f_aas_event_source : EventHandler
             m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint))
               .init(types[i]);
           }
-        else if (loading_finished) // don't save on obtaining starting weapons
+        else if (owner == players[consoleplayer].mo
+                 && loading_finished) // don't save on obtaining starting weapons
           {
-            let token = m8f_aas_token(Actor.Spawn("m8f_aas_token"))
-              .init(types[i]);
-            owner.AddInventory(token);
+            string netronianBackpack = "NetronianBackpack";
+            class<Actor> netronianBackpackClass = netronianBackpack;
+            // don't save on BackpackItem for Netronian Chaos, save on
+            // Netronian Backpack instead
+            if (saveable_item_classes[i] == "BackpackItem"
+                && netronianBackpackClass) { return; }
+
+            handler.on_event(types[i]);
           }
         break;
       }
