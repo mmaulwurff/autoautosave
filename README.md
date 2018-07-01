@@ -1,4 +1,8 @@
-This archive contains Autoautosave, a universal autosaver for GZDoom.
+# Autoautosave
+
+GZDoom mod: universal autosaver.
+
+It works as a configurable checkpoint system.
 It is designed to be compatible with any monster and weapon mod, and any map.
 
 # Autosave on certain events:
@@ -21,6 +25,9 @@ It is designed to be compatible with any monster and weapon mod, and any map.
 - Backpack is found
 - New armor type
 - Major healing
+
+# Thanks to
+insightguy, Someone64, 4thcharacter, Tesculpture, SiFi270, ShockwaveS08, Rowsol, Zhs2, dawnbreez, and namsan for suggestions and bug reports
 
 Author: m8f
 
