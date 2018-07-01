@@ -291,7 +291,6 @@ class m8f_aas_event_source : EventHandler
         }
       else if (health >= old_health + 50 && old_health > 0)
         {
-          Console.Printf("current: %d, old: %d", health, old_health);
           handler.on_event(m8f_aas_event.big_heal);
         }
       old_health = health;
