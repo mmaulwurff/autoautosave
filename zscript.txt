@@ -198,20 +198,31 @@ class m8f_aas_event_source : EventHandler
 
   m8f_aas_event_handler handler;
 
+  int autosave_request;
+
   override void OnRegister()
   {
     loading_finished = false;
+    autosave_request = -1;
   }
 
   override void WorldTick()
   {
-    CVar autosave_request_cvar = CVar.GetCVar("m8f_aas_request");
-    int  autosave_request      = autosave_request_cvar.GetInt();
+    // request must not be processed in the same tick as it was received
+    // because request CVar is not updated yet.
     if (autosave_request != -1)
       {
         handler.on_event(autosave_request);
-        autosave_request_cvar.SetInt(-1);
+        autosave_request = -1;
         return;
+      }
+
+    CVar autosave_request_cvar = CVar.GetCVar("m8f_aas_request");
+    int  received_request      = autosave_request_cvar.GetInt();
+    if (received_request != -1)
+      {
+        autosave_request_cvar.SetInt(-1);
+        autosave_request = received_request;
       }
 
     if (level.time == 0) { return; }
