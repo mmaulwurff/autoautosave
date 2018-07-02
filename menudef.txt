@@ -46,6 +46,12 @@ OptionMenu "AutoautosaveOptions"
   Option "Weapon is found"               , "m8f_aas_save_on_weapon", "OnOff"
   Option "Key is found"                  , "m8f_aas_save_on_key", "OnOff"
   Option "Backpack is found"             , "m8f_aas_save_on_backpack", "OnOff"
+  Option "Important item is found"       , "m8f_aas_save_on_artefact", "OnOff"
+  StaticText "Important item list currently includes:", "Black"
+  StaticText "The Golden Souls Big Coins", "Black"
+  StaticText "May be something else in the future!", "Black"
+
+  StaticText ""
   Option "New armor type"                , "m8f_aas_save_on_new_armor", "OnOff"
   Option "Major healing"                 , "m8f_aas_save_on_big_heal", "OnOff"
 
@@ -54,6 +60,12 @@ OptionMenu "AutoautosaveOptions"
   Slider "Enemy is boss when health not less", "m8f_aas_min_boss_health", 0, 20000, 200, 0
   Slider "Group is not less than N enemies", "m8f_aas_group_number", 1, 50, 1, 0
   Slider "Don't save when health is lower than", "m8f_aas_health_limit", 0, 500, 5, 0
+
+  TextField "Low health threshold"  , "m8f_aas_health_threshold_down"
+  TextField "High health threshold" , "m8f_aas_health_threshold_up"
+  TextField "Low armor threshold"   , "m8f_aas_armor_threshold_down"
+  TextField "High armor threshold"  , "m8f_aas_armor_threshold_up"
+
   Slider "Don't save until seconds passed", "m8f_aas_min_save_wait", 0, 120, 5, 0
   Slider "Autosave every N seconds", "m8f_aas_autosave_period", 30, 600, 30, 0
   Option "Save on dropped items", "m8f_aas_save_on_dropped", "OnOff"

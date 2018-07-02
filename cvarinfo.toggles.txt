@@ -6,6 +6,7 @@ server bool m8f_aas_save_on_all_items_found  = true;
 server bool m8f_aas_save_on_all_kill         = true;
 server bool m8f_aas_save_on_armor_drop       = false;
 server bool m8f_aas_save_on_armor_rise       = false;
+server bool m8f_aas_save_on_artefact         = true;
 server bool m8f_aas_save_on_backpack         = true;
 server bool m8f_aas_save_on_big_heal         = true;
 server bool m8f_aas_save_on_boss_alert       = true;

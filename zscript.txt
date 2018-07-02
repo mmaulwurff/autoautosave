@@ -118,7 +118,7 @@ class m8f_aas_voice : m8f_aas_event_handler
         && event_type != m8f_aas_event.tick)
       {
         string voice_file = String.Format("aas/voice%d", event_type);
-        Object.S_Sound(voice_file, 0);
+        Object.S_Sound(voice_file, CHAN_AUTO);
         last_save_time = current_time;
       }
   }
@@ -441,7 +441,9 @@ class m8f_aas_event_source : EventHandler
         "BackpackItem",
         "Backpack2",
         "BlueprintItem",
-        "NetronianBackpack"
+        "NetronianBackpack",
+
+        "Big_Coin_pickup"
       };
     static const int types[] =
       {
@@ -458,9 +460,11 @@ class m8f_aas_event_source : EventHandler
         m8f_aas_event.backpack,
         m8f_aas_event.backpack,
         m8f_aas_event.backpack,
-        m8f_aas_event.backpack
+        m8f_aas_event.backpack,
+
+        m8f_aas_event.gs_gold_coin
       };
-    int n_saveable_items_classes = 11;
+    int n_saveable_items_classes = 12;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
       {

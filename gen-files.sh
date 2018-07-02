@@ -50,7 +50,7 @@ echo "// This file is generated automatically!"                       >  $sndinf
 echo "// All changed will be lost!"                                   >> $sndinfo_file
 echo "// see gen-files.sh for details."                               >> $sndinfo_file
 echo ""                                                               >> $sndinfo_file
-echo "$filtered" | awk '{ printf("ass/voice%s m8faas%s\n", $2, $2) }' >> $sndinfo_file
+echo "$filtered" | awk '{ printf("aas/voice%s m8faas%s\n", $2, $2) }' >> $sndinfo_file
 
 # Generate ogg sounds
 
