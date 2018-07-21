@@ -50,7 +50,7 @@ echo "// This file is generated automatically!"                       >  $sndinf
 echo "// All changed will be lost!"                                   >> $sndinfo_file
 echo "// see gen-files.sh for details."                               >> $sndinfo_file
 echo ""                                                               >> $sndinfo_file
-echo "$filtered" | awk '{ printf("aas/voice%s m8faas%s\n", $2, $2) }' >> $sndinfo_file
+echo "$filtered" | awk '{ printf("aas/voice%s \"sounds/m8faas%s.ogg\"\n", $2, $2) }' >> $sndinfo_file
 
 # Generate ogg sounds
 
@@ -59,14 +59,13 @@ rm -f sounds/*
 mkdir -p sounds
 
 params="-s140 -p0 -g1 -v english"
-i="0"
 filename="sounds/m8faas"
 
 while read -r line; do
     voice_string=$(echo $line | awk '{ print $10; for (i=11; i<NF; ++i) { printf(" %s", $i); } }')
+    i=$(echo $line | awk '{ print $2 }')
     #echo $voice_string
     espeak "$voice_string" $params -w $filename$i".wav";
-    i=$(($i+1))
 done <<< "$filtered"
 
 for f in sounds/*.wav;
