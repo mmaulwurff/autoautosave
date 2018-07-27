@@ -416,6 +416,9 @@ class m8f_aas_event_source : EventHandler
 
   override void WorldThingSpawned(WorldEvent e)
   {
+    if (e == null) { return; }
+    if (e.thing == null) { return; }
+
     // spawn special actor that saves the game when picked up
     // alongside inventory items.
     if (e.thing.GetClassName() == "m8f_aas_token") { return; }
