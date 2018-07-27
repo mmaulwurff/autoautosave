@@ -27,7 +27,7 @@ It is designed to be compatible with any monster and weapon mod, and any map.
 - Major healing
 
 # Thanks to
-insightguy, Someone64, 4thcharacter, Tesculpture, SiFi270, ShockwaveS08, Rowsol, Zhs2, dawnbreez, and namsan for suggestions and bug reports
+insightguy, Someone64, 4thcharacter, Tesculpture, SiFi270, ShockwaveS08, Rowsol, Zhs2, dawnbreez, namsan, and Crimsondrgn for suggestions and bug reports.
 
 Author: m8f
 
