@@ -432,42 +432,54 @@ class m8f_aas_event_source : EventHandler
     static const string saveable_item_classes[] =
       {
         "Key",
-
-        "Weapon",
+        "Weapon", // weapons
         "Goonades",
-
-        "PowerupGiver",
+        "SPAMMineItem",
+        "PowerupGiver", // powerups
         "TBPowerupBase",
         "MapRevealer",
         "Berserk",
-
-        "BackpackItem",
+        "Speeders",
+        "IcarusMk8",
+        "ProtectoBand",
+        "BigSPAMMine",
+        "GuardBoi",
+        "BadassGlasses",
+        "Mapisto",
+        "LovebirdTag",
+        "BigScorePresent",
+        "BackpackItem", // backpacks
         "Backpack2",
         "BlueprintItem",
         "NetronianBackpack",
-
-        "Big_Coin_pickup"
+        "Big_Coin_pickup" // other
       };
     static const int types[] =
       {
         m8f_aas_event.key,
-
         m8f_aas_event.weapon,
         m8f_aas_event.weapon,
-
+        m8f_aas_event.weapon,
         m8f_aas_event.powerup,
         m8f_aas_event.powerup,
         m8f_aas_event.powerup,
         m8f_aas_event.powerup,
-
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
+        m8f_aas_event.powerup,
         m8f_aas_event.backpack,
         m8f_aas_event.backpack,
         m8f_aas_event.backpack,
         m8f_aas_event.backpack,
-
         m8f_aas_event.gs_gold_coin
       };
-    int n_saveable_items_classes = 12;
+    int n_saveable_items_classes = 22;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
       {
