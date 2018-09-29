@@ -13,6 +13,7 @@ echo "// All manual changes will be lost."                                      
 echo ""                                                                                                                                       >> $class_file
 echo "class m8f_aas_event"                                                                                                                    >> $class_file
 echo "{"                                                                                                                                      >> $class_file
+echo ""                                                                                                                                       >> $class_file
 echo "  enum event_type"                                                                                                                      >> $class_file
 echo "  {"                                                                                                                                    >> $class_file
 echo "$filtered" | awk '{ printf("    %-16s = %3s,\n", $4, $2) }'                                                                             >> $class_file
@@ -21,21 +22,31 @@ echo ""                                                                         
 echo "  static string message(int type)"                                                                                                      >> $class_file
 echo "  {"                                                                                                                                    >> $class_file
 echo "    switch (type)"                                                                                                                      >> $class_file
-echo "      {"                                                                                                                                >> $class_file
+echo "    {"                                                                                                                                  >> $class_file
 echo "$filtered" | awk '{ printf("      case %-16s : return \"%s", $4, $10); for (i=11; i<NF; ++i) { printf(" %s", $i); }; printf("\";\n") }' >> $class_file
 echo "      default: return \"Unknown event type.\";"                                                                                         >> $class_file
-echo "      }"                                                                                                                                >> $class_file
+echo "    }"                                                                                                                                  >> $class_file
 echo "  }"                                                                                                                                    >> $class_file
 echo ""                                                                                                                                       >> $class_file
 echo "  static string toggle_name(int type)"                                                                                                  >> $class_file
 echo "  {"                                                                                                                                    >> $class_file
 echo "    switch (type)"                                                                                                                      >> $class_file
-echo "      {"                                                                                                                                >> $class_file
+echo "    {"                                                                                                                                  >> $class_file
 echo "$filtered" | awk '{ printf("      case %-16s : return \"%s\";\n", $4, $6) }'                                                            >> $class_file
 echo "      default: return \"m8f_aas_false\";"                                                                                               >> $class_file
-echo "      }"                                                                                                                                >> $class_file
+echo "    }"                                                                                                                                  >> $class_file
 echo "  }"                                                                                                                                    >> $class_file
-echo "}"                                                                                                                                      >> $class_file
+echo ""                                                                                                                                       >> $class_file
+echo "  static string shot_toggle_name(int type)"                                                                                             >> $class_file
+echo "  {"                                                                                                                                    >> $class_file
+echo "    switch (type)"                                                                                                                      >> $class_file
+echo "    {"                                                                                                                                  >> $class_file
+echo "$filtered" | awk '{ printf("      case %-16s : return \"m8f_aas_shot_on_%s\";\n", $4, $4) }'                                            >> $class_file
+echo "      default: return \"m8f_aas_false\";"                                                                                               >> $class_file
+echo "    }"                                                                                                                                  >> $class_file
+echo "  }"                                                                                                                                    >> $class_file
+echo ""                                                                                                                                       >> $class_file
+echo "} // class m8f_aas_event"                                                                                                               >> $class_file
 
 # Generate cvarinfo
 
@@ -43,6 +54,8 @@ echo "// This file is generated from event_types.org by gen-files.sh."          
 echo "// All manual changes will be lost."                                                                                                    >> $cvar_file
 echo ""                                                                                                                                       >> $cvar_file
 echo "$filtered" | awk '{ printf("server bool %-32s = %s;\n", $6, $8) }' | sort | uniq                                                        >> $cvar_file
+echo ""                                                                                                                                       >> $cvar_file
+echo "$filtered" | awk '{ printf("server bool m8f_aas_shot_on_%-16s = false;\n", $4) }' | sort | uniq                                         >> $cvar_file
 
 # Generate sndinfo
 

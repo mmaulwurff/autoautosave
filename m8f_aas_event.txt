@@ -3,6 +3,7 @@
 
 class m8f_aas_event
 {
+
   enum event_type
   {
     all_kill         =   0,
@@ -33,7 +34,7 @@ class m8f_aas_event
   static string message(int type)
   {
     switch (type)
-      {
+    {
       case all_kill         : return "All enemies eliminated.";
       case boss_kill        : return "Boss eliminated.";
       case group_kill       : return "No more active enemies.";
@@ -58,13 +59,13 @@ class m8f_aas_event
       case new_armor        : return "New armor type.";
       case big_heal         : return "Major healing.";
       default: return "Unknown event type.";
-      }
+    }
   }
 
   static string toggle_name(int type)
   {
     switch (type)
-      {
+    {
       case all_kill         : return "m8f_aas_save_on_all_kill";
       case boss_kill        : return "m8f_aas_save_on_boss_kill";
       case group_kill       : return "m8f_aas_save_on_group_kill";
@@ -89,6 +90,38 @@ class m8f_aas_event
       case new_armor        : return "m8f_aas_save_on_new_armor";
       case big_heal         : return "m8f_aas_save_on_big_heal";
       default: return "m8f_aas_false";
-      }
+    }
   }
-}
+
+  static string shot_toggle_name(int type)
+  {
+    switch (type)
+    {
+      case all_kill         : return "m8f_aas_shot_on_all_kill";
+      case boss_kill        : return "m8f_aas_shot_on_boss_kill";
+      case group_kill       : return "m8f_aas_shot_on_group_kill";
+      case group_alert      : return "m8f_aas_shot_on_group_alert";
+      case boss_alert       : return "m8f_aas_shot_on_boss_alert";
+      case all_items_found  : return "m8f_aas_shot_on_all_items_found";
+      case tick             : return "m8f_aas_shot_on_tick";
+      case time_period      : return "m8f_aas_shot_on_time_period";
+      case teleport         : return "m8f_aas_shot_on_teleport";
+      case manual           : return "m8f_aas_shot_on_manual";
+      case pomodoro         : return "m8f_aas_shot_on_pomodoro";
+      case gs_gold_coin     : return "m8f_aas_shot_on_gs_gold_coin";
+      case health_drop      : return "m8f_aas_shot_on_health_drop";
+      case health_rise      : return "m8f_aas_shot_on_health_rise";
+      case armor_drop       : return "m8f_aas_shot_on_armor_drop";
+      case armor_rise       : return "m8f_aas_shot_on_armor_rise";
+      case secret_found     : return "m8f_aas_shot_on_secret_found";
+      case powerup          : return "m8f_aas_shot_on_powerup";
+      case weapon           : return "m8f_aas_shot_on_weapon";
+      case key              : return "m8f_aas_shot_on_key";
+      case backpack         : return "m8f_aas_shot_on_backpack";
+      case new_armor        : return "m8f_aas_shot_on_new_armor";
+      case big_heal         : return "m8f_aas_shot_on_big_heal";
+      default: return "m8f_aas_false";
+    }
+  }
+
+} // class m8f_aas_event

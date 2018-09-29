@@ -132,15 +132,47 @@ class m8f_aas_saver : m8f_aas_event_handler
   {
     if (event_type == m8f_aas_event.manual) { return true; }
 
-    if (CVar.GetCVar("m8f_aas_enabled").GetInt() == false) { return false; }
+    bool enabled = CVar.GetCVar("m8f_aas_enabled").GetInt();
+    if (!enabled) { return false; }
 
-    int health = players[consoleplayer].Health;
+    int health     = players[consoleplayer].Health;
     int min_health = CVar.GetCVar("m8f_aas_health_limit").GetInt();
+
     if (health < min_health) { return false; }
 
     string toggle_name = m8f_aas_event.toggle_name(event_type);
 
-    return CVar.GetCVar(toggle_name).GetInt();
+    CVar variable = CVar.GetCVar(toggle_name);
+    if (variable == null)
+    {
+      console.printf("Autoautosave Warning: variable %s not found", toggle_name);
+      return false;
+    }
+
+    return variable.GetInt();
+  }
+
+  private static bool shotEnabled(int event_type)
+  {
+    if (event_type == m8f_aas_event.manual)
+    {
+      bool shot_on_manual = CVar.GetCVar("m8f_aas_shot_on_manual").GetInt();
+      return shot_on_manual;
+    }
+
+    bool enabled = CVar.GetCVar("m8f_aas_enabled").GetInt();
+    if (!enabled) { return false; }
+
+    string toggle_name = m8f_aas_event.shot_toggle_name(event_type);
+
+    CVar variable = CVar.GetCVar(toggle_name);
+    if (variable == null)
+    {
+      console.printf("Autoautosave Warning: variable %s not found", toggle_name);
+      return false;
+    }
+
+    return variable.GetInt();
   }
 
   override m8f_aas_event_handler init()
@@ -158,47 +190,63 @@ class m8f_aas_saver : m8f_aas_event_handler
     if (event_type == m8f_aas_event.tick
         && time_from_last_save_s > autosave_period_s
         && CVar.GetCVar("m8f_aas_save_on_time_period").GetInt())
-      {
-        let dispatcher = new("m8f_aas_event_dispatcher").init();
-        dispatcher.on_event(m8f_aas_event.time_period);
-        return;
-      }
+    {
+      let dispatcher = new("m8f_aas_event_dispatcher").init();
+      dispatcher.on_event(m8f_aas_event.time_period);
+      return;
+    }
 
     int min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
     if (time_from_last_save_s < min_save_wait_s
         && event_type != m8f_aas_event.manual) { return; }
 
-    if (!saveEnabled(event_type)) { return; }
+    if (saveEnabled(event_type))
+    {
+      last_save_time = current_time;
+      gameaction     = ga_autosave;
+    }
 
-    last_save_time = current_time;
-    gameaction = ga_autosave;
+    if (shotEnabled(event_type))
+    {
+      gameaction = ga_screenshot;
+    }
+
   }
-}
+
+} // class m8f_aas_saver
 
 class m8f_aas_event_source : EventHandler
 {
-  bool loading_finished;
+
+  // constants section /////////////////////////////////////////////////////////
+
   const ticks_in_second = 35;
 
-  int oldActiveCount;
-  int oldActiveBigCount;
-  int maxActive;
+  // attributes section ////////////////////////////////////////////////////////
 
-  int old_kill_count;
-  int old_item_count;
-  int old_secret_count;
+  private bool    loading_finished;
 
-  vector3 old_pos;
+  private int     oldActiveCount;
+  private int     oldActiveBigCount;
+  private int     maxActive;
 
-  int old_health;
-  int old_armor;
-  double old_armor_save;
+  private int     old_kill_count;
+  private int     old_item_count;
+  private int     old_secret_count;
 
-  int seconds_from_last_save;
+  private vector3 old_pos;
+
+  private int     old_health;
+  private int     old_armor;
+  private double  old_armor_save;
+
+  private int     seconds_from_last_save;
+
+  private int     autosave_request;
 
   m8f_aas_event_handler handler;
 
-  int autosave_request;
+  // override functions section ////////////////////////////////////////////////
 
   override void OnRegister()
   {

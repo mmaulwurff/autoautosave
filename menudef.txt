@@ -6,88 +6,172 @@ OptionValue "m8f_aas_log_level_options"
   999, "everything"
 }
 
-OptionMenu "AutoautosaveOptions"
+OptionMenu    "AutoautosaveOptions"
 {
-  Title "Autoautosave Options"
+  Title       "Autoautosave Options"
 
-  StaticText "This must be set to ALWAYS", "Blue"
-  Option "$MISCMNU_ENABLEAUTOSAVES", "disableautosave", "Autosave"
-  Slider "$MISCMNU_AUTOSAVECOUNT", "autosavecount", 1, 20, 1, 0
+  StaticText  ""
+  StaticText  "This must be set to ALWAYS" , "Blue"
+  Option      "$MISCMNU_ENABLEAUTOSAVES"   , "disableautosave", "Autosave"
+  Slider      "$MISCMNU_AUTOSAVECOUNT"     , "autosavecount", 1, 20, 1, 0
 
-  StaticText ""
-  StaticText "Global toggle", "Blue"
-  Option "Autoautosave", "m8f_aas_enabled", "OnOff"
+  StaticText  ""
+  StaticText  "Global toggle" , "Blue"
+  Option      "Autoautosave"  , "m8f_aas_enabled", "OnOff"
 
-  StaticText ""
-  StaticText "Individual event toggles", "Blue"
+  StaticText  ""
+  StaticText  "Controls", "Blue"
+  Control     "Manual autosave"     , "m8f_aas_manual_autosave"
+  Control     "Toggle autoautosave" , "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
 
-  Option "All enemies are eliminated"    , "m8f_aas_save_on_all_kill", "OnOff"
-  Option "Boss is eliminated"            , "m8f_aas_save_on_boss_kill", "OnOff"
-  Option "No more active enemies (group kill)", "m8f_aas_save_on_group_kill", "OnOff"
+  StaticText  ""
+  SubMenu     "Individual Event Toggles"  , "m8f_aas_EventTogglesMenu"
+  StaticText  ""
+  SubMenu     "Screen Shot Toggles"       , "m8f_ScreenShotOptions"
+  StaticText  ""
+  SubMenu     "Event Tuning"              , "m8f_aas_EventTuningMenu"
+  StaticText  ""
+  SubMenu     "Log and Announcer Options" , "m8f_aas_LogOptions"
 
-  StaticText ""
-  Option "New active enemies (group alert)", "m8f_aas_save_on_group_alert", "OnOff"
-  Option "Boss is alerted"               , "m8f_aas_save_on_boss_alert", "OnOff"
+  StaticText  ""
+}
 
-  StaticText ""
-  Option "All items are found"          ,"m8f_aas_save_on_all_items_found", "OnOff"
-  Option "Time has passed"               , "m8f_aas_save_on_time_period", "OnOff"
-  Option "You are moved to another place", "m8f_aas_save_on_teleport", "OnOff"
+OptionMenu    "m8f_ScreenShotOptions"
+{
+  Title       "Screen Shot Toggles"
+  StaticText  "Warning: too mane enabled events can" , "Black"
+  StaticText  "bloat your screenshot directory."     , "Black"
 
-  StaticText ""
-  Option "Health drops low"              , "m8f_aas_save_on_health_drop", "OnOff"
-  Option "Health rises high"             , "m8f_aas_save_on_health_rise", "OnOff"
-  Option "Armor drops low"               , "m8f_aas_save_on_armor_drop", "OnOff"
-  Option "Armor rises high"              , "m8f_aas_save_on_armor_rise", "OnOff"
-  Option "Secret is found"               , "m8f_aas_save_on_secret_found", "OnOff"
+  StaticText  ""
+  Option      "On Manual Autosave"                  , "m8f_aas_shot_on_manual"     , "OnOff"
 
-  StaticText ""
-  Option "Powerup is found"              , "m8f_aas_save_on_powerup", "OnOff"
-  Option "Weapon is found"               , "m8f_aas_save_on_weapon", "OnOff"
-  Option "Key is found"                  , "m8f_aas_save_on_key", "OnOff"
-  Option "Backpack is found"             , "m8f_aas_save_on_backpack", "OnOff"
-  Option "Important item is found"       , "m8f_aas_save_on_artefact", "OnOff"
-  StaticText "Important item list currently includes:", "Black"
-  StaticText "The Golden Souls Big Coins", "Black"
-  StaticText "May be something else in the future!", "Black"
+  Option      "All enemies are eliminated"          , "m8f_aas_shot_on_all_kill"   , "OnOff"
+  Option      "Boss is eliminated"                  , "m8f_aas_shot_on_boss_kill"  , "OnOff"
+  Option      "No more active enemies (group kill)" , "m8f_aas_shot_on_group_kill" , "OnOff"
 
-  StaticText ""
-  Option "New armor type"                , "m8f_aas_save_on_new_armor", "OnOff"
-  Option "Major healing"                 , "m8f_aas_save_on_big_heal", "OnOff"
+  StaticText  ""
+  Option      "New active enemies (group alert)" , "m8f_aas_shot_on_group_alert" , "OnOff"
+  Option      "Boss is alerted"                  , "m8f_aas_shot_on_boss_alert"  , "OnOff"
 
-  StaticText ""
-  StaticText "Event tuning", "Blue"
-  Slider "Enemy is boss when health not less", "m8f_aas_min_boss_health", 0, 20000, 200, 0
-  Slider "Group is not less than N enemies", "m8f_aas_group_number", 1, 50, 1, 0
-  Slider "Don't save when health is lower than", "m8f_aas_health_limit", 0, 500, 5, 0
+  StaticText  ""
+  Option      "All items are found"            , "m8f_aas_shot_on_all_items_found" , "OnOff"
+  Option      "Time has passed"                , "m8f_aas_shot_on_time_period"     , "OnOff"
+  Option      "You are moved to another place" , "m8f_aas_shot_on_teleport"        , "OnOff"
 
-  TextField "Low health threshold"  , "m8f_aas_health_threshold_down"
-  TextField "High health threshold" , "m8f_aas_health_threshold_up"
-  TextField "Low armor threshold"   , "m8f_aas_armor_threshold_down"
-  TextField "High armor threshold"  , "m8f_aas_armor_threshold_up"
+  StaticText  ""
+  Option      "Health drops low"  , "m8f_aas_shot_on_health_drop"  , "OnOff"
+  Option      "Health rises high" , "m8f_aas_shot_on_health_rise"  , "OnOff"
+  Option      "Armor drops low"   , "m8f_aas_shot_on_armor_drop"   , "OnOff"
+  Option      "Armor rises high"  , "m8f_aas_shot_on_armor_rise"   , "OnOff"
+  Option      "Secret is found"   , "m8f_aas_shot_on_secret_found" , "OnOff"
 
-  Slider "Don't save until seconds passed", "m8f_aas_min_save_wait", 0, 120, 5, 0
-  Slider "Autosave every N seconds", "m8f_aas_autosave_period", 30, 600, 30, 0
-  Option "Save on dropped items", "m8f_aas_save_on_dropped", "OnOff"
+  StaticText  ""
+  Option      "Powerup is found"        , "m8f_aas_shot_on_powerup"  , "OnOff"
+  Option      "Weapon is found"         , "m8f_aas_shot_on_weapon"   , "OnOff"
+  Option      "Key is found"            , "m8f_aas_shot_on_key"      , "OnOff"
+  Option      "Backpack is found"       , "m8f_aas_shot_on_backpack" , "OnOff"
+  Option      "Important item is found" , "m8f_aas_shot_on_gs_gold_coin" , "OnOff"
 
-  StaticText ""
-  StaticText "Log and announcer options", "Blue"
-  Option "Log to console", "m8f_aas_console_log_level", "m8f_aas_log_level_options"
-  Option "Log to screen",  "m8f_aas_screen_level",      "m8f_aas_log_level_options"
-  Option "Voice",          "m8f_aas_voice_level",       "m8f_aas_log_level_options"
-  StaticText "Quiet: enemies/time/teleport/items,", "Black"
-  StaticText "Verbose: enemies/time/teleport/items/health/armor", "Black"
+  StaticText  "Important item list currently includes:" , "Black"
+  StaticText  "The Golden Souls Big Coins"              , "Black"
+  StaticText  "May be something else in the future!"    , "Black"
 
-  StaticText ""
-  StaticText "Controls", "Blue"
-  Control "Manual autosave",     "m8f_aas_manual_autosave"
-  Control "Toggle autoautosave", "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
+  StaticText  ""
+  Option      "New armor type" , "m8f_aas_shot_on_new_armor" , "OnOff"
+  Option      "Major healing"  , "m8f_aas_shot_on_big_heal"  , "OnOff"
+  StaticText  ""
+}
 
-  StaticText ""
+OptionMenu    "m8f_aas_LogOptions"
+{
+  Title       "Log and announcer options"
+
+  StaticText  ""
+  Option      "Log to console" , "m8f_aas_console_log_level" , "m8f_aas_log_level_options"
+  Option      "Log to screen"  , "m8f_aas_screen_level"      , "m8f_aas_log_level_options"
+  Option      "Voice"          , "m8f_aas_voice_level"       , "m8f_aas_log_level_options"
+
+  StaticText  ""
+  StaticText  "Quiet:"                                   , "Black"
+  StaticText  "enemies time teleport items"              , "Black"
+  StaticText  ""
+  StaticText  "Verbose:"                                 , "Black"
+  StaticText  "enemies time teleport items health armor" , "Black"
+
+  StaticText  ""
+}
+
+OptionMenu    "m8f_aas_EventTuningMenu"
+{
+  Title       "Event Tuning"
+
+  StaticText  ""
+  Slider      "Enemy is boss when health not less"   , "m8f_aas_min_boss_health" , 0, 20000, 200, 0
+  Slider      "Group is not less than N enemies"     , "m8f_aas_group_number"    , 1, 50, 1, 0
+
+  StaticText  ""
+  Slider      "Don't save when health is lower than" , "m8f_aas_health_limit"    , 0, 500, 5, 0
+
+  StaticText  ""
+  TextField   "Low health threshold"  , "m8f_aas_health_threshold_down"
+  TextField   "High health threshold" , "m8f_aas_health_threshold_up"
+  TextField   "Low armor threshold"   , "m8f_aas_armor_threshold_down"
+  TextField   "High armor threshold"  , "m8f_aas_armor_threshold_up"
+
+  StaticText  ""
+  Slider      "Don't save until seconds passed" , "m8f_aas_min_save_wait"   , 0, 120, 5, 0
+  Slider      "Autosave every N seconds"        , "m8f_aas_autosave_period" , 30, 600, 30, 0
+
+  StaticText  ""
+  Option      "Save on dropped items"           , "m8f_aas_save_on_dropped" , "OnOff"
+
+  StaticText  ""
+}
+
+OptionMenu    "m8f_aas_EventTogglesMenu"
+{
+  Title       "Individual Event Toggles"
+
+  Option      "All enemies are eliminated"          , "m8f_aas_save_on_all_kill"   , "OnOff"
+  Option      "Boss is eliminated"                  , "m8f_aas_save_on_boss_kill"  , "OnOff"
+  Option      "No more active enemies (group kill)" , "m8f_aas_save_on_group_kill" , "OnOff"
+
+  StaticText  ""
+  Option      "New active enemies (group alert)" , "m8f_aas_save_on_group_alert" , "OnOff"
+  Option      "Boss is alerted"                  , "m8f_aas_save_on_boss_alert"  , "OnOff"
+
+  StaticText  ""
+  Option      "All items are found"            , "m8f_aas_save_on_all_items_found" , "OnOff"
+  Option      "Time has passed"                , "m8f_aas_save_on_time_period"     , "OnOff"
+  Option      "You are moved to another place" , "m8f_aas_save_on_teleport"        , "OnOff"
+
+  StaticText  ""
+  Option      "Health drops low"  , "m8f_aas_save_on_health_drop"  , "OnOff"
+  Option      "Health rises high" , "m8f_aas_save_on_health_rise"  , "OnOff"
+  Option      "Armor drops low"   , "m8f_aas_save_on_armor_drop"   , "OnOff"
+  Option      "Armor rises high"  , "m8f_aas_save_on_armor_rise"   , "OnOff"
+  Option      "Secret is found"   , "m8f_aas_save_on_secret_found" , "OnOff"
+
+  StaticText  ""
+  Option      "Powerup is found"        , "m8f_aas_save_on_powerup"  , "OnOff"
+  Option      "Weapon is found"         , "m8f_aas_save_on_weapon"   , "OnOff"
+  Option      "Key is found"            , "m8f_aas_save_on_key"      , "OnOff"
+  Option      "Backpack is found"       , "m8f_aas_save_on_backpack" , "OnOff"
+  Option      "Important item is found" , "m8f_aas_save_on_artefact" , "OnOff"
+
+  StaticText  "Important item list currently includes:" , "Black"
+  StaticText  "The Golden Souls Big Coins"              , "Black"
+  StaticText  "May be something else in the future!"    , "Black"
+
+  StaticText  ""
+  Option      "New armor type" , "m8f_aas_save_on_new_armor" , "OnOff"
+  Option      "Major healing"  , "m8f_aas_save_on_big_heal"  , "OnOff"
+
+  StaticText  ""
 }
 
 AddOptionMenu "OptionsMenu"
 {
-  StaticText ""
-  Submenu "Autoautosave Options", "AutoautosaveOptions"
+  StaticText  ""
+  Submenu     "Autoautosave Options", "AutoautosaveOptions"
 }
