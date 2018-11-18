@@ -480,6 +480,7 @@ class m8f_aas_event_source : EventHandler
     static const string saveable_item_classes[] =
       {
         "Key",
+        "FDKeyBase",
         "Weapon", // weapons
         "Goonades",
         "SPAMMineItem",
@@ -505,6 +506,7 @@ class m8f_aas_event_source : EventHandler
     static const int types[] =
       {
         m8f_aas_event.key,
+        m8f_aas_event.key,
         m8f_aas_event.weapon,
         m8f_aas_event.weapon,
         m8f_aas_event.weapon,
@@ -527,7 +529,7 @@ class m8f_aas_event_source : EventHandler
         m8f_aas_event.backpack,
         m8f_aas_event.gs_gold_coin
       };
-    int n_saveable_items_classes = 22;
+    int n_saveable_items_classes = 23;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
       {
