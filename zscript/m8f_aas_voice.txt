@@ -1,0 +1,28 @@
+class m8f_aas_voice : m8f_aas_event_handler
+{
+
+  private int last_save_time;
+
+  override m8f_aas_event_handler init()
+  {
+    last_save_time = 0;
+    return self;
+  }
+
+  override void on_event(int event_type)
+  {
+    int current_time          = level.time;
+    int time_from_last_save_s = (current_time - last_save_time) / 35;
+    if (time_from_last_save_s < 1) { return; }
+
+    int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
+    if (event_type <= voice_level
+        && event_type != m8f_aas_event.tick)
+      {
+        string voice_file = String.Format("aas/voice%d", event_type);
+        Object.S_Sound(voice_file, CHAN_AUTO);
+        last_save_time = current_time;
+      }
+  }
+
+} // class m8f_aas_voice

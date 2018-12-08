@@ -1,0 +1,14 @@
+*
+!*/
+*/*
+
+!.gitignore
+
+!**.txt
+!**.md
+!**.sh
+!**.org
+!**.png
+!**.ogg
+
+changelog.txt

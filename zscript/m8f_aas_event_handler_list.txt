@@ -1,0 +1,26 @@
+// Global list of Aas event handlers
+class m8f_aas_event_handler_list : Thinker
+{
+
+  Array<m8f_aas_event_handler> handlers;
+
+  m8f_aas_event_handler_list init()
+  {
+    ChangeStatNum(STAT_INFO);
+    handlers.Push(new("m8f_aas_saver"  ).init());
+    handlers.Push(new("m8f_aas_logger" ).init());
+    handlers.Push(new("m8f_aas_printer").init());
+    handlers.Push(new("m8f_aas_voice"  ).init());
+    return self;
+  }
+
+  static m8f_aas_event_handler_list get()
+  {
+    let it = ThinkerIterator.Create("m8f_aas_event_handler_list", STAT_INFO);
+    let p  = m8f_aas_event_handler_list(it.Next());
+
+    if (p != null) { return p; }
+    else           { return new("m8f_aas_event_handler_list").init(); }
+  }
+
+} // class m8f_aas_event_handler_list

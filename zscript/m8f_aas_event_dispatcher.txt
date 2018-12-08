@@ -1,0 +1,15 @@
+class m8f_aas_event_dispatcher : m8f_aas_event_handler
+{
+
+  override void on_event(int event_type)
+  {
+    let  list       = m8f_aas_event_handler_list.get();
+    uint n_handlers = list.handlers.Size();
+
+    for (uint i = 0; i < n_handlers; ++i)
+    {
+      list.handlers[i].on_event(event_type);
+    }
+  }
+
+} // class m8f_aas_event_dispatcher

@@ -1,0 +1,22 @@
+// Creates an m8f_aas_event when pickup up
+class m8f_aas_token : Inventory
+{
+
+  private int event_type;
+
+  Default
+  {
+    +Inventory.Quiet;
+  }
+
+  m8f_aas_token init(int type) { event_type = type; return self; }
+
+  override bool TryPickup(Actor toucher)
+  {
+    let dispatcher = new("m8f_aas_event_dispatcher").init();
+    dispatcher.on_event(event_type);
+    GoAwayAndDie();
+    return true;
+  }
+
+} // class m8f_aas_token

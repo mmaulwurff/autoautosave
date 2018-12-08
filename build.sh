@@ -18,6 +18,7 @@ zip $name.pk3 \
     *.txt \
     *.md \
     sounds/*.ogg \
+    zscript/*.txt \
 && \
 cp -f $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
 && \
