@@ -221,6 +221,7 @@ class m8f_aas_event_source : EventHandler
   // constants section /////////////////////////////////////////////////////////
 
   const ticks_in_second = 35;
+  const n_saveable_items_classes = 29;
 
   // attributes section ////////////////////////////////////////////////////////
 
@@ -481,6 +482,12 @@ class m8f_aas_event_source : EventHandler
       {
         "Key",
         "FDKeyBase",
+        "QCRedCard",
+        "QCYellowCard",
+        "QCBlueCard",
+        "QCRedSkull",
+        "QCYellowSkull",
+        "QCBlueSkull",
         "Weapon", // weapons
         "Goonades",
         "SPAMMineItem",
@@ -507,6 +514,12 @@ class m8f_aas_event_source : EventHandler
       {
         m8f_aas_event.key,
         m8f_aas_event.key,
+        m8f_aas_event.key,
+        m8f_aas_event.key,
+        m8f_aas_event.key,
+        m8f_aas_event.key,
+        m8f_aas_event.key,
+        m8f_aas_event.key,
         m8f_aas_event.weapon,
         m8f_aas_event.weapon,
         m8f_aas_event.weapon,
@@ -529,7 +542,6 @@ class m8f_aas_event_source : EventHandler
         m8f_aas_event.backpack,
         m8f_aas_event.gs_gold_coin
       };
-    int n_saveable_items_classes = 23;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
       {
