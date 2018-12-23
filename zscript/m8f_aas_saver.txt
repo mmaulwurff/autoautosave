@@ -73,7 +73,10 @@ class m8f_aas_saver : m8f_aas_event_handler
 
     int min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
     if (time_from_last_save_s < min_save_wait_s
-        && event_type != m8f_aas_event.manual) { return; }
+        && event_type != m8f_aas_event.manual)
+    {
+      return;
+    }
 
     if (saveEnabled(event_type))
     {
@@ -83,9 +86,9 @@ class m8f_aas_saver : m8f_aas_event_handler
 
     if (shotEnabled(event_type))
     {
-      gameaction = ga_screenshot;
+      let event_handler = m8f_aas_event_source(StaticEventHandler.Find("m8f_aas_event_source"));
+      event_handler.requestScreenshot();
     }
-
   }
 
 } // class m8f_aas_saver
