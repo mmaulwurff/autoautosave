@@ -7,9 +7,14 @@ class m8f_aas_token : Inventory
   Default
   {
     +Inventory.Quiet;
+    +DONTGIB;
   }
 
-  m8f_aas_token init(int type) { event_type = type; return self; }
+  m8f_aas_token init(int type)
+  {
+    event_type = type;
+    return self;
+  }
 
   override bool TryPickup(Actor toucher)
   {

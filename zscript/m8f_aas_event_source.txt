@@ -174,8 +174,8 @@ class m8f_aas_event_source : EventHandler
       Actor owner = item.owner;
       if (owner == null)
       {
-        m8f_aas_token(Actor.Spawn("m8f_aas_token", item.SpawnPoint))
-          .init(types[i]);
+        Vector3 point = item.pos;
+        m8f_aas_token(Actor.Spawn("m8f_aas_token", point)).init(types[i]);
       }
       else if (owner == players[consoleplayer].mo
                && loading_finished) // don't save on obtaining starting weapons
