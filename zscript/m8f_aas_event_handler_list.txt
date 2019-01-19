@@ -7,10 +7,11 @@ class m8f_aas_event_handler_list : Thinker
   m8f_aas_event_handler_list init()
   {
     ChangeStatNum(STAT_INFO);
-    handlers.Push(new("m8f_aas_saver"  ).init());
-    handlers.Push(new("m8f_aas_logger" ).init());
-    handlers.Push(new("m8f_aas_printer").init());
-    handlers.Push(new("m8f_aas_voice"  ).init());
+    handlers.Push(new("m8f_aas_saver"        ).init());
+    handlers.Push(new("m8f_aas_logger"       ).init());
+    handlers.Push(new("m8f_aas_printer"      ).init());
+    handlers.Push(new("m8f_aas_voice"        ).init());
+    handlers.Push(new("m8f_aas_screenshooter").init());
     return self;
   }
 

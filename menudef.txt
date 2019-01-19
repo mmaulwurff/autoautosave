@@ -44,14 +44,16 @@ OptionMenu    "m8f_ScreenShotOptions"
 
   StaticText  ""
   Option      "On Manual Autosave"                  , "m8f_aas_shot_on_manual"     , "OnOff"
+  Option      "On Level Start"                      , "m8f_aas_shot_on_level_start", "OnOff"
 
+  StaticText  ""
   Option      "All enemies are eliminated"          , "m8f_aas_shot_on_all_kill"   , "OnOff"
   Option      "Boss is eliminated"                  , "m8f_aas_shot_on_boss_kill"  , "OnOff"
   Option      "No more active enemies (group kill)" , "m8f_aas_shot_on_group_kill" , "OnOff"
 
   StaticText  ""
-  Option      "New active enemies (group alert)" , "m8f_aas_shot_on_group_alert" , "OnOff"
-  Option      "Boss is alerted"                  , "m8f_aas_shot_on_boss_alert"  , "OnOff"
+  Option      "New active enemies (group alert)" , "m8f_aas_shot_on_group_alert"   , "OnOff"
+  Option      "Boss is alerted"                  , "m8f_aas_shot_on_boss_alert"    , "OnOff"
 
   StaticText  ""
   Option      "All items are found"            , "m8f_aas_shot_on_all_items_found" , "OnOff"

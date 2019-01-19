@@ -14,6 +14,7 @@
 |   9 | manual          | m8f_aas_true                    | true    | Manual save.                    |
 |  10 | pomodoro        | m8f_aas_true                    | true    | It's time to take a break.      |
 |  11 | gs_gold_coin    | m8f_aas_save_on_artefact        | true    | Picked up a big coin, nice job! |
+|  12 | level_start     | m8f_aas_save_on_level_start     | false   | Level started.                  |
 |-----+-----------------+---------------------------------+---------+---------------------------------|
 | 100 | health_drop     | m8f_aas_save_on_health_drop     | false   | Health low.                     |
 | 101 | health_rise     | m8f_aas_save_on_health_rise     | false   | Health high.                    |

@@ -85,6 +85,7 @@ class m8f_aas_event_source : EventHandler
   {
     if (e.PlayerNumber != consolePlayer) { return; }
     init_player();
+    handler.on_event(m8f_aas_event.level_start);
   }
 
   override void WorldThingSpawned(WorldEvent e)

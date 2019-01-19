@@ -27,29 +27,6 @@ class m8f_aas_saver : m8f_aas_event_handler
     return variable.GetInt();
   }
 
-  private static bool shotEnabled(int event_type)
-  {
-    if (event_type == m8f_aas_event.manual)
-    {
-      bool shot_on_manual = CVar.GetCVar("m8f_aas_shot_on_manual").GetInt();
-      return shot_on_manual;
-    }
-
-    bool enabled = CVar.GetCVar("m8f_aas_enabled").GetInt();
-    if (!enabled) { return false; }
-
-    string toggle_name = m8f_aas_event.shot_toggle_name(event_type);
-
-    CVar variable = CVar.GetCVar(toggle_name);
-    if (variable == null)
-    {
-      console.printf("Autoautosave Warning: variable %s not found", toggle_name);
-      return false;
-    }
-
-    return variable.GetInt();
-  }
-
   override m8f_aas_event_handler init()
   {
     last_save_time = 0;
@@ -82,12 +59,6 @@ class m8f_aas_saver : m8f_aas_event_handler
     {
       last_save_time = current_time;
       gameaction     = ga_autosave;
-    }
-
-    if (shotEnabled(event_type))
-    {
-      let event_handler = m8f_aas_event_source(StaticEventHandler.Find("m8f_aas_event_source"));
-      event_handler.requestScreenshot();
     }
   }
 
