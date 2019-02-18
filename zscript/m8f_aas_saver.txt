@@ -1,9 +1,77 @@
 class m8f_aas_saver : m8f_aas_event_handler
 {
 
-  private int last_save_time;
+  // public: ///////////////////////////////////////////////////////////////////
 
-  private static bool saveEnabled(int event_type)
+  override m8f_aas_event_handler init()
+  {
+    last_save_time = 0;
+    return self;
+  }
+
+  override void on_event(int event_type)
+  {
+    int current_time          = level.time;
+    int time_from_last_save_s = (current_time - last_save_time) / 35;
+
+    if (is_time_to_periodic_save(time_from_last_save_s, event_type))
+    {
+      emit_time_period_event();
+      return;
+    }
+
+    if (is_too_frequent(time_from_last_save_s, event_type))
+    {
+      return;
+    }
+
+    if (is_save_enabled(event_type))
+    {
+      save(current_time);
+    }
+  }
+
+  // private: //////////////////////////////////////////////////////////////////
+
+  private bool is_time_to_periodic_save(int time_from_last_save_s, int event_type)
+  {
+    int  autosave_period_s        = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
+    bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
+    bool is_time_to_periodic_save = event_type == m8f_aas_event.tick
+      && is_period
+      && CVar.GetCVar("m8f_aas_save_on_time_period").GetInt();
+
+    return is_time_to_periodic_save;
+  }
+
+  private bool is_too_frequent(int time_from_last_save_s, int event_type)
+  {
+    // manual saving cannot be too frequent
+    if (event_type == m8f_aas_event.manual) { return false; }
+
+    int  min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
+    bool is_too_frequent = time_from_last_save_s < min_save_wait_s;
+
+    return is_too_frequent;
+  }
+
+  // private: //////////////////////////////////////////////////////////////////
+
+  private void save(int current_time)
+  {
+    last_save_time = current_time;
+    gameaction     = ga_autosave;
+  }
+
+  // private: //////////////////////////////////////////////////////////////////
+
+  private static void emit_time_period_event()
+  {
+    let dispatcher = new("m8f_aas_event_dispatcher").init();
+    dispatcher.on_event(m8f_aas_event.time_period);
+  }
+
+  private static bool is_save_enabled(int event_type)
   {
     if (event_type == m8f_aas_event.manual) { return true; }
 
@@ -27,39 +95,8 @@ class m8f_aas_saver : m8f_aas_event_handler
     return variable.GetInt();
   }
 
-  override m8f_aas_event_handler init()
-  {
-    last_save_time = 0;
-    return self;
-  }
+  // private: //////////////////////////////////////////////////////////////////
 
-  override void on_event(int event_type)
-  {
-    int current_time          = level.time;
-    int time_from_last_save_s = (current_time - last_save_time) / 35;
-    int autosave_period_s     = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
-
-    if (event_type == m8f_aas_event.tick
-        && time_from_last_save_s > autosave_period_s
-        && CVar.GetCVar("m8f_aas_save_on_time_period").GetInt())
-    {
-      let dispatcher = new("m8f_aas_event_dispatcher").init();
-      dispatcher.on_event(m8f_aas_event.time_period);
-      return;
-    }
-
-    int min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
-    if (time_from_last_save_s < min_save_wait_s
-        && event_type != m8f_aas_event.manual)
-    {
-      return;
-    }
-
-    if (saveEnabled(event_type))
-    {
-      last_save_time = current_time;
-      gameaction     = ga_autosave;
-    }
-  }
+  private int last_save_time;
 
 } // class m8f_aas_saver

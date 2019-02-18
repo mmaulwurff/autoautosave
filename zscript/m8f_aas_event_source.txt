@@ -73,10 +73,10 @@ class m8f_aas_event_source : EventHandler
     switch (tick_inside_second)
       {
       case  0: handler.on_event(m8f_aas_event.tick); break;
-      case  1: maybeTakeScreenShot(); return;
+      case  1: maybeTakeScreenShot();  return;
       case  9: check_counter_events(); return;
-      case 18: check_map_events(); return;
-      case 27: check_player_events(); return;
+      case 18: check_map_events();     return;
+      case 27: check_player_events();  return;
       default: return;
       }
   }
