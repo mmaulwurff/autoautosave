@@ -19,6 +19,7 @@ class m8f_aas_event
     pomodoro         =  10,
     gs_gold_coin     =  11,
     level_start      =  12,
+    one_percent      =  13,
     health_drop      = 100,
     health_rise      = 101,
     armor_drop       = 102,
@@ -49,6 +50,7 @@ class m8f_aas_event
       case pomodoro         : return "It's time to take a break.";
       case gs_gold_coin     : return "Picked up a big coin, nice job!";
       case level_start      : return "Level started.";
+      case one_percent      : return "Last health percent!";
       case health_drop      : return "Health low.";
       case health_rise      : return "Health high.";
       case armor_drop       : return "Armor low.";
@@ -81,6 +83,7 @@ class m8f_aas_event
       case pomodoro         : return "m8f_aas_true";
       case gs_gold_coin     : return "m8f_aas_save_on_artefact";
       case level_start      : return "m8f_aas_save_on_level_start";
+      case one_percent      : return "m8f_aas_save_on_one_percent";
       case health_drop      : return "m8f_aas_save_on_health_drop";
       case health_rise      : return "m8f_aas_save_on_health_rise";
       case armor_drop       : return "m8f_aas_save_on_armor_drop";
@@ -113,6 +116,7 @@ class m8f_aas_event
       case pomodoro         : return "m8f_aas_shot_on_pomodoro";
       case gs_gold_coin     : return "m8f_aas_shot_on_gs_gold_coin";
       case level_start      : return "m8f_aas_shot_on_level_start";
+      case one_percent      : return "m8f_aas_shot_on_one_percent";
       case health_drop      : return "m8f_aas_shot_on_health_drop";
       case health_rise      : return "m8f_aas_shot_on_health_rise";
       case armor_drop       : return "m8f_aas_shot_on_armor_drop";

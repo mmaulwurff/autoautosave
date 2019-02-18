@@ -301,6 +301,10 @@ class m8f_aas_event_source : EventHandler
       {
         handler.on_event(m8f_aas_event.big_heal);
       }
+      if (health == 1 && old_health > 1)
+      {
+        handler.on_event(m8f_aas_event.one_percent);
+      }
       old_health = health;
     }
 

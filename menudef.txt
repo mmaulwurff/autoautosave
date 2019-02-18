@@ -62,6 +62,7 @@ OptionMenu    "m8f_ScreenShotOptions"
 
   StaticText  ""
   Option      "Health drops low"  , "m8f_aas_shot_on_health_drop"  , "OnOff"
+  Option      "Health drops to 1%", "m8f_aas_shot_on_one_percent"  , "OnOff"
   Option      "Health rises high" , "m8f_aas_shot_on_health_rise"  , "OnOff"
   Option      "Armor drops low"   , "m8f_aas_shot_on_armor_drop"   , "OnOff"
   Option      "Armor rises high"  , "m8f_aas_shot_on_armor_rise"   , "OnOff"
