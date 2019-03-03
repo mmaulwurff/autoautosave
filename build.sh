@@ -1,6 +1,9 @@
 #!/bin/bash
 
 name=autoautosave
+#gzdoom=gzdoom
+gzdoom=~/Documents/src/gzdoom-build/gzdoom
+
 git log --date=short --pretty=format:"-%d %ad %s%n" | \
     grep -v "^$" | \
     sed "s/HEAD -> master, //" | \
@@ -22,7 +25,7 @@ zip $name.pk3 \
 && \
 cp -f $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
 && \
-gzdoom \
+$gzdoom \
        -file \
        $name.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \

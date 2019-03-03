@@ -1,7 +1,25 @@
 class m8f_aas_screenshooter : m8f_aas_event_handler
 {
 
-  private static bool shotEnabled(int event_type)
+  // public: ///////////////////////////////////////////////////////////////////
+
+  override m8f_aas_event_handler init(m8f_aas_event_source event_source, m8f_aas_event_handler dispatcher)
+  {
+    _event_source = event_source;
+    return self;
+  }
+
+  override void on_event(int event_type)
+  {
+    if (shot_enabled(event_type))
+    {
+      _event_source.request_screenshot();
+    }
+  }
+
+  // private: //////////////////////////////////////////////////////////////////
+
+  private static bool shot_enabled(int event_type)
   {
     if (event_type == m8f_aas_event.manual)
     {
@@ -24,18 +42,8 @@ class m8f_aas_screenshooter : m8f_aas_event_handler
     return variable.GetInt();
   }
 
-  override m8f_aas_event_handler init()
-  {
-    return self;
-  }
+  // private: //////////////////////////////////////////////////////////////////
 
-  override void on_event(int event_type)
-  {
-    if (shotEnabled(event_type))
-    {
-      let event_handler = m8f_aas_event_source(StaticEventHandler.Find("m8f_aas_event_source"));
-      event_handler.requestScreenshot();
-    }
-  }
+  private m8f_aas_event_source _event_source;
 
 } // class m8f_aas_screenshooter

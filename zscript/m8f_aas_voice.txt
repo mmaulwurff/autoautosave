@@ -3,7 +3,7 @@ class m8f_aas_voice : m8f_aas_event_handler
 
   private int last_save_time;
 
-  override m8f_aas_event_handler init()
+  override m8f_aas_event_handler init(m8f_aas_event_source event_source, m8f_aas_event_handler dispatcher)
   {
     last_save_time = 0;
     return self;

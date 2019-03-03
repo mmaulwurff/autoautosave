@@ -3,9 +3,11 @@ class m8f_aas_saver : m8f_aas_event_handler
 
   // public: ///////////////////////////////////////////////////////////////////
 
-  override m8f_aas_event_handler init()
+  override m8f_aas_event_handler init(m8f_aas_event_source event_source, m8f_aas_event_handler dispatcher)
   {
     last_save_time = 0;
+    _dispatcher = dispatcher;
+
     return self;
   }
 
@@ -60,15 +62,15 @@ class m8f_aas_saver : m8f_aas_event_handler
   private void save(int current_time)
   {
     last_save_time = current_time;
-    gameaction     = ga_autosave;
+
+    LevelLocals.MakeAutoSave();
   }
 
   // private: //////////////////////////////////////////////////////////////////
 
-  private static void emit_time_period_event()
+  private void emit_time_period_event()
   {
-    let dispatcher = new("m8f_aas_event_dispatcher").init();
-    dispatcher.on_event(m8f_aas_event.time_period);
+    _dispatcher.on_event(m8f_aas_event.time_period);
   }
 
   private static bool is_save_enabled(int event_type)
@@ -98,5 +100,7 @@ class m8f_aas_saver : m8f_aas_event_handler
   // private: //////////////////////////////////////////////////////////////////
 
   private int last_save_time;
+
+  private m8f_aas_event_handler _dispatcher;
 
 } // class m8f_aas_saver

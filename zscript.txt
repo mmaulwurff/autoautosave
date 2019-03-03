@@ -4,7 +4,6 @@ version "3.2.5"
 #include "zscript/m8f_aas_token.txt"
 
 #include "zscript/m8f_aas_event_dispatcher.txt"
-#include "zscript/m8f_aas_event_handler_list.txt"
 
 #include "zscript/m8f_aas_event_source.txt"
 #include "zscript/m8f_aas_event_handler.txt"

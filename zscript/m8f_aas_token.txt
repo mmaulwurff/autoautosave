@@ -2,26 +2,31 @@
 class m8f_aas_token : Inventory
 {
 
-  private int event_type;
-
   Default
   {
     +Inventory.Quiet;
     +DONTGIB;
   }
 
-  m8f_aas_token init(int type)
+  m8f_aas_token init(int type, m8f_aas_event_handler handler)
   {
-    event_type = type;
+    _event_type = type;
+    _handler    = handler;
+
     return self;
   }
 
   override bool TryPickup(Actor toucher)
   {
-    let dispatcher = new("m8f_aas_event_dispatcher").init();
-    dispatcher.on_event(event_type);
+    _handler.on_event(_event_type);
     GoAwayAndDie();
     return true;
   }
+
+  // private: //////////////////////////////////////////////////////////////////
+
+  private int _event_type;
+
+  private m8f_aas_event_handler _handler;
 
 } // class m8f_aas_token

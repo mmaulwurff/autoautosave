@@ -33,7 +33,7 @@ class m8f_aas_event_source : EventHandler
 
   // public methods section
 
-  void requestScreenshot()
+  void request_screenshot()
   {
     screenshot_request = true;
   }
@@ -176,7 +176,7 @@ class m8f_aas_event_source : EventHandler
       if (owner == null)
       {
         Vector3 point = item.pos;
-        m8f_aas_token(Actor.Spawn("m8f_aas_token", point)).init(types[i]);
+        m8f_aas_token(Actor.Spawn("m8f_aas_token", point)).init(types[i], handler);
       }
       else if (owner == players[consoleplayer].mo
                && loading_finished) // don't save on obtaining starting weapons
@@ -205,7 +205,7 @@ class m8f_aas_event_source : EventHandler
     old_kill_count = 0;
     old_item_count = 0;
 
-    handler = new("m8f_aas_event_dispatcher").init();
+    handler = new("m8f_aas_event_dispatcher").init(self, null);
 
     PlayerInfo pInfo  = players[consolePlayer];
     let player = PlayerPawn(pInfo.mo);
@@ -373,7 +373,7 @@ class m8f_aas_event_source : EventHandler
   {
     if (screenshot_request)
     {
-      gameaction = ga_screenshot;
+      LevelLocals.MakeScreenShot();
 
       screenshot_request = false;
     }
