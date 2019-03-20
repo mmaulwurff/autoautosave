@@ -11,16 +11,16 @@ OptionMenu    "AutoautosaveOptions"
   Title       "Autoautosave Options"
 
   StaticText  ""
-  StaticText  "This must be set to ALWAYS" , "Blue"
-  Option      "$MISCMNU_ENABLEAUTOSAVES"   , "disableautosave", "Autosave"
-  Slider      "$MISCMNU_AUTOSAVECOUNT"     , "autosavecount", 1, 20, 1, 0
+  StaticText  "This must be set to ALWAYS:" , "Black"
+  Option      "$MISCMNU_ENABLEAUTOSAVES"    , "disableautosave", "Autosave"
+  Slider      "$MISCMNU_AUTOSAVECOUNT"      , "autosavecount", 1, 20, 1, 0
 
   StaticText  ""
-  StaticText  "Global toggle" , "Blue"
+  StaticText  "Global toggle" , 1
   Option      "Autoautosave"  , "m8f_aas_enabled", "OnOff"
 
   StaticText  ""
-  StaticText  "Controls", "Blue"
+  StaticText  "Controls", 1
   Control     "Manual autosave"     , "m8f_aas_manual_autosave"
   Control     "Toggle autoautosave" , "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
 
@@ -41,6 +41,10 @@ OptionMenu    "m8f_ScreenShotOptions"
   Title       "Screen Shot Toggles"
   StaticText  "Warning: too mane enabled events can" , "Black"
   StaticText  "bloat your screenshot directory."     , "Black"
+
+  StaticText  ""
+  Option      "Enable scripted screenshots", "enablescriptscreenshot", "OnOff"
+  StaticText  "This must be set to \"On\"", "Black"
 
   StaticText  ""
   Option      "On Manual Autosave"                  , "m8f_aas_shot_on_manual"     , "OnOff"
