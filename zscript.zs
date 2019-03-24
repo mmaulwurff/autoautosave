@@ -1,4 +1,4 @@
-version "3.2.5"
+version "3.8"
 
 #include "zscript/m8f_aas_event.zs"
 #include "zscript/m8f_aas_token.zs"
