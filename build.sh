@@ -19,9 +19,10 @@ rm -f $name.pk3 \
 && \
 zip $name.pk3 \
     *.txt \
+    *.zs \
     *.md \
     sounds/*.ogg \
-    zscript/*.txt \
+    zscript/*.zs \
 && \
 cp -f $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
 && \

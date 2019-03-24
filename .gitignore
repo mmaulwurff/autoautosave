@@ -5,6 +5,7 @@
 !.gitignore
 
 !**.txt
+!**.zs
 !**.md
 !**.sh
 !**.org
