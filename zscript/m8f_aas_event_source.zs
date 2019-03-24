@@ -4,7 +4,6 @@ class m8f_aas_event_source : EventHandler
   // constants section /////////////////////////////////////////////////////////
 
   const ticks_in_second = 35;
-  const n_saveable_items_classes = 29;
 
   // attributes section ////////////////////////////////////////////////////////
 
@@ -29,7 +28,7 @@ class m8f_aas_event_source : EventHandler
   private int     autosave_request;
   private bool    screenshot_request;
 
-  m8f_aas_event_handler handler;
+  private m8f_aas_event_handler handler;
 
   // public methods section
 
@@ -133,7 +132,8 @@ class m8f_aas_event_source : EventHandler
       "Backpack2",
       "BlueprintItem",
       "NetronianBackpack",
-      "Big_Coin_pickup" // other
+      "Big_Coin_pickup", // other
+      "BasicArmorPickup" // armor
     };
     static const int types[] =
     {
@@ -165,20 +165,26 @@ class m8f_aas_event_source : EventHandler
       m8f_aas_event.backpack,
       m8f_aas_event.backpack,
       m8f_aas_event.backpack,
-      m8f_aas_event.gs_gold_coin
+      m8f_aas_event.gs_gold_coin,
+      m8f_aas_event.armor
     };
+
+    int n_saveable_items_classes = saveable_item_classes.size();
+    if (n_saveable_items_classes != types.size()) { console.printf("AAS Error: invalid saveable items."); }
+
+    Actor   player = players[consolePlayer].mo;
+    Actor   owner  = item.owner;
+    Vector3 point  = item.pos;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
     {
       if (!(item is saveable_item_classes[i])) { continue; }
 
-      Actor owner = item.owner;
       if (owner == null)
       {
-        Vector3 point = item.pos;
         m8f_aas_token(Actor.Spawn("m8f_aas_token", point)).init(types[i], handler);
       }
-      else if (owner == players[consoleplayer].mo
+      else if (owner == player
                && loading_finished) // don't save on obtaining starting weapons
       {
         string netronianBackpack = "NetronianBackpack";

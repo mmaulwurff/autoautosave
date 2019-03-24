@@ -167,6 +167,7 @@ OptionMenu    "m8f_aas_EventTogglesMenu"
   Option      "Weapon is found"         , "m8f_aas_save_on_weapon"   , "OnOff"
   Option      "Key is found"            , "m8f_aas_save_on_key"      , "OnOff"
   Option      "Backpack is found"       , "m8f_aas_save_on_backpack" , "OnOff"
+  Option      "Armor is found"          , "m8f_aas_save_on_armor"    , "OnOff"
   Option      "Important item is found" , "m8f_aas_save_on_artefact" , "OnOff"
 
   StaticText  "Important item list currently includes:" , "Black"

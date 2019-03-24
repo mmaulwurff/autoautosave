@@ -31,6 +31,7 @@ class m8f_aas_event
     backpack         = 203,
     new_armor        = 204,
     big_heal         = 205,
+    armor            = 206,
   }
 
   static string message(int type)
@@ -62,6 +63,7 @@ class m8f_aas_event
       case backpack         : return "Backpack found.";
       case new_armor        : return "New armor type.";
       case big_heal         : return "Major healing.";
+      case armor            : return "Armor found.";
       default: return "Unknown event type.";
     }
   }
@@ -95,6 +97,7 @@ class m8f_aas_event
       case backpack         : return "m8f_aas_save_on_backpack";
       case new_armor        : return "m8f_aas_save_on_new_armor";
       case big_heal         : return "m8f_aas_save_on_big_heal";
+      case armor            : return "m8f_aas_save_on_armor";
       default: return "m8f_aas_false";
     }
   }
@@ -128,6 +131,7 @@ class m8f_aas_event
       case backpack         : return "m8f_aas_shot_on_backpack";
       case new_armor        : return "m8f_aas_shot_on_new_armor";
       case big_heal         : return "m8f_aas_shot_on_big_heal";
+      case armor            : return "m8f_aas_shot_on_armor";
       default: return "m8f_aas_false";
     }
   }
@@ -161,6 +165,7 @@ class m8f_aas_event
       case backpack         : return "m8f_aas_voice_on_backpack";
       case new_armor        : return "m8f_aas_voice_on_new_armor";
       case big_heal         : return "m8f_aas_voice_on_big_heal";
+      case armor            : return "m8f_aas_voice_on_armor";
       default: return "m8f_aas_true";
     }
   }
