@@ -132,4 +132,37 @@ class m8f_aas_event
     }
   }
 
+  static string voice_toggle_name(int type)
+  {
+    switch (type)
+    {
+      case all_kill         : return "m8f_aas_voice_on_all_kill";
+      case boss_kill        : return "m8f_aas_voice_on_boss_kill";
+      case group_kill       : return "m8f_aas_voice_on_group_kill";
+      case group_alert      : return "m8f_aas_voice_on_group_alert";
+      case boss_alert       : return "m8f_aas_voice_on_boss_alert";
+      case all_items_found  : return "m8f_aas_voice_on_all_items_found";
+      case tick             : return "m8f_aas_voice_on_tick";
+      case time_period      : return "m8f_aas_voice_on_time_period";
+      case teleport         : return "m8f_aas_voice_on_teleport";
+      case manual           : return "m8f_aas_voice_on_manual";
+      case pomodoro         : return "m8f_aas_voice_on_pomodoro";
+      case gs_gold_coin     : return "m8f_aas_voice_on_gs_gold_coin";
+      case level_start      : return "m8f_aas_voice_on_level_start";
+      case one_percent      : return "m8f_aas_voice_on_one_percent";
+      case health_drop      : return "m8f_aas_voice_on_health_drop";
+      case health_rise      : return "m8f_aas_voice_on_health_rise";
+      case armor_drop       : return "m8f_aas_voice_on_armor_drop";
+      case armor_rise       : return "m8f_aas_voice_on_armor_rise";
+      case secret_found     : return "m8f_aas_voice_on_secret_found";
+      case powerup          : return "m8f_aas_voice_on_powerup";
+      case weapon           : return "m8f_aas_voice_on_weapon";
+      case key              : return "m8f_aas_voice_on_key";
+      case backpack         : return "m8f_aas_voice_on_backpack";
+      case new_armor        : return "m8f_aas_voice_on_new_armor";
+      case big_heal         : return "m8f_aas_voice_on_big_heal";
+      default: return "m8f_aas_true";
+    }
+  }
+
 } // class m8f_aas_event

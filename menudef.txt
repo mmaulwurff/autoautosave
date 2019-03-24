@@ -106,6 +106,9 @@ OptionMenu    "m8f_aas_LogOptions"
   StaticText  "enemies time teleport items health armor" , "Black"
 
   StaticText  ""
+  Option      "Voice for teleport event" , "m8f_aas_voice_on_teleport", "OnOff"
+
+  StaticText  ""
 }
 
 OptionMenu    "m8f_aas_EventTuningMenu"

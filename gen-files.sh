@@ -46,6 +46,15 @@ echo "      default: return \"m8f_aas_false\";"                                 
 echo "    }"                                                                                                                                  >> $class_file
 echo "  }"                                                                                                                                    >> $class_file
 echo ""                                                                                                                                       >> $class_file
+echo "  static string voice_toggle_name(int type)"                                                                                             >> $class_file
+echo "  {"                                                                                                                                    >> $class_file
+echo "    switch (type)"                                                                                                                      >> $class_file
+echo "    {"                                                                                                                                  >> $class_file
+echo "$filtered" | awk '{ printf("      case %-16s : return \"m8f_aas_voice_on_%s\";\n", $4, $4) }'                                            >> $class_file
+echo "      default: return \"m8f_aas_true\";"                                                                                               >> $class_file
+echo "    }"                                                                                                                                  >> $class_file
+echo "  }"                                                                                                                                    >> $class_file
+echo ""                                                                                                                                       >> $class_file
 echo "} // class m8f_aas_event"                                                                                                               >> $class_file
 
 # Generate cvarinfo
@@ -56,6 +65,8 @@ echo ""                                                                         
 echo "$filtered" | awk '{ printf("server bool %-32s = %s;\n", $6, $8) }' | sort | uniq                                                        >> $cvar_file
 echo ""                                                                                                                                       >> $cvar_file
 echo "$filtered" | awk '{ printf("server bool m8f_aas_shot_on_%-16s = false;\n", $4) }' | sort | uniq                                         >> $cvar_file
+echo ""                                                                                                                                       >> $cvar_file
+echo "$filtered" | awk '{ printf("server bool m8f_aas_voice_on_%-16s = true;\n", $4) }' | sort | uniq                                         >> $cvar_file
 
 # Generate sndinfo
 
