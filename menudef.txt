@@ -39,7 +39,7 @@ OptionMenu    "AutoautosaveOptions"
 OptionMenu    "m8f_ScreenShotOptions"
 {
   Title       "Screen Shot Toggles"
-  StaticText  "Warning: too mane enabled events can" , "Black"
+  StaticText  "Warning: too many enabled events can" , "Black"
   StaticText  "bloat your screenshot directory."     , "Black"
 
   StaticText  ""
@@ -116,11 +116,11 @@ OptionMenu    "m8f_aas_EventTuningMenu"
   Title       "Event Tuning"
 
   StaticText  ""
-  Slider      "Enemy is boss when health not less"   , "m8f_aas_min_boss_health" , 0, 20000, 200, 0
-  Slider      "Group is not less than N enemies"     , "m8f_aas_group_number"    , 1, 50, 1, 0
+  Slider      "Enemy is a boss when health is at least" , "m8f_aas_min_boss_health" , 0, 20000, 200, 0
+  Slider      "Group is at least N enemies"             , "m8f_aas_group_number"    , 1, 50, 1, 0
 
   StaticText  ""
-  Slider      "Don't save when health is lower than" , "m8f_aas_health_limit"    , 0, 500, 5, 0
+  Slider      "Don't save when health is less than" , "m8f_aas_health_limit"    , 0, 500, 5, 0
 
   StaticText  ""
   TextField   "Low health threshold"  , "m8f_aas_health_threshold_down"

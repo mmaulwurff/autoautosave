@@ -1,8 +1,8 @@
 #!/bin/bash
 
 name=autoautosave
-#gzdoom=gzdoom
-gzdoom=~/Documents/src/gzdoom-build/gzdoom
+gzdoom=gzdoom
+#gzdoom=~/Documents/src/gzdoom-build/gzdoom
 
 git log --date=short --pretty=format:"-%d %ad %s%n" | \
     grep -v "^$" | \

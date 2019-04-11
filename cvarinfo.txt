@@ -21,8 +21,8 @@ server bool m8f_aas_save_on_dropped = false;
 // 8  - enemies/time/teleport/items
 // 13 - enemies/time/teleport/items/health/armor
 // 19 - enemies/time/teleport/items/health/armor/pickups (everything)
-server int  m8f_aas_console_log_level = 8;
-server int  m8f_aas_screen_level      = 0;
-server int  m8f_aas_voice_level       = 0;
+server int  m8f_aas_console_log_level =  8;
+server int  m8f_aas_screen_level      = -1;
+server int  m8f_aas_voice_level       = -1;
 
 server int  m8f_aas_request = -1;
