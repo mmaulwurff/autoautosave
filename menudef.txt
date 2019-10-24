@@ -32,8 +32,6 @@ OptionMenu    "AutoautosaveOptions"
   SubMenu     "Event Tuning"              , "m8f_aas_EventTuningMenu"
   StaticText  ""
   SubMenu     "Log and Announcer Options" , "m8f_aas_LogOptions"
-
-  StaticText  ""
 }
 
 OptionMenu    "m8f_ScreenShotOptions"
@@ -86,7 +84,6 @@ OptionMenu    "m8f_ScreenShotOptions"
   StaticText  ""
   Option      "New armor type" , "m8f_aas_shot_on_new_armor" , "OnOff"
   Option      "Major healing"  , "m8f_aas_shot_on_big_heal"  , "OnOff"
-  StaticText  ""
 }
 
 OptionMenu    "m8f_aas_LogOptions"
@@ -107,8 +104,6 @@ OptionMenu    "m8f_aas_LogOptions"
 
   StaticText  ""
   Option      "Voice for teleport event" , "m8f_aas_voice_on_teleport", "OnOff"
-
-  StaticText  ""
 }
 
 OptionMenu    "m8f_aas_EventTuningMenu"
@@ -134,8 +129,6 @@ OptionMenu    "m8f_aas_EventTuningMenu"
 
   StaticText  ""
   Option      "Save on dropped items"           , "m8f_aas_save_on_dropped" , "OnOff"
-
-  StaticText  ""
 }
 
 OptionMenu    "m8f_aas_EventTogglesMenu"
@@ -177,12 +170,9 @@ OptionMenu    "m8f_aas_EventTogglesMenu"
   StaticText  ""
   Option      "New armor type" , "m8f_aas_save_on_new_armor" , "OnOff"
   Option      "Major healing"  , "m8f_aas_save_on_big_heal"  , "OnOff"
-
-  StaticText  ""
 }
 
 AddOptionMenu "OptionsMenu"
 {
-  StaticText  ""
   Submenu     "Autoautosave Options", "AutoautosaveOptions"
 }
