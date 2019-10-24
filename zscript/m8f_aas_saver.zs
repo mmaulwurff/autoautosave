@@ -63,7 +63,10 @@ class m8f_aas_saver : m8f_aas_event_handler
   {
     last_save_time = current_time;
 
-    LevelLocals.MakeAutoSave();
+    if (gameaction != ga_completed)
+    {
+      LevelLocals.MakeAutoSave();
+    }
   }
 
   // private: //////////////////////////////////////////////////////////////////
