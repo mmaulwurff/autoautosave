@@ -3,6 +3,7 @@
 */*
 
 !.gitignore
+!.gitattributes
 
 !**.txt
 !**.zs
