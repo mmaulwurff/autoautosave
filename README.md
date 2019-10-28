@@ -28,8 +28,8 @@ It is designed to be compatible with any monster and weapon mod, and any map.
 
 # Thanks to
 insightguy, Someone64, 4thcharacter, Tesculpture, SiFi270, ShockwaveS08, Rowsol,
-Zhs2, dawnbreez, namsan, Crimsondrgn, Captain J, and Spaceman333 for help,
-suggestions and bug reports.
+Zhs2, dawnbreez, namsan, Crimsondrgn, Captain J, Spaceman333, and retronutcase
+for help, suggestions, and bug reports.
 
 Author: m8f
 
