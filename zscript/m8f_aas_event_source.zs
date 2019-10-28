@@ -178,7 +178,8 @@ class m8f_aas_event_source : EventHandler
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
     {
-      if (!(item is saveable_item_classes[i])) { continue; }
+      if (!(item is saveable_item_classes[i]
+            || Actor.GetReplacee(item.GetClassName()) is saveable_item_classes[i])) { continue; }
 
       if (owner == null)
       {

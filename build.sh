@@ -29,7 +29,7 @@ cp -f $name.pk3 $name-$(git describe --abbrev=0 --tags).pk3 \
 $gzdoom \
        -file \
        $name.pk3 \
-       ~/Programs/Games/wads/maps/DOOMTEST.wad \
+       ~/Programs/Games/wads/maps/test/DOOMTEST.wad \
        "$1" "$2" \
        +map test \
        -nomonsters \
