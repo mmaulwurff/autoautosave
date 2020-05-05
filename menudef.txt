@@ -129,6 +129,7 @@ OptionMenu    "m8f_aas_EventTuningMenu"
 
   StaticText  ""
   Option      "Save on dropped items"           , "m8f_aas_save_on_dropped" , "OnOff"
+  StaticText  "Also picking up Hideous Destructor keys." , Black
 }
 
 OptionMenu    "m8f_aas_EventTogglesMenu"
