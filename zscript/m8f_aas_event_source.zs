@@ -87,24 +87,24 @@ class m8f_aas_event_source : EventHandler
     handler.on_event(m8f_aas_event.level_start);
   }
 
-  override void WorldThingSpawned(WorldEvent e)
+  override void WorldThingSpawned(WorldEvent event)
   {
-    if (e == null) { return; }
-    if (e.thing == null) { return; }
+    if (event == NULL || event.thing == NULL) { return; }
+
+    Actor  item       = event.thing;
+    string class_name = item.getClassName();
 
     // spawn special actor that saves the game when picked up
     // alongside inventory items.
-    if (e.thing.GetClassName() == "m8f_aas_token") { return; }
 
-    Inventory item = Inventory(e.thing);
-    if (item == null) { return; }
+    if (class_name == "m8f_aas_token") { return; }
 
     bool saveOnDropped = CVar.GetCVar("m8f_aas_save_on_dropped").GetInt();
     if (!saveOnDropped && loading_finished) { return; }
 
     static const string saveable_item_classes[] =
     {
-      "Key",
+      "Key",             // keys
       "FDKeyBase",
       "QCRedCard",
       "QCYellowCard",
@@ -112,10 +112,10 @@ class m8f_aas_event_source : EventHandler
       "QCRedSkull",
       "QCYellowSkull",
       "QCBlueSkull",
-      "Weapon", // weapons
+      "Weapon",          // weapons
       "Goonades",
       "SPAMMineItem",
-      "PowerupGiver", // powerups
+      "PowerupGiver",    // powerups
       "TBPowerupBase",
       "MapRevealer",
       "Berserk",
@@ -128,7 +128,7 @@ class m8f_aas_event_source : EventHandler
       "Mapisto",
       "LovebirdTag",
       "BigScorePresent",
-      "BackpackItem", // backpacks
+      "BackpackItem",    // backpacks
       "Backpack2",
       "BlueprintItem",
       "NetronianBackpack",
@@ -170,33 +170,44 @@ class m8f_aas_event_source : EventHandler
     };
 
     int n_saveable_items_classes = saveable_item_classes.size();
-    if (n_saveable_items_classes != types.size()) { console.printf("AAS Error: invalid saveable items."); }
+    if (n_saveable_items_classes != types.size())
+    {
+      console.printf("AAS Error: invalid saveable items.");
+    }
 
     Actor   player = players[consolePlayer].mo;
-    Actor   owner  = item.owner;
+    Actor   owner  = (item is "Inventory") ? Inventory(item).owner : NULL;
     Vector3 point  = item.pos;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
     {
-      if (!(item is saveable_item_classes[i]
-            || Actor.GetReplacee(item.GetClassName()) is saveable_item_classes[i])) { continue; }
+      string saveable_class = saveable_item_classes[i];
 
-      if (owner == null)
+      if (!(item is saveable_class || Actor.GetReplacee(class_name) is saveable_class))
+      {
+        continue;
+      }
+
+      if (owner == NULL)
       {
         m8f_aas_token(Actor.Spawn("m8f_aas_token", point)).init(types[i], handler);
       }
-      else if (owner == player
-               && loading_finished) // don't save on obtaining starting weapons
+      else if (owner == player && loading_finished)
       {
+        // don't save on obtaining starting weapons
         string netronianBackpack = "NetronianBackpack";
         class<Actor> netronianBackpackClass = netronianBackpack;
+
         // don't save on BackpackItem for Netronian Chaos, save on
         // Netronian Backpack instead
-        if (saveable_item_classes[i] == "BackpackItem"
-            && netronianBackpackClass) { return; }
+        if (saveable_class == "BackpackItem" && netronianBackpackClass)
+        {
+          return;
+        }
 
         handler.on_event(types[i]);
       }
+
       break;
     }
   }
@@ -212,7 +223,7 @@ class m8f_aas_event_source : EventHandler
     old_kill_count = 0;
     old_item_count = 0;
 
-    handler = new("m8f_aas_event_dispatcher").init(self, null);
+    handler = new("m8f_aas_event_dispatcher").init(self, NULL);
 
     PlayerInfo pInfo  = players[consolePlayer];
     let player = PlayerPawn(pInfo.mo);
@@ -238,7 +249,7 @@ class m8f_aas_event_source : EventHandler
     while (a = Actor(i.Next()))
     {
       if (a.bISMONSTER
-          && a.Target != null
+          && a.Target != NULL
           && a.Health > 0)
       {
         if (a.SpawnHealth() >= min_boss_health) { ++activeBigCount; }
@@ -332,7 +343,7 @@ class m8f_aas_event_source : EventHandler
 
     {
       BasicArmor armor = BasicArmor(player.mo.FindInventory("BasicArmor"));
-      if (armor != null)
+      if (armor != NULL)
         {
           double save_percent = armor.SavePercent;
           if (save_percent != 0.0 && save_percent != old_armor_save)
