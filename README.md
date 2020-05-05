@@ -5,7 +5,8 @@ GZDoom mod: universal autosaver.
 It works as a configurable checkpoint system.
 It is designed to be compatible with any monster and weapon mod, and any map.
 
-# Autosave on certain events:
+## Autosave on certain events:
+
 - All enemies are eliminated
 - Boss is eliminated
 - No more active enemies (group kill)
@@ -26,11 +27,16 @@ It is designed to be compatible with any monster and weapon mod, and any map.
 - New armor type
 - Major healing
 
-# Thanks to
+## Thanks to
+
 insightguy, Someone64, 4thcharacter, Tesculpture, SiFi270, ShockwaveS08, Rowsol,
-Zhs2, dawnbreez, namsan, Crimsondrgn, Captain J, Spaceman333, and retronutcase
-for help, suggestions, and bug reports.
+Zhs2, dawnbreez, namsan, Crimsondrgn, Captain J, Spaceman333, retronutcase, and
+HexaDoken for help, suggestions, and bug reports.
+
+## Info
 
 Author: m8f
 
 License: GPLv3 (see copying.txt)
+
+This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox)
