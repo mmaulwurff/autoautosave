@@ -1,4 +1,4 @@
-OptionValue "m8f_aas_log_level_options"
+OptionValue "aas_log_level_options"
 {
    -1, "nothing"
    99, "quiet"
@@ -6,18 +6,18 @@ OptionValue "m8f_aas_log_level_options"
   999, "everything"
 }
 
-OptionMenu    "AutoautosaveOptions"
+OptionMenu aas_Options
 {
   Title       "Autoautosave Options"
 
   StaticText  ""
-  StaticText  "This must be set to ALWAYS:" , "Black"
+  StaticText  "This must be set to ALWAYS:" , Black
   Option      "$MISCMNU_ENABLEAUTOSAVES"    , "disableautosave", "Autosave"
   Slider      "$MISCMNU_AUTOSAVECOUNT"      , "autosavecount", 1, 20, 1, 0
 
   StaticText  ""
   StaticText  "Global toggle" , 1
-  Option      "Autoautosave"  , "m8f_aas_enabled", "OnOff"
+  Option      "Autoautosave"  , "m8f_aas_enabled", OnOff
 
   StaticText  ""
   StaticText  "Controls", 1
@@ -25,88 +25,88 @@ OptionMenu    "AutoautosaveOptions"
   Control     "Toggle autoautosave" , "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
 
   StaticText  ""
-  SubMenu     "Individual Event Toggles"  , "m8f_aas_EventTogglesMenu"
+  SubMenu     "Individual Event Toggles"  , aas_EventTogglesMenu
   StaticText  ""
-  SubMenu     "Screen Shot Toggles"       , "m8f_ScreenShotOptions"
+  SubMenu     "Screen Shot Toggles"       , aas_ScreenShotOptions
   StaticText  ""
-  SubMenu     "Event Tuning"              , "m8f_aas_EventTuningMenu"
+  SubMenu     "Event Tuning"              , aas_EventTuningMenu
   StaticText  ""
-  SubMenu     "Log and Announcer Options" , "m8f_aas_LogOptions"
+  SubMenu     "Log and Announcer Options" , aas_LogOptions
 }
 
-OptionMenu    "m8f_ScreenShotOptions"
+OptionMenu aas_ScreenShotOptions
 {
   Title       "Screen Shot Toggles"
-  StaticText  "Warning: too many enabled events can" , "Black"
-  StaticText  "bloat your screenshot directory."     , "Black"
+  StaticText  "Warning: too many enabled events can" , Black
+  StaticText  "bloat your screenshot directory."     , Black
 
   StaticText  ""
-  Option      "Enable scripted screenshots", "enablescriptscreenshot", "OnOff"
-  StaticText  "This must be set to \"On\"", "Black"
+  Option      "Enable scripted screenshots", "enablescriptscreenshot", OnOff
+  StaticText  "This must be set to \"On\"", Black
 
   StaticText  ""
-  Option      "On Manual Autosave"                  , "m8f_aas_shot_on_manual"     , "OnOff"
-  Option      "On Level Start"                      , "m8f_aas_shot_on_level_start", "OnOff"
+  Option      "On Manual Autosave"                  , "m8f_aas_shot_on_manual"     , OnOff
+  Option      "On Level Start"                      , "m8f_aas_shot_on_level_start", OnOff
 
   StaticText  ""
-  Option      "All enemies are eliminated"          , "m8f_aas_shot_on_all_kill"   , "OnOff"
-  Option      "Boss is eliminated"                  , "m8f_aas_shot_on_boss_kill"  , "OnOff"
-  Option      "No more active enemies (group kill)" , "m8f_aas_shot_on_group_kill" , "OnOff"
+  Option      "All enemies are eliminated"          , "m8f_aas_shot_on_all_kill"   , OnOff
+  Option      "Boss is eliminated"                  , "m8f_aas_shot_on_boss_kill"  , OnOff
+  Option      "No more active enemies (group kill)" , "m8f_aas_shot_on_group_kill" , OnOff
 
   StaticText  ""
-  Option      "New active enemies (group alert)" , "m8f_aas_shot_on_group_alert"   , "OnOff"
-  Option      "Boss is alerted"                  , "m8f_aas_shot_on_boss_alert"    , "OnOff"
+  Option      "New active enemies (group alert)" , "m8f_aas_shot_on_group_alert"   , OnOff
+  Option      "Boss is alerted"                  , "m8f_aas_shot_on_boss_alert"    , OnOff
 
   StaticText  ""
-  Option      "All items are found"            , "m8f_aas_shot_on_all_items_found" , "OnOff"
-  Option      "Time has passed"                , "m8f_aas_shot_on_time_period"     , "OnOff"
-  Option      "You are moved to another place" , "m8f_aas_shot_on_teleport"        , "OnOff"
+  Option      "All items are found"            , "m8f_aas_shot_on_all_items_found" , OnOff
+  Option      "Time has passed"                , "m8f_aas_shot_on_time_period"     , OnOff
+  Option      "You are moved to another place" , "m8f_aas_shot_on_teleport"        , OnOff
 
   StaticText  ""
-  Option      "Health drops low"  , "m8f_aas_shot_on_health_drop"  , "OnOff"
-  Option      "Health drops to 1%", "m8f_aas_shot_on_one_percent"  , "OnOff"
-  Option      "Health rises high" , "m8f_aas_shot_on_health_rise"  , "OnOff"
-  Option      "Armor drops low"   , "m8f_aas_shot_on_armor_drop"   , "OnOff"
-  Option      "Armor rises high"  , "m8f_aas_shot_on_armor_rise"   , "OnOff"
-  Option      "Secret is found"   , "m8f_aas_shot_on_secret_found" , "OnOff"
+  Option      "Health drops low"  , "m8f_aas_shot_on_health_drop"  , OnOff
+  Option      "Health drops to 1%", "m8f_aas_shot_on_one_percent"  , OnOff
+  Option      "Health rises high" , "m8f_aas_shot_on_health_rise"  , OnOff
+  Option      "Armor drops low"   , "m8f_aas_shot_on_armor_drop"   , OnOff
+  Option      "Armor rises high"  , "m8f_aas_shot_on_armor_rise"   , OnOff
+  Option      "Secret is found"   , "m8f_aas_shot_on_secret_found" , OnOff
 
   StaticText  ""
-  Option      "Powerup is found"        , "m8f_aas_shot_on_powerup"  , "OnOff"
-  Option      "Weapon is found"         , "m8f_aas_shot_on_weapon"   , "OnOff"
-  Option      "Key is found"            , "m8f_aas_shot_on_key"      , "OnOff"
-  Option      "Backpack is found"       , "m8f_aas_shot_on_backpack" , "OnOff"
-  Option      "Important item is found" , "m8f_aas_shot_on_gs_gold_coin" , "OnOff"
+  Option      "Powerup is found"        , "m8f_aas_shot_on_powerup"  , OnOff
+  Option      "Weapon is found"         , "m8f_aas_shot_on_weapon"   , OnOff
+  Option      "Key is found"            , "m8f_aas_shot_on_key"      , OnOff
+  Option      "Backpack is found"       , "m8f_aas_shot_on_backpack" , OnOff
+  Option      "Important item is found" , "m8f_aas_shot_on_gs_gold_coin" , OnOff
 
-  StaticText  "Important item list currently includes:" , "Black"
-  StaticText  "The Golden Souls Big Coins"              , "Black"
-  StaticText  "May be something else in the future!"    , "Black"
+  StaticText  "Important item list currently includes:" , Black
+  StaticText  "The Golden Souls Big Coins"              , Black
+  StaticText  "May be something else in the future!"    , Black
 
   StaticText  ""
-  Option      "New armor type" , "m8f_aas_shot_on_new_armor" , "OnOff"
-  Option      "Major healing"  , "m8f_aas_shot_on_big_heal"  , "OnOff"
+  Option      "New armor type" , "m8f_aas_shot_on_new_armor" , OnOff
+  Option      "Major healing"  , "m8f_aas_shot_on_big_heal"  , OnOff
 }
 
-OptionMenu    "m8f_aas_LogOptions"
+OptionMenu aas_LogOptions
 {
   Title       "Log and announcer options"
 
   StaticText  ""
-  Option      "Log to console" , "m8f_aas_console_log_level" , "m8f_aas_log_level_options"
-  Option      "Log to screen"  , "m8f_aas_screen_level"      , "m8f_aas_log_level_options"
-  Option      "Voice"          , "m8f_aas_voice_level"       , "m8f_aas_log_level_options"
+  Option      "Log to console" , "m8f_aas_console_log_level" , aas_log_level_options
+  Option      "Log to screen"  , "m8f_aas_screen_level"      , aas_log_level_options
+  Option      "Voice"          , "m8f_aas_voice_level"       , aas_log_level_options
 
   StaticText  ""
-  StaticText  "Quiet:"                                   , "Black"
-  StaticText  "enemies time teleport items"              , "Black"
+  StaticText  "Quiet:"                                   , Black
+  StaticText  "enemies time teleport items"              , Black
   StaticText  ""
-  StaticText  "Verbose:"                                 , "Black"
-  StaticText  "enemies time teleport items health armor" , "Black"
+  StaticText  "Verbose:"                                 , Black
+  StaticText  "enemies time teleport items health armor" , Black
 
   StaticText  ""
-  Option      "Voice for teleport event" , "m8f_aas_voice_on_teleport", "OnOff"
+  Option      "Voice for teleport event" , "m8f_aas_voice_on_teleport", OnOff
 }
 
-OptionMenu    "m8f_aas_EventTuningMenu"
+OptionMenu aas_EventTuningMenu
 {
   Title       "Event Tuning"
 
@@ -128,52 +128,52 @@ OptionMenu    "m8f_aas_EventTuningMenu"
   Slider      "Autosave every N seconds"        , "m8f_aas_autosave_period" , 30, 600, 30, 0
 
   StaticText  ""
-  Option      "Save on dropped items"           , "m8f_aas_save_on_dropped" , "OnOff"
+  Option      "Save on dropped items"           , "m8f_aas_save_on_dropped" , OnOff
   StaticText  "Also picking up Hideous Destructor keys." , Black
 }
 
-OptionMenu    "m8f_aas_EventTogglesMenu"
+OptionMenu aas_EventTogglesMenu
 {
   Title       "Individual Event Toggles"
 
-  Option      "All enemies are eliminated"          , "m8f_aas_save_on_all_kill"   , "OnOff"
-  Option      "Boss is eliminated"                  , "m8f_aas_save_on_boss_kill"  , "OnOff"
-  Option      "No more active enemies (group kill)" , "m8f_aas_save_on_group_kill" , "OnOff"
+  Option      "All enemies are eliminated"          , "m8f_aas_save_on_all_kill"   , OnOff
+  Option      "Boss is eliminated"                  , "m8f_aas_save_on_boss_kill"  , OnOff
+  Option      "No more active enemies (group kill)" , "m8f_aas_save_on_group_kill" , OnOff
 
   StaticText  ""
-  Option      "New active enemies (group alert)" , "m8f_aas_save_on_group_alert" , "OnOff"
-  Option      "Boss is alerted"                  , "m8f_aas_save_on_boss_alert"  , "OnOff"
+  Option      "New active enemies (group alert)" , "m8f_aas_save_on_group_alert" , OnOff
+  Option      "Boss is alerted"                  , "m8f_aas_save_on_boss_alert"  , OnOff
 
   StaticText  ""
-  Option      "All items are found"            , "m8f_aas_save_on_all_items_found" , "OnOff"
-  Option      "Time has passed"                , "m8f_aas_save_on_time_period"     , "OnOff"
-  Option      "You are moved to another place" , "m8f_aas_save_on_teleport"        , "OnOff"
+  Option      "All items are found"            , "m8f_aas_save_on_all_items_found" , OnOff
+  Option      "Time has passed"                , "m8f_aas_save_on_time_period"     , OnOff
+  Option      "You are moved to another place" , "m8f_aas_save_on_teleport"        , OnOff
 
   StaticText  ""
-  Option      "Health drops low"  , "m8f_aas_save_on_health_drop"  , "OnOff"
-  Option      "Health rises high" , "m8f_aas_save_on_health_rise"  , "OnOff"
-  Option      "Armor drops low"   , "m8f_aas_save_on_armor_drop"   , "OnOff"
-  Option      "Armor rises high"  , "m8f_aas_save_on_armor_rise"   , "OnOff"
-  Option      "Secret is found"   , "m8f_aas_save_on_secret_found" , "OnOff"
+  Option      "Health drops low"  , "m8f_aas_save_on_health_drop"  , OnOff
+  Option      "Health rises high" , "m8f_aas_save_on_health_rise"  , OnOff
+  Option      "Armor drops low"   , "m8f_aas_save_on_armor_drop"   , OnOff
+  Option      "Armor rises high"  , "m8f_aas_save_on_armor_rise"   , OnOff
+  Option      "Secret is found"   , "m8f_aas_save_on_secret_found" , OnOff
 
   StaticText  ""
-  Option      "Powerup is found"        , "m8f_aas_save_on_powerup"  , "OnOff"
-  Option      "Weapon is found"         , "m8f_aas_save_on_weapon"   , "OnOff"
-  Option      "Key is found"            , "m8f_aas_save_on_key"      , "OnOff"
-  Option      "Backpack is found"       , "m8f_aas_save_on_backpack" , "OnOff"
-  Option      "Armor is found"          , "m8f_aas_save_on_armor"    , "OnOff"
-  Option      "Important item is found" , "m8f_aas_save_on_artefact" , "OnOff"
+  Option      "Powerup is found"        , "m8f_aas_save_on_powerup"  , OnOff
+  Option      "Weapon is found"         , "m8f_aas_save_on_weapon"   , OnOff
+  Option      "Key is found"            , "m8f_aas_save_on_key"      , OnOff
+  Option      "Backpack is found"       , "m8f_aas_save_on_backpack" , OnOff
+  Option      "Armor is found"          , "m8f_aas_save_on_armor"    , OnOff
+  Option      "Important item is found" , "m8f_aas_save_on_artefact" , OnOff
 
-  StaticText  "Important item list currently includes:" , "Black"
-  StaticText  "The Golden Souls Big Coins"              , "Black"
-  StaticText  "May be something else in the future!"    , "Black"
+  StaticText  "Important item list currently includes:" , Black
+  StaticText  "The Golden Souls Big Coins"              , Black
+  StaticText  "May be something else in the future!"    , Black
 
   StaticText  ""
-  Option      "New armor type" , "m8f_aas_save_on_new_armor" , "OnOff"
-  Option      "Major healing"  , "m8f_aas_save_on_big_heal"  , "OnOff"
+  Option      "New armor type" , "m8f_aas_save_on_new_armor" , OnOff
+  Option      "Major healing"  , "m8f_aas_save_on_big_heal"  , OnOff
 }
 
-AddOptionMenu "OptionsMenu"
+AddOptionMenu OptionsMenu
 {
-  Submenu     "Autoautosave Options", "AutoautosaveOptions"
+  Submenu "Autoautosave Options", aas_Options
 }
