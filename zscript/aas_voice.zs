@@ -23,7 +23,7 @@ class aas_voice : aas_event_handler
         && event_type != aas_event.tick)
     {
       string voice_file = String.Format("aas/voice%d", event_type);
-      Object.S_Sound(voice_file, CHAN_AUTO);
+      Object.S_StartSound(voice_file, CHAN_AUTO);
       last_save_time = current_time;
     }
   }
