@@ -19,9 +19,10 @@
 class aas_saver : aas_event_handler
 {
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  override
+  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
     last_save_time = 0;
     _dispatcher = dispatcher;
@@ -29,10 +30,11 @@ class aas_saver : aas_event_handler
     return self;
   }
 
-  override void on_event(int event_type)
+  override
+  void on_event(int event_type)
   {
     int current_time          = level.time;
-    int time_from_last_save_s = (current_time - last_save_time) / 35;
+    int time_from_last_save_s = (current_time - last_save_time) / TICRATE;
 
     if (is_time_to_periodic_save(time_from_last_save_s, event_type))
     {
@@ -51,9 +53,10 @@ class aas_saver : aas_event_handler
     }
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private bool is_time_to_periodic_save(int time_from_last_save_s, int event_type)
+  private
+  bool is_time_to_periodic_save(int time_from_last_save_s, int event_type)
   {
     int  autosave_period_s        = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
     bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
@@ -64,7 +67,8 @@ class aas_saver : aas_event_handler
     return is_time_to_periodic_save;
   }
 
-  private bool is_too_frequent(int time_from_last_save_s, int event_type)
+  private
+  bool is_too_frequent(int time_from_last_save_s, int event_type)
   {
     // manual saving cannot be too frequent
     if (event_type == aas_event.manual) { return false; }
@@ -75,9 +79,8 @@ class aas_saver : aas_event_handler
     return is_too_frequent;
   }
 
-  // private: //////////////////////////////////////////////////////////////////
-
-  private void save(int current_time)
+  private
+  void save(int current_time)
   {
     last_save_time = current_time;
 
@@ -87,14 +90,14 @@ class aas_saver : aas_event_handler
     }
   }
 
-  // private: //////////////////////////////////////////////////////////////////
-
-  private void emit_time_period_event()
+  private
+  void emit_time_period_event()
   {
     _dispatcher.on_event(aas_event.time_period);
   }
 
-  private static bool is_save_enabled(int event_type)
+  private static
+  bool is_save_enabled(int event_type)
   {
     if (event_type == aas_event.manual) { return true; }
 
@@ -118,7 +121,7 @@ class aas_saver : aas_event_handler
     return variable.GetInt();
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private int last_save_time;
 

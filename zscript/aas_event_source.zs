@@ -19,52 +19,23 @@
 class aas_event_source : EventHandler
 {
 
-  // constants section /////////////////////////////////////////////////////////
-
-  const ticks_in_second = 35;
-
-  // attributes section ////////////////////////////////////////////////////////
-
-  private bool    loading_finished;
-
-  private int     oldActiveCount;
-  private int     oldActiveBigCount;
-  private int     maxActive;
-
-  private int     old_kill_count;
-  private int     old_item_count;
-  private int     old_secret_count;
-
-  private vector3 old_pos;
-
-  private int     old_health;
-  private int     old_armor;
-  private double  old_armor_save;
-
-  private int     seconds_from_last_save;
-
-  private int     autosave_request;
-  private bool    screenshot_request;
-
-  private aas_event_handler handler;
-
-  // public methods section
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
   void request_screenshot()
   {
     screenshot_request = true;
   }
 
-  // override functions section ////////////////////////////////////////////////
-
-  override void OnRegister()
+  override
+  void OnRegister()
   {
     loading_finished   = false;
     screenshot_request = false;
     autosave_request   = -1;
   }
 
-  override void WorldTick()
+  override
+  void WorldTick()
   {
     // request must not be processed in the same tick as it was received
     // because request CVar is not updated yet.
@@ -86,26 +57,28 @@ class aas_event_source : EventHandler
     if (level.time == 0) { return; }
     else { loading_finished = true; }
 
-    int tick_inside_second = level.time % ticks_in_second;
+    int tick_inside_second = level.time % TICRATE;
     switch (tick_inside_second)
-      {
-      case  0: handler.on_event(aas_event.tick); break;
-      case  1: maybeTakeScreenShot();  return;
-      case  9: check_counter_events(); return;
-      case 18: check_map_events();     return;
-      case 27: check_player_events();  return;
-      default: return;
-      }
+    {
+    case  0: handler.on_event(aas_event.tick); break;
+    case  1: maybeTakeScreenShot();  return;
+    case  9: check_counter_events(); return;
+    case 18: check_map_events();     return;
+    case 27: check_player_events();  return;
+    default: return;
+    }
   }
 
-  override void PlayerEntered(PlayerEvent e)
+  override
+  void PlayerEntered(PlayerEvent e)
   {
     if (e.PlayerNumber != consolePlayer) { return; }
     init_player();
     handler.on_event(aas_event.level_start);
   }
 
-  override void WorldThingSpawned(WorldEvent event)
+  override
+  void WorldThingSpawned(WorldEvent event)
   {
     if (event == NULL || event.thing == NULL) { return; }
 
@@ -115,7 +88,7 @@ class aas_event_source : EventHandler
     // spawn special actor that saves the game when picked up
     // alongside inventory items.
 
-    if (class_name == "m8f_aas_token") { return; }
+    if (class_name == "aas_token") { return; }
 
     bool saveOnDropped = CVar.GetCVar("m8f_aas_save_on_dropped").GetInt();
     if (!saveOnDropped && loading_finished) { return; }
@@ -208,7 +181,7 @@ class aas_event_source : EventHandler
 
       if (owner == NULL)
       {
-        m8f_aas_token(Actor.Spawn("m8f_aas_token", point)).init(types[i], handler);
+        aas_token(Actor.Spawn("aas_token", point)).init(types[i], handler);
       }
       else if (owner == player && loading_finished)
       {
@@ -230,9 +203,10 @@ class aas_event_source : EventHandler
     }
   }
 
-  // private methods
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private void init_player()
+  private
+  void init_player()
   {
     oldActiveCount = 0;
     oldActiveBigCount = 0;
@@ -255,7 +229,8 @@ class aas_event_source : EventHandler
     else       { old_armor_save = 0.0; }
   }
 
-  private void check_counter_events()
+  private
+  void check_counter_events()
   {
     // count active monsters
     let i               = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
@@ -304,7 +279,8 @@ class aas_event_source : EventHandler
     oldActiveBigCount = activeBigCount;
   }
 
-  private void check_player_events()
+  private
+  void check_player_events()
   {
     PlayerInfo player = players[consoleplayer];
 
@@ -362,18 +338,19 @@ class aas_event_source : EventHandler
     {
       BasicArmor armor = BasicArmor(player.mo.FindInventory("BasicArmor"));
       if (armor != NULL)
+      {
+        double save_percent = armor.SavePercent;
+        if (save_percent != 0.0 && save_percent != old_armor_save)
         {
-          double save_percent = armor.SavePercent;
-          if (save_percent != 0.0 && save_percent != old_armor_save)
-          {
-            handler.on_event(aas_event.new_armor);
-          }
-          old_armor_save = save_percent;
+          handler.on_event(aas_event.new_armor);
         }
+        old_armor_save = save_percent;
+      }
     }
   }
 
-  private void check_map_events()
+  private
+  void check_map_events()
   {
     PlayerInfo player = players[consoleplayer];
 
@@ -405,7 +382,8 @@ class aas_event_source : EventHandler
     }
   }
 
-  private void maybeTakeScreenShot()
+  private
+  void maybeTakeScreenShot()
   {
     if (screenshot_request)
     {
@@ -414,5 +392,30 @@ class aas_event_source : EventHandler
       screenshot_request = false;
     }
   }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private bool    loading_finished;
+
+  private int     oldActiveCount;
+  private int     oldActiveBigCount;
+  private int     maxActive;
+
+  private int     old_kill_count;
+  private int     old_item_count;
+  private int     old_secret_count;
+
+  private vector3 old_pos;
+
+  private int     old_health;
+  private int     old_armor;
+  private double  old_armor_save;
+
+  private int     seconds_from_last_save;
+
+  private int     autosave_request;
+  private bool    screenshot_request;
+
+  private aas_event_handler handler;
 
 } // class aas_event_source

@@ -19,20 +19,20 @@
 class aas_voice : aas_event_handler
 {
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override aas_event_handler init( aas_event_source  event_source
-                                     , aas_event_handler dispatcher
-                                     )
+  override
+  aas_event_handler init(aas_event_source  event_source, aas_event_handler dispatcher)
   {
     last_save_time = 0;
     return self;
   }
 
-  override void on_event(int event_type)
+  override
+  void on_event(int event_type)
   {
     int current_time          = level.time;
-    int time_from_last_save_s = (current_time - last_save_time) / 35;
+    int time_from_last_save_s = (current_time - last_save_time) / TICRATE;
     if (time_from_last_save_s < 1) { return; }
 
     int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
@@ -46,9 +46,10 @@ class aas_voice : aas_event_handler
     }
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static bool is_voice_enabled_for(int event_type)
+  private static
+  bool is_voice_enabled_for(int event_type)
   {
     bool is_enabled = CVar.GetCVar(aas_event.voice_toggle_name(event_type)).GetInt();
     return is_enabled;

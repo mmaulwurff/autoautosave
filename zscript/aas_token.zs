@@ -17,8 +17,10 @@
  */
 
 // Creates an aas_event when pickup up
-class m8f_aas_token : Inventory
+class aas_token : Inventory
 {
+
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
   Default
   {
@@ -26,7 +28,7 @@ class m8f_aas_token : Inventory
     +DONTGIB;
   }
 
-  m8f_aas_token init(int type, aas_event_handler handler)
+  aas_token init(int type, aas_event_handler handler)
   {
     _event_type = type;
     _handler    = handler;
@@ -34,17 +36,18 @@ class m8f_aas_token : Inventory
     return self;
   }
 
-  override bool TryPickup(Actor toucher)
+  override
+  bool TryPickup(Actor toucher)
   {
     _handler.on_event(_event_type);
     GoAwayAndDie();
     return true;
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private int _event_type;
 
   private aas_event_handler _handler;
 
-} // class m8f_aas_token
+} // class aas_token
