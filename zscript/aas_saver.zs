@@ -1,4 +1,4 @@
-class m8f_aas_saver : aas_event_handler
+class aas_saver : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
@@ -106,4 +106,4 @@ class m8f_aas_saver : aas_event_handler
 
   private aas_event_handler _dispatcher;
 
-} // class m8f_aas_saver
+} // class aas_saver

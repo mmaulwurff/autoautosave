@@ -1,4 +1,4 @@
-class m8f_aas_printer : aas_event_handler
+class aas_printer : aas_event_handler
 {
 
   override void on_event(int event_type)
@@ -11,4 +11,4 @@ class m8f_aas_printer : aas_event_handler
       }
   }
 
-} // class m8f_aas_printer
+} // class aas_printer

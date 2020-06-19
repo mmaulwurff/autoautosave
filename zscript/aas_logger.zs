@@ -1,4 +1,4 @@
-class m8f_aas_logger : aas_event_handler
+class aas_logger : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
@@ -22,4 +22,4 @@ class m8f_aas_logger : aas_event_handler
     return is_worth_logging;
   }
 
-} // class m8f_aas_logger
+} // class aas_logger

@@ -1,4 +1,4 @@
-class m8f_aas_voice : aas_event_handler
+class aas_voice : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
@@ -38,4 +38,4 @@ class m8f_aas_voice : aas_event_handler
 
   private int last_save_time;
 
-} // class m8f_aas_voice
+} // class aas_voice

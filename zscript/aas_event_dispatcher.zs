@@ -5,11 +5,11 @@ class aas_event_dispatcher : aas_event_handler
 
   override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
-    _handlers.Push(new("m8f_aas_saver"        ).init(event_source, self));
-    _handlers.Push(new("m8f_aas_logger"       ).init(event_source, self));
-    _handlers.Push(new("m8f_aas_printer"      ).init(event_source, self));
-    _handlers.Push(new("m8f_aas_voice"        ).init(event_source, self));
-    _handlers.Push(new("m8f_aas_screenshooter").init(event_source, self));
+    _handlers.Push(new("aas_saver"        ).init(event_source, self));
+    _handlers.Push(new("aas_logger"       ).init(event_source, self));
+    _handlers.Push(new("aas_printer"      ).init(event_source, self));
+    _handlers.Push(new("aas_voice"        ).init(event_source, self));
+    _handlers.Push(new("aas_screenshooter").init(event_source, self));
     return self;
   }
 

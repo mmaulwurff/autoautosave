@@ -55,7 +55,7 @@ echo "      default: return \"m8f_aas_true\";"                                  
 echo "    }"                                                                                                                                  >> $class_file
 echo "  }"                                                                                                                                    >> $class_file
 echo ""                                                                                                                                       >> $class_file
-echo "} // class m8f_aas_event"                                                                                                               >> $class_file
+echo "} // class aas_event"                                                                                                                   >> $class_file
 
 # Generate cvarinfo
 

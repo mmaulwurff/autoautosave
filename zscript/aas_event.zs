@@ -170,4 +170,4 @@ class aas_event
     }
   }
 
-} // class m8f_aas_event
+} // class aas_event

@@ -1,4 +1,4 @@
-class m8f_aas_screenshooter : aas_event_handler
+class aas_screenshooter : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
@@ -46,4 +46,4 @@ class m8f_aas_screenshooter : aas_event_handler
 
   private aas_event_source _event_source;
 
-} // class m8f_aas_screenshooter
+} // class aas_screenshooter
