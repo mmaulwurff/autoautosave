@@ -1,9 +1,9 @@
-class m8f_aas_saver : m8f_aas_event_handler
+class m8f_aas_saver : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
 
-  override m8f_aas_event_handler init(m8f_aas_event_source event_source, m8f_aas_event_handler dispatcher)
+  override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
     last_save_time = 0;
     _dispatcher = dispatcher;
@@ -39,7 +39,7 @@ class m8f_aas_saver : m8f_aas_event_handler
   {
     int  autosave_period_s        = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
     bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
-    bool is_time_to_periodic_save = event_type == m8f_aas_event.tick
+    bool is_time_to_periodic_save = event_type == aas_event.tick
       && is_period
       && CVar.GetCVar("m8f_aas_save_on_time_period").GetInt();
 
@@ -49,7 +49,7 @@ class m8f_aas_saver : m8f_aas_event_handler
   private bool is_too_frequent(int time_from_last_save_s, int event_type)
   {
     // manual saving cannot be too frequent
-    if (event_type == m8f_aas_event.manual) { return false; }
+    if (event_type == aas_event.manual) { return false; }
 
     int  min_save_wait_s = CVar.GetCVar("m8f_aas_min_save_wait").GetInt();
     bool is_too_frequent = time_from_last_save_s < min_save_wait_s;
@@ -73,12 +73,12 @@ class m8f_aas_saver : m8f_aas_event_handler
 
   private void emit_time_period_event()
   {
-    _dispatcher.on_event(m8f_aas_event.time_period);
+    _dispatcher.on_event(aas_event.time_period);
   }
 
   private static bool is_save_enabled(int event_type)
   {
-    if (event_type == m8f_aas_event.manual) { return true; }
+    if (event_type == aas_event.manual) { return true; }
 
     bool enabled = CVar.GetCVar("m8f_aas_enabled").GetInt();
     if (!enabled) { return false; }
@@ -88,7 +88,7 @@ class m8f_aas_saver : m8f_aas_event_handler
 
     if (health < min_health) { return false; }
 
-    string toggle_name = m8f_aas_event.toggle_name(event_type);
+    string toggle_name = aas_event.toggle_name(event_type);
 
     CVar variable = CVar.GetCVar(toggle_name);
     if (variable == null)
@@ -104,6 +104,6 @@ class m8f_aas_saver : m8f_aas_event_handler
 
   private int last_save_time;
 
-  private m8f_aas_event_handler _dispatcher;
+  private aas_event_handler _dispatcher;
 
 } // class m8f_aas_saver

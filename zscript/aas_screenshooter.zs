@@ -1,9 +1,9 @@
-class m8f_aas_screenshooter : m8f_aas_event_handler
+class m8f_aas_screenshooter : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
 
-  override m8f_aas_event_handler init(m8f_aas_event_source event_source, m8f_aas_event_handler dispatcher)
+  override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
     _event_source = event_source;
     return self;
@@ -21,7 +21,7 @@ class m8f_aas_screenshooter : m8f_aas_event_handler
 
   private static bool shot_enabled(int event_type)
   {
-    if (event_type == m8f_aas_event.manual)
+    if (event_type == aas_event.manual)
     {
       bool shot_on_manual = CVar.GetCVar("m8f_aas_shot_on_manual").GetInt();
       return shot_on_manual;
@@ -30,7 +30,7 @@ class m8f_aas_screenshooter : m8f_aas_event_handler
     bool enabled = CVar.GetCVar("m8f_aas_enabled").GetInt();
     if (!enabled) { return false; }
 
-    string toggle_name = m8f_aas_event.shot_toggle_name(event_type);
+    string toggle_name = aas_event.shot_toggle_name(event_type);
 
     CVar variable = CVar.GetCVar(toggle_name);
     if (variable == null)
@@ -44,6 +44,6 @@ class m8f_aas_screenshooter : m8f_aas_event_handler
 
   // private: //////////////////////////////////////////////////////////////////
 
-  private m8f_aas_event_source _event_source;
+  private aas_event_source _event_source;
 
 } // class m8f_aas_screenshooter

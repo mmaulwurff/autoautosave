@@ -11,7 +11,7 @@ filtered=$(cat event_types.org | grep -v "|--" | grep "|" | grep -v "N |")
 echo "// This file is generated from event_types.org by gen-files.sh."                                                                        >  $class_file
 echo "// All manual changes will be lost."                                                                                                    >> $class_file
 echo ""                                                                                                                                       >> $class_file
-echo "class m8f_aas_event"                                                                                                                    >> $class_file
+echo "class aas_event"                                                                                                                        >> $class_file
 echo "{"                                                                                                                                      >> $class_file
 echo ""                                                                                                                                       >> $class_file
 echo "  enum event_type"                                                                                                                      >> $class_file

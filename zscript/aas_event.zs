@@ -1,7 +1,7 @@
 // This file is generated from event_types.org by gen-files.sh.
 // All manual changes will be lost.
 
-class m8f_aas_event
+class aas_event
 {
 
   enum event_type

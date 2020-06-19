@@ -1,9 +1,9 @@
-class m8f_aas_event_dispatcher : m8f_aas_event_handler
+class aas_event_dispatcher : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
 
-  override m8f_aas_event_handler init(m8f_aas_event_source event_source, m8f_aas_event_handler dispatcher)
+  override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
     _handlers.Push(new("m8f_aas_saver"        ).init(event_source, self));
     _handlers.Push(new("m8f_aas_logger"       ).init(event_source, self));
@@ -25,6 +25,6 @@ class m8f_aas_event_dispatcher : m8f_aas_event_handler
 
   // private: //////////////////////////////////////////////////////////////////
 
-  Array<m8f_aas_event_handler> _handlers;
+  Array<aas_event_handler> _handlers;
 
-} // class m8f_aas_event_dispatcher
+} // class aas_event_dispatcher

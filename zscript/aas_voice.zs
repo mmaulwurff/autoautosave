@@ -1,10 +1,10 @@
-class m8f_aas_voice : m8f_aas_event_handler
+class m8f_aas_voice : aas_event_handler
 {
 
   // public: ///////////////////////////////////////////////////////////////////
 
-  override m8f_aas_event_handler init( m8f_aas_event_source  event_source
-                                     , m8f_aas_event_handler dispatcher
+  override aas_event_handler init( aas_event_source  event_source
+                                     , aas_event_handler dispatcher
                                      )
   {
     last_save_time = 0;
@@ -20,7 +20,7 @@ class m8f_aas_voice : m8f_aas_event_handler
     int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
     if (event_type <= voice_level
         && is_voice_enabled_for(event_type)
-        && event_type != m8f_aas_event.tick)
+        && event_type != aas_event.tick)
     {
       string voice_file = String.Format("aas/voice%d", event_type);
       Object.S_Sound(voice_file, CHAN_AUTO);
@@ -32,7 +32,7 @@ class m8f_aas_voice : m8f_aas_event_handler
 
   private static bool is_voice_enabled_for(int event_type)
   {
-    bool is_enabled = CVar.GetCVar(m8f_aas_event.voice_toggle_name(event_type)).GetInt();
+    bool is_enabled = CVar.GetCVar(aas_event.voice_toggle_name(event_type)).GetInt();
     return is_enabled;
   }
 

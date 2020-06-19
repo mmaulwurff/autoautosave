@@ -1,4 +1,4 @@
-// Creates an m8f_aas_event when pickup up
+// Creates an aas_event when pickup up
 class m8f_aas_token : Inventory
 {
 
@@ -8,7 +8,7 @@ class m8f_aas_token : Inventory
     +DONTGIB;
   }
 
-  m8f_aas_token init(int type, m8f_aas_event_handler handler)
+  m8f_aas_token init(int type, aas_event_handler handler)
   {
     _event_type = type;
     _handler    = handler;
@@ -27,6 +27,6 @@ class m8f_aas_token : Inventory
 
   private int _event_type;
 
-  private m8f_aas_event_handler _handler;
+  private aas_event_handler _handler;
 
 } // class m8f_aas_token

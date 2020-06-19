@@ -1,4 +1,4 @@
-class m8f_aas_event_source : EventHandler
+class aas_event_source : EventHandler
 {
 
   // constants section /////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ class m8f_aas_event_source : EventHandler
   private int     autosave_request;
   private bool    screenshot_request;
 
-  private m8f_aas_event_handler handler;
+  private aas_event_handler handler;
 
   // public methods section
 
@@ -71,7 +71,7 @@ class m8f_aas_event_source : EventHandler
     int tick_inside_second = level.time % ticks_in_second;
     switch (tick_inside_second)
       {
-      case  0: handler.on_event(m8f_aas_event.tick); break;
+      case  0: handler.on_event(aas_event.tick); break;
       case  1: maybeTakeScreenShot();  return;
       case  9: check_counter_events(); return;
       case 18: check_map_events();     return;
@@ -84,7 +84,7 @@ class m8f_aas_event_source : EventHandler
   {
     if (e.PlayerNumber != consolePlayer) { return; }
     init_player();
-    handler.on_event(m8f_aas_event.level_start);
+    handler.on_event(aas_event.level_start);
   }
 
   override void WorldThingSpawned(WorldEvent event)
@@ -137,36 +137,36 @@ class m8f_aas_event_source : EventHandler
     };
     static const int types[] =
     {
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.key,
-      m8f_aas_event.weapon,
-      m8f_aas_event.weapon,
-      m8f_aas_event.weapon,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.powerup,
-      m8f_aas_event.backpack,
-      m8f_aas_event.backpack,
-      m8f_aas_event.backpack,
-      m8f_aas_event.backpack,
-      m8f_aas_event.gs_gold_coin,
-      m8f_aas_event.armor
+      aas_event.key,
+      aas_event.key,
+      aas_event.key,
+      aas_event.key,
+      aas_event.key,
+      aas_event.key,
+      aas_event.key,
+      aas_event.key,
+      aas_event.weapon,
+      aas_event.weapon,
+      aas_event.weapon,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.powerup,
+      aas_event.backpack,
+      aas_event.backpack,
+      aas_event.backpack,
+      aas_event.backpack,
+      aas_event.gs_gold_coin,
+      aas_event.armor
     };
 
     int n_saveable_items_classes = saveable_item_classes.size();
@@ -223,7 +223,7 @@ class m8f_aas_event_source : EventHandler
     old_kill_count = 0;
     old_item_count = 0;
 
-    handler = new("m8f_aas_event_dispatcher").init(self, NULL);
+    handler = new("aas_event_dispatcher").init(self, NULL);
 
     PlayerInfo pInfo  = players[consolePlayer];
     let player = PlayerPawn(pInfo.mo);
@@ -263,23 +263,23 @@ class m8f_aas_event_source : EventHandler
     int group_number = CVar.GetCVar("m8f_aas_group_number").GetInt();
     if (activeCount >= oldActiveCount + group_number)
     {
-      handler.on_event(m8f_aas_event.group_alert);
+      handler.on_event(aas_event.group_alert);
     }
     else if (activeCount == 0)
     {
       if (maxActive >= group_number)
       {
-        handler.on_event(m8f_aas_event.group_kill);
+        handler.on_event(aas_event.group_kill);
       }
       maxActive = 0;
     }
     else if (activeBigCount > oldActiveBigCount)
     {
-      handler.on_event(m8f_aas_event.boss_alert);
+      handler.on_event(aas_event.boss_alert);
     }
     else if (activeBigCount < oldActiveBigCount)
     {
-      handler.on_event(m8f_aas_event.boss_kill);
+      handler.on_event(aas_event.boss_kill);
     }
 
     oldActiveCount = activeCount;
@@ -298,7 +298,7 @@ class m8f_aas_event_source : EventHandler
       if (dist > 2000000.0)
       {
         //Console.Printf("Distance: %f", dist);
-        handler.on_event(m8f_aas_event.teleport);
+        handler.on_event(aas_event.teleport);
       }
       old_pos = pos;
     }
@@ -309,19 +309,19 @@ class m8f_aas_event_source : EventHandler
       int health_up   = CVar.GetCVar("m8f_aas_health_threshold_up").GetInt();
       if (health < health_down && old_health >= health_down)
       {
-        handler.on_event(m8f_aas_event.health_drop);
+        handler.on_event(aas_event.health_drop);
       }
       else if (health > health_up && old_health <= health_up)
       {
-        handler.on_event(m8f_aas_event.health_rise);
+        handler.on_event(aas_event.health_rise);
       }
       else if (health >= old_health + 50 && old_health > 0)
       {
-        handler.on_event(m8f_aas_event.big_heal);
+        handler.on_event(aas_event.big_heal);
       }
       if (health == 1 && old_health > 1)
       {
-        handler.on_event(m8f_aas_event.one_percent);
+        handler.on_event(aas_event.one_percent);
       }
       old_health = health;
     }
@@ -332,11 +332,11 @@ class m8f_aas_event_source : EventHandler
       int armor_up    = CVar.GetCVar("m8f_aas_armor_threshold_up").GetInt();
       if (armor_count < armor_down && old_armor >= armor_down)
       {
-        handler.on_event(m8f_aas_event.armor_drop);
+        handler.on_event(aas_event.armor_drop);
       }
       else if (armor_count > armor_up && old_armor <= armor_up)
       {
-        handler.on_event(m8f_aas_event.armor_rise);
+        handler.on_event(aas_event.armor_rise);
       }
       old_armor = armor_count;
     }
@@ -348,7 +348,7 @@ class m8f_aas_event_source : EventHandler
           double save_percent = armor.SavePercent;
           if (save_percent != 0.0 && save_percent != old_armor_save)
           {
-            handler.on_event(m8f_aas_event.new_armor);
+            handler.on_event(aas_event.new_armor);
           }
           old_armor_save = save_percent;
         }
@@ -363,7 +363,7 @@ class m8f_aas_event_source : EventHandler
       int secret_count = player.secretcount;
       if (secret_count > old_secret_count)
       {
-        handler.on_event(m8f_aas_event.secret_found);
+        handler.on_event(aas_event.secret_found);
       }
       old_secret_count = secret_count;
     }
@@ -372,7 +372,7 @@ class m8f_aas_event_source : EventHandler
       int kill_count = level.killed_monsters;
       if (kill_count != old_kill_count && kill_count == level.total_monsters)
       {
-        handler.on_event(m8f_aas_event.all_kill);
+        handler.on_event(aas_event.all_kill);
       }
       old_kill_count = kill_count;
     }
@@ -381,7 +381,7 @@ class m8f_aas_event_source : EventHandler
       int item_count = level.found_items;
       if (item_count != old_item_count && item_count == level.total_items)
       {
-        handler.on_event(m8f_aas_event.all_items_found);
+        handler.on_event(aas_event.all_items_found);
       }
       old_item_count = item_count;
     }
@@ -397,4 +397,4 @@ class m8f_aas_event_source : EventHandler
     }
   }
 
-} // class m8f_aas_event_source
+} // class aas_event_source
