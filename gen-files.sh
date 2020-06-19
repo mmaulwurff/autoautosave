@@ -1,6 +1,6 @@
 #!/bin/bash
 
-class_file=zscript/m8f_aas_event.zs
+class_file=zscript/aas_event.zs
 cvar_file=cvarinfo.toggles.txt
 sndinfo_file=sndinfo.txt
 
