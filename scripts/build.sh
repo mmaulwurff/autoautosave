@@ -17,7 +17,7 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
 
 ./scripts/gen-files.sh
 
-zip -R "$name" \
+zip -0 -R "$name" \
     "*.md"  \
     "*.ogg" \
     "*.txt" \
