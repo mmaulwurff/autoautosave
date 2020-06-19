@@ -15,7 +15,7 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
     sed "s/- (tag: \(v\?[0-9.]*\))/\n\1\n-/" \
     > changelog.txt
 
-./gen-files.sh
+./scripts/gen-files.sh
 
 zip -R "$name" \
     "*.md"  \
