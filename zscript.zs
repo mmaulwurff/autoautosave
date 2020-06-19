@@ -1,4 +1,4 @@
-version "3.8"
+version "4.4.2"
 
 #include "zscript/aas_event.zs"
 #include "zscript/aas_token.zs"
