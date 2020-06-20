@@ -34,29 +34,26 @@ class aas_event_source : EventHandler
   {
     _loading_finished   = false;
     _screenshot_request = false;
-    _autosave_request   = -1;
+  }
+
+  override
+  void NetworkProcess(ConsoleEvent event)
+  {
+    Array<String> command;
+    event.Name.Split(command, ":");
+
+    if (command.Size() != 2 || command[0] != "aas_manual_save")
+    {
+      return;
+    }
+
+    int event_type = command[1].ToInt();
+    _handler.on_event(event_type);
   }
 
   override
   void WorldTick()
   {
-    // request must not be processed in the same tick as it was received
-    // because request CVar is not updated yet.
-    if (_autosave_request != -1)
-    {
-      _handler.on_event(_autosave_request);
-      _autosave_request = -1;
-      return;
-    }
-
-    CVar autosave_request_cvar = CVar.GetCVar("m8f_aas_request");
-    int  received_request      = autosave_request_cvar.GetInt();
-    if (received_request != -1)
-    {
-      autosave_request_cvar.SetInt(-1);
-      _autosave_request = received_request;
-    }
-
     if (level.time == 0) { return; }
     else { _loading_finished = true; }
 
@@ -73,9 +70,9 @@ class aas_event_source : EventHandler
   }
 
   override
-  void PlayerEntered(PlayerEvent e)
+  void PlayerEntered(PlayerEvent event)
   {
-    if (e.PlayerNumber != consolePlayer) { return; }
+    if (event.PlayerNumber != consolePlayer) { return; }
     init_player();
     _handler.on_event(aas_event.level_start);
   }
@@ -414,7 +411,6 @@ class aas_event_source : EventHandler
   private int     _old_armor;
   private double  _old_armor_save;
 
-  private int     _autosave_request;
   private bool    _screenshot_request;
 
   private aas_event_handler _handler;

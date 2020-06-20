@@ -24,5 +24,3 @@ server bool m8f_aas_save_on_dropped = false;
 server int  m8f_aas_console_log_level =  8;
 server int  m8f_aas_screen_level      = -1;
 server int  m8f_aas_voice_level       = -1;
-
-server int  m8f_aas_request = -1;
