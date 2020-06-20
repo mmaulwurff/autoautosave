@@ -16,14 +16,39 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Base class for all AAS event handlers
-class aas_event_handler : Thinker
+/**
+ * This is an interface for AAS event handlers.
+ *
+ * @note This class is unrelated to EventHandler.
+ */
+class aas_event_handler play abstract
 {
 
-  virtual aas_event_handler init( aas_event_source  event_source
-                                , aas_event_handler dispatcher
-                                ) { return self; }
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  virtual void on_event(int event_type) {}
+  /**
+   * Initializes the event handler.
+   *
+   * @param event_source
+   * @param dispatcher
+   *
+   * @returns this object.
+   */
+  virtual
+  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  {
+    return self;
+  }
+
+  /**
+   * Make an action when event @a event_type happens.
+   *
+   * @param event_type type of event.
+   */
+  virtual
+  void on_event(int event_type)
+  {
+    Console.Printf("Override aas_event_handler.on_event()!");
+  }
 
 } // class aas_event_handler

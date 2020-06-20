@@ -16,12 +16,16 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class implements aas_event_handler by storing and activating several event handlers.
+ */
 class aas_event_dispatcher : aas_event_handler
 {
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  override
+  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
     _handlers.Push(new("aas_saver"        ).init(event_source, self));
     _handlers.Push(new("aas_logger"       ).init(event_source, self));
@@ -31,7 +35,8 @@ class aas_event_dispatcher : aas_event_handler
     return self;
   }
 
-  override void on_event(int event_type)
+  override
+  void on_event(int event_type)
   {
     uint n_handlers = _handlers.Size();
 
@@ -41,8 +46,8 @@ class aas_event_dispatcher : aas_event_handler
     }
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  Array<aas_event_handler> _handlers;
+  private Array<aas_event_handler> _handlers;
 
 } // class aas_event_dispatcher
