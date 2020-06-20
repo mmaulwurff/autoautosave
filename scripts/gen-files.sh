@@ -94,6 +94,6 @@ done <<< "$filtered"
 
 for f in sounds/*.wav;
 do
-    oggenc -Q -o ${f%.*}.ogg $f
+    oggenc -s 0 -Q -o ${f%.*}.ogg $f
     rm $f
 done
