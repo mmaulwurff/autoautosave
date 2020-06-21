@@ -24,11 +24,12 @@ class aas_screenshooter : aas_event_handler
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override
-  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  static
+  aas_screenshooter of(aas_event_source event_source)
   {
-    _event_source = event_source;
-    return self;
+    let result = new("aas_screenshooter");
+    result._event_source = event_source;
+    return result;
   }
 
   override

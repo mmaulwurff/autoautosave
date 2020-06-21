@@ -36,7 +36,7 @@ class aas_event_source play
     result._old_kill_count = 0;
     result._old_item_count = 0;
 
-    result._handler = new("aas_event_dispatcher").init(result, NULL);
+    result._handler = aas_event_dispatcher.of(result);
 
     PlayerInfo pInfo  = players[consolePlayer];
     let player = PlayerPawn(pInfo.mo);

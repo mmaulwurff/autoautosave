@@ -19,9 +19,17 @@
 class aas_logger : aas_event_handler
 {
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override void on_event(int event_type)
+  static
+  aas_logger of()
+  {
+    let result = new("aas_logger");
+    return result;
+  }
+
+  override
+  void on_event(int event_type)
   {
     if (is_worth_logging(event_type))
     {
@@ -29,9 +37,10 @@ class aas_logger : aas_event_handler
     }
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static bool is_worth_logging(int event_type)
+  private static
+  bool is_worth_logging(int event_type)
   {
     int  console_level    = CVar.GetCVar("m8f_aas_console_log_level").GetInt();
     bool is_worth_logging = event_type <= console_level

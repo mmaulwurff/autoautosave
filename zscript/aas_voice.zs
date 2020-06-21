@@ -21,11 +21,12 @@ class aas_voice : aas_event_handler
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override
-  aas_event_handler init(aas_event_source  event_source, aas_event_handler dispatcher)
+  static
+  aas_voice of()
   {
-    last_save_time = 0;
-    return self;
+    let result = new("aas_voice");
+    result.last_save_time = 0;
+    return result;
   }
 
   override

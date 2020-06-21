@@ -27,20 +27,6 @@ class aas_event_handler play abstract
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
-   * Initializes the event handler.
-   *
-   * @param event_source
-   * @param dispatcher
-   *
-   * @returns this object.
-   */
-  virtual
-  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
-  {
-    return self;
-  }
-
-  /**
    * Make an action when event @a event_type happens.
    *
    * @param event_type type of event.

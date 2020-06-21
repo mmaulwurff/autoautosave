@@ -19,7 +19,17 @@
 class aas_printer : aas_event_handler
 {
 
-  override void on_event(int event_type)
+// public: /////////////////////////////////////////////////////////////////////////////////////////
+
+  static
+  aas_logger of()
+  {
+    let result = new("aas_logger");
+    return result;
+  }
+
+  override
+  void on_event(int event_type)
   {
     int screen_level = CVar.GetCVar("m8f_aas_screen_level").GetInt();
     if (event_type <= screen_level

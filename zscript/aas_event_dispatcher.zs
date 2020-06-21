@@ -24,15 +24,18 @@ class aas_event_dispatcher : aas_event_handler
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override
-  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  static
+  aas_event_dispatcher of(aas_event_source event_source)
   {
-    _handlers.Push(new("aas_saver"        ).init(event_source, self));
-    _handlers.Push(new("aas_logger"       ).init(event_source, self));
-    _handlers.Push(new("aas_printer"      ).init(event_source, self));
-    _handlers.Push(new("aas_voice"        ).init(event_source, self));
-    _handlers.Push(new("aas_screenshooter").init(event_source, self));
-    return self;
+    let result = new("aas_event_dispatcher");
+
+    result._handlers.Push(aas_saver        .of(result));
+    result._handlers.Push(aas_logger       .of());
+    result._handlers.Push(aas_printer      .of());
+    result._handlers.Push(aas_voice        .of());
+    result._handlers.Push(aas_screenshooter.of(event_source));
+
+    return result;
   }
 
   override

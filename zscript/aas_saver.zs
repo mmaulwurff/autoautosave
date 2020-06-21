@@ -21,13 +21,15 @@ class aas_saver : aas_event_handler
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override
-  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  static
+  aas_saver of(aas_event_handler dispatcher)
   {
-    last_save_time = 0;
-    _dispatcher = dispatcher;
+    let result = new("aas_saver");
 
-    return self;
+    result.last_save_time = 0;
+    result._dispatcher    = dispatcher;
+
+    return result;
   }
 
   override
