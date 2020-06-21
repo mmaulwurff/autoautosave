@@ -24,6 +24,36 @@ class aas_event_source play
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
+  static
+  aas_event_source of()
+  {
+    let result = new("aas_event_source");
+
+    result._old_active_count = 0;
+    result._old_active_big_count = 0;
+    result._max_active = 0;
+
+    result._old_kill_count = 0;
+    result._old_item_count = 0;
+
+    result._handler = new("aas_event_dispatcher").init(result, NULL);
+
+    PlayerInfo pInfo  = players[consolePlayer];
+    let player = PlayerPawn(pInfo.mo);
+    result._old_pos    = player.Pos;
+    result._old_health = player.Health;
+    result._old_armor  = player.CountInv("BasicArmor");
+    result._old_secret_count = pInfo.secretcount;
+
+    BasicArmor armor = BasicArmor(player.FindInventory("BasicArmor"));
+    if (armor) { result._old_armor_save = armor.SavePercent; }
+    else       { result._old_armor_save = 0.0; }
+
+    result._screenshot_request = false;
+
+    return result;
+  }
+
   void on_event(int event_type)
   {
     _handler.on_event(event_type);
@@ -48,12 +78,6 @@ class aas_event_source play
     case 27: check_player_events();  return;
     default: return;
     }
-  }
-
-  void on_player_entered()
-  {
-    init_player();
-    _handler.on_event(aas_event.level_start);
   }
 
   void on_thing_spawned(Actor item)
@@ -179,32 +203,6 @@ class aas_event_source play
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private
-  void init_player()
-  {
-    _old_active_count = 0;
-    _old_active_big_count = 0;
-    _max_active = 0;
-
-    _old_kill_count = 0;
-    _old_item_count = 0;
-
-    _handler = new("aas_event_dispatcher").init(self, NULL);
-
-    PlayerInfo pInfo  = players[consolePlayer];
-    let player = PlayerPawn(pInfo.mo);
-    _old_pos    = player.Pos;
-    _old_health = player.Health;
-    _old_armor  = player.CountInv("BasicArmor");
-    _old_secret_count = pInfo.secretcount;
-
-    BasicArmor armor = BasicArmor(player.FindInventory("BasicArmor"));
-    if (armor) { _old_armor_save = armor.SavePercent; }
-    else       { _old_armor_save = 0.0; }
-
-    _screenshot_request = false;
-  }
 
   private
   void check_counter_events()
