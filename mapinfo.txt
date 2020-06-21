@@ -1,4 +1,4 @@
 gameinfo
 {
-  AddEventHandlers = "aas_event_source"
+  AddEventHandlers = "aas_main"
 }

@@ -17,35 +17,24 @@
  */
 
 /**
- * This is an entry point for Autoautosave.
+ * This class represents the core of Autoautosave.
  */
-class aas_event_source : EventHandler
+class aas_event_source play
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
+
+  void on_event(int event_type)
+  {
+    _handler.on_event(event_type);
+  }
 
   void request_screenshot()
   {
     _screenshot_request = true;
   }
 
-  override
-  void NetworkProcess(ConsoleEvent event)
-  {
-    Array<String> command;
-    event.Name.Split(command, ":");
-
-    if (command.Size() != 2 || command[0] != "aas_manual_save")
-    {
-      return;
-    }
-
-    int event_type = command[1].ToInt();
-    _handler.on_event(event_type);
-  }
-
-  override
-  void WorldTick()
+  void tick()
   {
     if (level.time == 0) { return; }
 
@@ -61,20 +50,14 @@ class aas_event_source : EventHandler
     }
   }
 
-  override
-  void PlayerEntered(PlayerEvent event)
+  void on_player_entered()
   {
-    if (event.PlayerNumber != consolePlayer) { return; }
     init_player();
     _handler.on_event(aas_event.level_start);
   }
 
-  override
-  void WorldThingSpawned(WorldEvent event)
+  void on_thing_spawned(Actor item)
   {
-    if (event == NULL || event.thing == NULL) { return; }
-
-    Actor  item       = event.thing;
     string class_name = item.getClassName();
 
     // spawn special actor that saves the game when picked up
