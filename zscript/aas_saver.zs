@@ -26,7 +26,7 @@ class aas_saver : aas_event_handler
   {
     let result = new("aas_saver");
 
-    result.last_save_time = 0;
+    result._last_save_time = 0;
     result._dispatcher    = dispatcher;
 
     return result;
@@ -36,7 +36,7 @@ class aas_saver : aas_event_handler
   void on_event(int event_type)
   {
     int current_time          = level.time;
-    int time_from_last_save_s = (current_time - last_save_time) / TICRATE;
+    int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
 
     if (is_time_to_periodic_save(time_from_last_save_s, event_type))
     {
@@ -84,7 +84,7 @@ class aas_saver : aas_event_handler
   private
   void save(int current_time)
   {
-    last_save_time = current_time;
+    _last_save_time = current_time;
 
     if (gameaction != ga_completed)
     {
@@ -125,7 +125,7 @@ class aas_saver : aas_event_handler
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private int last_save_time;
+  private int _last_save_time;
 
   private aas_event_handler _dispatcher;
 

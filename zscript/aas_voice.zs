@@ -25,7 +25,7 @@ class aas_voice : aas_event_handler
   aas_voice of()
   {
     let result = new("aas_voice");
-    result.last_save_time = 0;
+    result._last_save_time = 0;
     return result;
   }
 
@@ -33,7 +33,7 @@ class aas_voice : aas_event_handler
   void on_event(int event_type)
   {
     int current_time          = level.time;
-    int time_from_last_save_s = (current_time - last_save_time) / TICRATE;
+    int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
     if (time_from_last_save_s < 1) { return; }
 
     int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
@@ -43,7 +43,7 @@ class aas_voice : aas_event_handler
     {
       string voice_file = String.Format("aas/voice%d", event_type);
       Object.S_StartSound(voice_file, CHAN_AUTO);
-      last_save_time = current_time;
+      _last_save_time = current_time;
     }
   }
 
@@ -56,6 +56,6 @@ class aas_voice : aas_event_handler
     return is_enabled;
   }
 
-  private int last_save_time;
+  private int _last_save_time;
 
 } // class aas_voice
