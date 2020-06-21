@@ -71,12 +71,11 @@ class aas_event_source play
     int tick_inside_second = level.time % TICRATE;
     switch (tick_inside_second)
     {
-    case  0: _handler.on_event(aas_event.tick); break;
-    case  1: maybeTakeScreenShot();  return;
-    case  9: check_counter_events(); return;
-    case 18: check_map_events();     return;
-    case 27: check_player_events();  return;
-    default: return;
+    case  0: on_event(aas_event.tick); break;
+    case  1: maybe_take_screenshot();  break;
+    case  9: check_counter_events();   break;
+    case 18: check_map_events();       break;
+    case 27: check_player_events();    break;
     }
   }
 
@@ -195,7 +194,7 @@ class aas_event_source play
           return;
         }
 
-        _handler.on_event(types[i]);
+        on_event(types[i]);
       }
 
       break;
@@ -231,23 +230,23 @@ class aas_event_source play
     int group_number = CVar.GetCVar("m8f_aas_group_number").GetInt();
     if (activeCount >= _old_active_count + group_number)
     {
-      _handler.on_event(aas_event.group_alert);
+      on_event(aas_event.group_alert);
     }
     else if (activeCount == 0)
     {
       if (_max_active >= group_number)
       {
-        _handler.on_event(aas_event.group_kill);
+        on_event(aas_event.group_kill);
       }
       _max_active = 0;
     }
     else if (activeBigCount > _old_active_big_count)
     {
-      _handler.on_event(aas_event.boss_alert);
+      on_event(aas_event.boss_alert);
     }
     else if (activeBigCount < _old_active_big_count)
     {
-      _handler.on_event(aas_event.boss_kill);
+      on_event(aas_event.boss_kill);
     }
 
     _old_active_count = activeCount;
@@ -267,7 +266,7 @@ class aas_event_source play
       if (dist > 2000000.0)
       {
         //Console.Printf("Distance: %f", dist);
-        _handler.on_event(aas_event.teleport);
+        on_event(aas_event.teleport);
       }
       _old_pos = pos;
     }
@@ -278,19 +277,19 @@ class aas_event_source play
       int health_up   = CVar.GetCVar("m8f_aas_health_threshold_up").GetInt();
       if (health < health_down && _old_health >= health_down)
       {
-        _handler.on_event(aas_event.health_drop);
+        on_event(aas_event.health_drop);
       }
       else if (health > health_up && _old_health <= health_up)
       {
-        _handler.on_event(aas_event.health_rise);
+        on_event(aas_event.health_rise);
       }
       else if (health >= _old_health + 50 && _old_health > 0)
       {
-        _handler.on_event(aas_event.big_heal);
+        on_event(aas_event.big_heal);
       }
       if (health == 1 && _old_health > 1)
       {
-        _handler.on_event(aas_event.one_percent);
+        on_event(aas_event.one_percent);
       }
       _old_health = health;
     }
@@ -301,11 +300,11 @@ class aas_event_source play
       int armor_up    = CVar.GetCVar("m8f_aas_armor_threshold_up").GetInt();
       if (armor_count < armor_down && _old_armor >= armor_down)
       {
-        _handler.on_event(aas_event.armor_drop);
+        on_event(aas_event.armor_drop);
       }
       else if (armor_count > armor_up && _old_armor <= armor_up)
       {
-        _handler.on_event(aas_event.armor_rise);
+        on_event(aas_event.armor_rise);
       }
       _old_armor = armor_count;
     }
@@ -317,7 +316,7 @@ class aas_event_source play
         double save_percent = armor.SavePercent;
         if (save_percent != 0.0 && save_percent != _old_armor_save)
         {
-          _handler.on_event(aas_event.new_armor);
+          on_event(aas_event.new_armor);
         }
         _old_armor_save = save_percent;
       }
@@ -333,7 +332,7 @@ class aas_event_source play
       int secret_count = player.secretcount;
       if (secret_count > _old_secret_count)
       {
-        _handler.on_event(aas_event.secret_found);
+        on_event(aas_event.secret_found);
       }
       _old_secret_count = secret_count;
     }
@@ -342,7 +341,7 @@ class aas_event_source play
       int kill_count = level.killed_monsters;
       if (kill_count != _old_kill_count && kill_count == level.total_monsters)
       {
-        _handler.on_event(aas_event.all_kill);
+        on_event(aas_event.all_kill);
       }
       _old_kill_count = kill_count;
     }
@@ -351,14 +350,14 @@ class aas_event_source play
       int item_count = level.found_items;
       if (item_count != _old_item_count && item_count == level.total_items)
       {
-        _handler.on_event(aas_event.all_items_found);
+        on_event(aas_event.all_items_found);
       }
       _old_item_count = item_count;
     }
   }
 
   private
-  void maybeTakeScreenShot()
+  void maybe_take_screenshot()
   {
     if (_screenshot_request)
     {
