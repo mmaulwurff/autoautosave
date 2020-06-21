@@ -30,13 +30,6 @@ class aas_event_source : EventHandler
   }
 
   override
-  void OnRegister()
-  {
-    _loading_finished   = false;
-    _screenshot_request = false;
-  }
-
-  override
   void NetworkProcess(ConsoleEvent event)
   {
     Array<String> command;
@@ -55,7 +48,6 @@ class aas_event_source : EventHandler
   void WorldTick()
   {
     if (level.time == 0) { return; }
-    else { _loading_finished = true; }
 
     int tick_inside_second = level.time % TICRATE;
     switch (tick_inside_second)
@@ -91,7 +83,7 @@ class aas_event_source : EventHandler
     if (class_name == "aas_token") { return; }
 
     bool saveOnDropped = CVar.GetCVar("m8f_aas_save_on_dropped").GetInt();
-    if (!saveOnDropped && _loading_finished) { return; }
+    if (!saveOnDropped && is_loading_finished()) { return; }
 
     static const string saveable_item_classes[] =
     {
@@ -183,7 +175,7 @@ class aas_event_source : EventHandler
       {
         aas_token(Actor.Spawn("aas_token", point)).init(types[i], _handler);
       }
-      else if (owner == player && _loading_finished)
+      else if (owner == player && is_loading_finished())
       {
         // don't save on obtaining starting weapons
         string netronianBackpack = "NetronianBackpack";
@@ -227,6 +219,8 @@ class aas_event_source : EventHandler
     BasicArmor armor = BasicArmor(player.FindInventory("BasicArmor"));
     if (armor) { _old_armor_save = armor.SavePercent; }
     else       { _old_armor_save = 0.0; }
+
+    _screenshot_request = false;
   }
 
   private
@@ -393,9 +387,10 @@ class aas_event_source : EventHandler
     }
   }
 
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private bool    _loading_finished;
+  private bool is_loading_finished()
+  {
+    return (level.time > 0);
+  }
 
   private int     _old_active_count;
   private int     _old_active_big_count;
