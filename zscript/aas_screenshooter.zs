@@ -16,18 +16,23 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class implements aas_event_handler by making a screenshots on events.
+ */
 class aas_screenshooter : aas_event_handler
 {
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  override aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
+  override
+  aas_event_handler init(aas_event_source event_source, aas_event_handler dispatcher)
   {
     _event_source = event_source;
     return self;
   }
 
-  override void on_event(int event_type)
+  override
+  void on_event(int event_type)
   {
     if (shot_enabled(event_type))
     {
@@ -35,9 +40,10 @@ class aas_screenshooter : aas_event_handler
     }
   }
 
-  // private: //////////////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static bool shot_enabled(int event_type)
+  private static
+  bool shot_enabled(int event_type)
   {
     if (event_type == aas_event.manual)
     {
@@ -59,8 +65,6 @@ class aas_screenshooter : aas_event_handler
 
     return variable.GetInt();
   }
-
-  // private: //////////////////////////////////////////////////////////////////
 
   private aas_event_source _event_source;
 
