@@ -61,9 +61,11 @@ class aas_saver : aas_event_handler
   private
   bool is_time_to_periodic_save(int time_from_last_save_s, int event_type)
   {
+    int  is_second_start          = (level.time % TICRATE == 0);
     int  autosave_period_s        = CVar.GetCVar("m8f_aas_autosave_period").GetInt();
     bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
     bool is_time_to_periodic_save = event_type == aas_event.tick
+      && is_second_start
       && is_period
       && CVar.GetCVar("m8f_aas_save_on_time_period").GetInt();
 

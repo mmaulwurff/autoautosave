@@ -60,18 +60,12 @@ class aas_event_source play
 
   void tick()
   {
+    on_event(aas_event.tick);
+    check_counter_events();
+    check_map_events();
+    check_player_events();
+
     _scheduler.tick();
-
-    if (level.time == 0) { return; }
-
-    int tick_inside_second = level.time % TICRATE;
-    switch (tick_inside_second)
-    {
-    case  0: on_event(aas_event.tick); break;
-    case  9: check_counter_events();   break;
-    case 18: check_map_events();       break;
-    case 27: check_player_events();    break;
-    }
   }
 
   void on_thing_spawned(Actor item)
