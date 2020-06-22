@@ -36,7 +36,8 @@ class aas_event_source play
     result._old_kill_count = 0;
     result._old_item_count = 0;
 
-    result._handler = aas_event_dispatcher.of(result);
+    result._scheduler = aas_game_action_scheduler.of();
+    result._handler   = aas_event_dispatcher.of(result, result._scheduler);
 
     PlayerInfo pInfo  = players[consolePlayer];
     let player = PlayerPawn(pInfo.mo);
@@ -49,19 +50,12 @@ class aas_event_source play
     if (armor) { result._old_armor_save = armor.SavePercent; }
     else       { result._old_armor_save = 0.0; }
 
-    result._scheduler = aas_game_action_scheduler.of();
-
     return result;
   }
 
   void on_event(int event_type)
   {
     _handler.on_event(event_type);
-  }
-
-  void request_screenshot()
-  {
-    _scheduler.take_screenshot();
   }
 
   void tick()

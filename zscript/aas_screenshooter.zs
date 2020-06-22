@@ -25,10 +25,10 @@ class aas_screenshooter : aas_event_handler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_screenshooter of(aas_event_source event_source)
+  aas_screenshooter of(aas_game_actions game_actions)
   {
     let result = new("aas_screenshooter");
-    result._event_source = event_source;
+    result._game_actions = game_actions;
     return result;
   }
 
@@ -37,7 +37,7 @@ class aas_screenshooter : aas_event_handler
   {
     if (shot_enabled(event_type))
     {
-      _event_source.request_screenshot();
+      _game_actions.take_screenshot();
     }
   }
 
@@ -67,6 +67,6 @@ class aas_screenshooter : aas_event_handler
     return variable.GetInt();
   }
 
-  private aas_event_source _event_source;
+  private aas_game_actions _game_actions;
 
 } // class aas_screenshooter

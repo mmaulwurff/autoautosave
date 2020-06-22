@@ -22,12 +22,13 @@ class aas_saver : aas_event_handler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_saver of(aas_event_handler dispatcher)
+  aas_saver of(aas_event_handler dispatcher, aas_game_actions game_actions)
   {
     let result = new("aas_saver");
 
     result._last_save_time = 0;
-    result._dispatcher    = dispatcher;
+    result._dispatcher     = dispatcher;
+    result._game_actions   = game_actions;
 
     return result;
   }
@@ -86,10 +87,7 @@ class aas_saver : aas_event_handler
   {
     _last_save_time = current_time;
 
-    if (gameaction != ga_completed)
-    {
-      LevelLocals.MakeAutoSave();
-    }
+    _game_actions.save();
   }
 
   private
@@ -128,5 +126,6 @@ class aas_saver : aas_event_handler
   private int _last_save_time;
 
   private aas_event_handler _dispatcher;
+  private aas_game_actions  _game_actions;
 
 } // class aas_saver
