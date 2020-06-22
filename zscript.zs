@@ -18,3 +18,5 @@ version "4.4.2"
 
 #include "zscript/aas_game_actions.zs"
 #include "zscript/aas_game_action_scheduler.zs"
+
+#include "zscript/aas_cvar.zs"

@@ -50,6 +50,14 @@ class aas_event_source play
     if (armor) { result._old_armor_save = armor.SavePercent; }
     else       { result._old_armor_save = 0.0; }
 
+    result._save_on_dropped = aas_cvar.of("m8f_aas_save_on_dropped");
+    result._min_boss_health = aas_cvar.of("m8f_aas_min_boss_health");
+    result._group_number    = aas_cvar.of("m8f_aas_group_number");
+    result._health_down     = aas_cvar.of("m8f_aas_health_threshold_down");
+    result._health_up       = aas_cvar.of("m8f_aas_health_threshold_up");
+    result._armor_down      = aas_cvar.of("m8f_aas_armor_threshold_down");
+    result._armor_up        = aas_cvar.of("m8f_aas_armor_threshold_up");
+
     return result;
   }
 
@@ -77,8 +85,7 @@ class aas_event_source play
 
     if (class_name == "aas_token") { return; }
 
-    bool saveOnDropped = CVar.GetCVar("m8f_aas_save_on_dropped").GetInt();
-    if (!saveOnDropped && is_loading_finished()) { return; }
+    if (!_save_on_dropped.get_bool() && is_loading_finished()) { return; }
 
     static const string saveable_item_classes[] =
     {
@@ -199,7 +206,7 @@ class aas_event_source play
     let i               = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
     int activeCount     = 0;
     int activeBigCount  = 0;
-    int min_boss_health = CVar.GetCVar("m8f_aas_min_boss_health").GetInt();
+    int min_boss_health = _min_boss_health.get_int();
     Actor a;
 
     while (a = Actor(i.Next()))
@@ -216,14 +223,13 @@ class aas_event_source play
 
     if (activeCount > _max_active) { _max_active = activeCount; }
 
-    int group_number = CVar.GetCVar("m8f_aas_group_number").GetInt();
-    if (activeCount >= _old_active_count + group_number)
+    if (activeCount >= _old_active_count + _group_number.get_int())
     {
       on_event(aas_event.group_alert);
     }
     else if (activeCount == 0)
     {
-      if (_max_active >= group_number)
+      if (_max_active >= _group_number.get_int())
       {
         on_event(aas_event.group_kill);
       }
@@ -262,8 +268,8 @@ class aas_event_source play
 
     {
       int health      = player.mo.health;
-      int health_down = CVar.GetCVar("m8f_aas_health_threshold_down").GetInt();
-      int health_up   = CVar.GetCVar("m8f_aas_health_threshold_up").GetInt();
+      int health_down = _health_down.get_int();
+      int health_up   = _health_up.get_int();
       if (health < health_down && _old_health >= health_down)
       {
         on_event(aas_event.health_drop);
@@ -285,8 +291,8 @@ class aas_event_source play
 
     {
       int armor_count = player.mo.CountInv("BasicArmor");
-      int armor_down  = CVar.GetCVar("m8f_aas_armor_threshold_down").GetInt();
-      int armor_up    = CVar.GetCVar("m8f_aas_armor_threshold_up").GetInt();
+      int armor_down  = _armor_down.get_int();
+      int armor_up    = _armor_up.get_int();
       if (armor_count < armor_down && _old_armor >= armor_down)
       {
         on_event(aas_event.armor_drop);
@@ -367,5 +373,13 @@ class aas_event_source play
   private aas_event_handler _handler;
 
   private aas_game_action_scheduler _scheduler;
+
+  private aas_cvar _save_on_dropped;
+  private aas_cvar _min_boss_health;
+  private aas_cvar _group_number;
+  private aas_cvar _health_down;
+  private aas_cvar _health_up;
+  private aas_cvar _armor_down;
+  private aas_cvar _armor_up;
 
 } // class aas_event_source
