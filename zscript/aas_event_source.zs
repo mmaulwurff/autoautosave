@@ -49,7 +49,7 @@ class aas_event_source play
     if (armor) { result._old_armor_save = armor.SavePercent; }
     else       { result._old_armor_save = 0.0; }
 
-    result._screenshot_request = false;
+    result._scheduler = aas_game_action_scheduler.of();
 
     return result;
   }
@@ -61,18 +61,19 @@ class aas_event_source play
 
   void request_screenshot()
   {
-    _screenshot_request = true;
+    _scheduler.take_screenshot();
   }
 
   void tick()
   {
+    _scheduler.tick();
+
     if (level.time == 0) { return; }
 
     int tick_inside_second = level.time % TICRATE;
     switch (tick_inside_second)
     {
     case  0: on_event(aas_event.tick); break;
-    case  1: maybe_take_screenshot();  break;
     case  9: check_counter_events();   break;
     case 18: check_map_events();       break;
     case 27: check_player_events();    break;
@@ -356,17 +357,6 @@ class aas_event_source play
     }
   }
 
-  private
-  void maybe_take_screenshot()
-  {
-    if (_screenshot_request)
-    {
-      LevelLocals.MakeScreenShot();
-
-      _screenshot_request = false;
-    }
-  }
-
   private bool is_loading_finished()
   {
     return (level.time > 0);
@@ -386,8 +376,8 @@ class aas_event_source play
   private int     _old_armor;
   private double  _old_armor_save;
 
-  private bool    _screenshot_request;
-
   private aas_event_handler _handler;
+
+  private aas_game_action_scheduler _scheduler;
 
 } // class aas_event_source

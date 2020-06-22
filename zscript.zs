@@ -15,3 +15,6 @@ version "4.4.2"
 #include "zscript/aas_saver.zs"
 #include "zscript/aas_screenshooter.zs"
 #include "zscript/aas_voice.zs"
+
+#include "zscript/aas_game_actions.zs"
+#include "zscript/aas_game_action_scheduler.zs"
