@@ -22,9 +22,9 @@ class aas_printer : aas_event_handler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_logger of()
+  aas_printer of()
   {
-    let result = new("aas_logger");
+    let result = new("aas_printer");
     return result;
   }
 

@@ -25,7 +25,10 @@ class aas_voice : aas_event_handler
   aas_voice of()
   {
     let result = new("aas_voice");
+
     result._last_save_time = 0;
+    result._voice_level    = aas_cvar.of("m8f_aas_voice_level");
+
     return result;
   }
 
@@ -36,8 +39,7 @@ class aas_voice : aas_event_handler
     int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
     if (time_from_last_save_s < 1) { return; }
 
-    int voice_level = CVar.GetCVar("m8f_aas_voice_level").GetInt();
-    if (event_type <= voice_level
+    if (event_type <= _voice_level.get_int()
         && is_voice_enabled_for(event_type)
         && event_type != aas_event.tick)
     {
@@ -57,5 +59,7 @@ class aas_voice : aas_event_handler
   }
 
   private int _last_save_time;
+
+  private aas_cvar _voice_level;
 
 } // class aas_voice

@@ -28,7 +28,11 @@ class aas_screenshooter : aas_event_handler
   aas_screenshooter of(aas_game_actions game_actions)
   {
     let result = new("aas_screenshooter");
-    result._game_actions = game_actions;
+
+    result._game_actions   = game_actions;
+    result._shot_on_manual = aas_cvar.of("m8f_aas_shot_on_manual");
+    result._is_enabled     = aas_cvar.of("m8f_aas_enabled");
+
     return result;
   }
 
@@ -43,22 +47,16 @@ class aas_screenshooter : aas_event_handler
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
+  private
   bool shot_enabled(int event_type)
   {
-    if (event_type == aas_event.manual)
-    {
-      bool shot_on_manual = CVar.GetCVar("m8f_aas_shot_on_manual").GetInt();
-      return shot_on_manual;
-    }
+    if (event_type == aas_event.manual) return _shot_on_manual.get_int();
 
-    bool enabled = CVar.GetCVar("m8f_aas_enabled").GetInt();
-    if (!enabled) { return false; }
+    if (!_is_enabled.get_bool()) return false;
 
     string toggle_name = aas_event.shot_toggle_name(event_type);
-
-    CVar variable = CVar.GetCVar(toggle_name);
-    if (variable == null)
+    CVar   variable    = CVar.GetCVar(toggle_name);
+    if (variable == NULL)
     {
       console.printf("Autoautosave Warning: variable %s not found", toggle_name);
       return false;
@@ -68,5 +66,8 @@ class aas_screenshooter : aas_event_handler
   }
 
   private aas_game_actions _game_actions;
+
+  private aas_cvar _shot_on_manual;
+  private aas_cvar _is_enabled;
 
 } // class aas_screenshooter

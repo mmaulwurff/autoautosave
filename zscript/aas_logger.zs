@@ -25,6 +25,7 @@ class aas_logger : aas_event_handler
   aas_logger of()
   {
     let result = new("aas_logger");
+    result._console_level = aas_cvar.of("m8f_aas_console_log_level");
     return result;
   }
 
@@ -39,14 +40,15 @@ class aas_logger : aas_event_handler
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
+  private
   bool is_worth_logging(int event_type)
   {
-    int  console_level    = CVar.GetCVar("m8f_aas_console_log_level").GetInt();
-    bool is_worth_logging = event_type <= console_level
+    bool is_worth_logging = event_type <= _console_level.get_int()
       && event_type != aas_event.tick;
 
     return is_worth_logging;
   }
+
+  private aas_cvar _console_level;
 
 } // class aas_logger
