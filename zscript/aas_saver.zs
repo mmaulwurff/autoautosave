@@ -22,13 +22,14 @@ class aas_saver : aas_event_handler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_saver of(aas_event_handler dispatcher, aas_game_actions game_actions)
+  aas_saver of(aas_event_handler dispatcher, aas_game_actions game_actions, aas_clock clock)
   {
     let result = new("aas_saver");
 
     result._last_save_time = 0;
     result._dispatcher     = dispatcher;
     result._game_actions   = game_actions;
+    result._clock          = clock;
 
     result._autosave_period_s   = aas_cvar.of("m8f_aas_autosave_period");
     result._save_on_time_period = aas_cvar.of("m8f_aas_save_on_time_period");
@@ -42,7 +43,7 @@ class aas_saver : aas_event_handler
   override
   void on_event(int event_type)
   {
-    int current_time          = level.time;
+    int current_time          = _clock.time();
     int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
 
     if (is_time_to_periodic_save(time_from_last_save_s, event_type))
@@ -67,7 +68,7 @@ class aas_saver : aas_event_handler
   private
   bool is_time_to_periodic_save(int time_from_last_save_s, int event_type)
   {
-    int  is_second_start          = (level.time % TICRATE == 0);
+    int  is_second_start          = (_clock.time() % TICRATE == 0);
     int  autosave_period_s        = _autosave_period_s.get_int();
     bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
     bool is_time_to_periodic_save = event_type == aas_event.tick
@@ -133,6 +134,7 @@ class aas_saver : aas_event_handler
 
   private aas_event_handler _dispatcher;
   private aas_game_actions  _game_actions;
+  private aas_clock         _clock;
 
   private aas_cvar _autosave_period_s;
   private aas_cvar _save_on_time_period;

@@ -25,14 +25,17 @@ class aas_event_dispatcher : aas_event_handler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_event_dispatcher of(aas_event_source event_source, aas_game_actions game_actions)
+  aas_event_dispatcher of( aas_event_source event_source
+                         , aas_game_actions game_actions
+                         , aas_clock        clock
+                         )
   {
     let result = new("aas_event_dispatcher");
 
-    result._handlers.Push(aas_saver        .of(result, game_actions));
+    result._handlers.Push(aas_saver        .of(result, game_actions, clock));
     result._handlers.Push(aas_logger       .of());
     result._handlers.Push(aas_printer      .of());
-    result._handlers.Push(aas_voice        .of());
+    result._handlers.Push(aas_voice        .of(clock));
     result._handlers.Push(aas_screenshooter.of(game_actions));
 
     return result;

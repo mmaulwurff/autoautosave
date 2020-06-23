@@ -22,10 +22,11 @@ class aas_voice : aas_event_handler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_voice of()
+  aas_voice of(aas_clock clock)
   {
     let result = new("aas_voice");
 
+    result._clock          = clock;
     result._last_save_time = 0;
     result._voice_level    = aas_cvar.of("m8f_aas_voice_level");
 
@@ -35,7 +36,7 @@ class aas_voice : aas_event_handler
   override
   void on_event(int event_type)
   {
-    int current_time          = level.time;
+    int current_time          = _clock.time();
     int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
     if (time_from_last_save_s < 1) { return; }
 
@@ -58,8 +59,8 @@ class aas_voice : aas_event_handler
     return is_enabled;
   }
 
-  private int _last_save_time;
-
-  private aas_cvar _voice_level;
+  private aas_clock _clock;
+  private int       _last_save_time;
+  private aas_cvar  _voice_level;
 
 } // class aas_voice

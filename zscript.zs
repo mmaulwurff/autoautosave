@@ -20,3 +20,6 @@ version "4.4.2"
 #include "zscript/aas_game_action_scheduler.zs"
 
 #include "zscript/aas_cvar.zs"
+
+#include "zscript/aas_clock.zs"
+#include "zscript/aas_level_clock.zs"

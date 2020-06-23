@@ -29,15 +29,16 @@ class aas_event_source play
   {
     let result = new("aas_event_source");
 
+    result._clock     = aas_level_clock.of();
+    result._scheduler = aas_game_action_scheduler.of();
+    result._handler   = aas_event_dispatcher.of(result, result._scheduler, result._clock);
+
     result._old_active_count = 0;
     result._old_active_big_count = 0;
     result._max_active = 0;
 
     result._old_kill_count = 0;
     result._old_item_count = 0;
-
-    result._scheduler = aas_game_action_scheduler.of();
-    result._handler   = aas_event_dispatcher.of(result, result._scheduler);
 
     PlayerInfo pInfo  = players[consolePlayer];
     let player = PlayerPawn(pInfo.mo);
@@ -351,10 +352,15 @@ class aas_event_source play
     }
   }
 
-  private bool is_loading_finished()
+  private
+  bool is_loading_finished()
   {
-    return (level.time > 0);
+    return (_clock.time() > 0);
   }
+
+  private aas_clock         _clock;
+  private aas_event_handler _handler;
+  private aas_game_action_scheduler _scheduler;
 
   private int     _old_active_count;
   private int     _old_active_big_count;
@@ -369,10 +375,6 @@ class aas_event_source play
   private int     _old_health;
   private int     _old_armor;
   private double  _old_armor_save;
-
-  private aas_event_handler _handler;
-
-  private aas_game_action_scheduler _scheduler;
 
   private aas_cvar _save_on_dropped;
   private aas_cvar _min_boss_health;
