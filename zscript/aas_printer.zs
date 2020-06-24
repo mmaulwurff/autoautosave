@@ -25,17 +25,21 @@ class aas_printer : aas_event_handler
   aas_printer of()
   {
     let result = new("aas_printer");
+    result._screen_level = aas_cvar.of("m8f_aas_screen_level");
     return result;
   }
 
   override
   void on_event(int event_type)
   {
-    int screen_level = CVar.GetCVar("m8f_aas_screen_level").GetInt();
-    if (event_type <= screen_level)
+    if (event_type <= _screen_level.get_int())
     {
       Console.MidPrint("smallfont", aas_event.message(event_type), true);
     }
   }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private aas_cvar _screen_level;
 
 } // class aas_printer
