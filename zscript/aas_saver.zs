@@ -40,33 +40,27 @@ class aas_saver : aas_event_handler
   override
   void on_event(int event_type)
   {
-    int current_time          = _clock.time();
-    int time_from_last_save_s = (current_time - _last_save_time.get_time()) / TICRATE;
-
-    if (is_too_frequent(time_from_last_save_s, event_type)) return;
+    if (is_too_frequent(event_type)) return;
 
     if (is_save_enabled(event_type))
     {
-      save(current_time);
+      _last_save_time.set_time(_clock.time());
+      _game_actions.save();
     }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
-  bool is_too_frequent(int time_from_last_save_s, int event_type)
+  bool is_too_frequent(int event_type)
   {
     // manual saving cannot be too frequent.
     if (event_type == aas_event.manual) return false;
 
-    return time_from_last_save_s < _min_save_wait_s.get_int();
-  }
+    int current_time          = _clock.time();
+    int time_from_last_save_s = (current_time - _last_save_time.get_time()) / TICRATE;
 
-  private
-  void save(int current_time)
-  {
-    _last_save_time.set_time(current_time);
-    _game_actions.save();
+    return time_from_last_save_s < _min_save_wait_s.get_int();
   }
 
   private
