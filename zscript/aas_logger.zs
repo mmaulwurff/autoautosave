@@ -43,10 +43,7 @@ class aas_logger : aas_event_handler
   private
   bool is_worth_logging(int event_type)
   {
-    bool is_worth_logging = event_type <= _console_level.get_int()
-      && event_type != aas_event.tick;
-
-    return is_worth_logging;
+    return (event_type <= _console_level.get_int());
   }
 
   private aas_cvar _console_level;

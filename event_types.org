@@ -8,7 +8,6 @@
 |   3 | group_alert     | m8f_aas_save_on_group_alert     | false   | New active enemies.             |
 |   4 | boss_alert      | m8f_aas_save_on_boss_alert      | true    | Boss alerted.                   |
 |   5 | all_items_found | m8f_aas_save_on_all_items_found | true    | All items found.                |
-|   6 | tick            | m8f_aas_false                   | false   | Tick.                           |
 |   7 | time_period     | m8f_aas_save_on_time_period     | false   | Time passed.                    |
 |   8 | teleport        | m8f_aas_save_on_teleport        | false   | You are moved to another place. |
 |   9 | manual          | m8f_aas_true                    | true    | Manual save.                    |

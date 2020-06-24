@@ -16,26 +16,34 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class aas_printer : aas_event_handler
+/**
+ * This class represents a moment in time, in game ticks.
+ */
+class aas_timestamp play
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_printer of()
+  aas_timestamp of()
   {
-    let result = new("aas_printer");
+    let result = new("aas_timestamp");
+    result._time = 0;
     return result;
   }
 
-  override
-  void on_event(int event_type)
+  void set_time(int time)
   {
-    int screen_level = CVar.GetCVar("m8f_aas_screen_level").GetInt();
-    if (event_type <= screen_level)
-    {
-      Console.MidPrint("smallfont", aas_event.message(event_type), true);
-    }
+    _time = time;
   }
 
-} // class aas_printer
+  int get_time()
+  {
+    return _time;
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private int _time;
+
+} // class aas_timestamp

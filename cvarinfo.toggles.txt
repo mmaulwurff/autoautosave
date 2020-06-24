@@ -1,7 +1,6 @@
 // This file is generated from event_types.org by gen-files.sh.
 // All manual changes will be lost.
 
-server bool m8f_aas_false                    = false;
 server bool m8f_aas_save_on_all_items_found  = true;
 server bool m8f_aas_save_on_all_kill         = true;
 server bool m8f_aas_save_on_armor_drop       = false;
@@ -50,7 +49,6 @@ server bool m8f_aas_shot_on_pomodoro         = false;
 server bool m8f_aas_shot_on_powerup          = false;
 server bool m8f_aas_shot_on_secret_found     = false;
 server bool m8f_aas_shot_on_teleport         = false;
-server bool m8f_aas_shot_on_tick             = false;
 server bool m8f_aas_shot_on_time_period      = false;
 server bool m8f_aas_shot_on_weapon           = false;
 
@@ -77,6 +75,5 @@ server bool m8f_aas_voice_on_pomodoro         = true;
 server bool m8f_aas_voice_on_powerup          = true;
 server bool m8f_aas_voice_on_secret_found     = true;
 server bool m8f_aas_voice_on_teleport         = true;
-server bool m8f_aas_voice_on_tick             = true;
 server bool m8f_aas_voice_on_time_period      = true;
 server bool m8f_aas_voice_on_weapon           = true;

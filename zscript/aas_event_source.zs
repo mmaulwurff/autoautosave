@@ -29,9 +29,12 @@ class aas_event_source play
   {
     let result = new("aas_event_source");
 
-    result._clock     = aas_level_clock.of();
-    result._scheduler = aas_game_action_scheduler.of();
-    result._handler   = aas_event_dispatcher.of(result, result._scheduler, result._clock);
+    let last_save_time = aas_timestamp.of();
+
+    result._clock      = aas_level_clock.of();
+    result._scheduler  = aas_game_action_scheduler.of();
+    result._handler    = aas_event_dispatcher.of(result._scheduler, result._clock, last_save_time);
+    result._save_timer = aas_save_timer.of(result._clock, last_save_time);
 
     result._old_active_count = 0;
     result._old_active_big_count = 0;
@@ -40,12 +43,12 @@ class aas_event_source play
     result._old_kill_count = 0;
     result._old_item_count = 0;
 
-    PlayerInfo pInfo  = players[consolePlayer];
-    let player = PlayerPawn(pInfo.mo);
+    PlayerInfo player_info  = players[consolePlayer];
+    let player = PlayerPawn(player_info.mo);
     result._old_pos    = player.Pos;
     result._old_health = player.Health;
     result._old_armor  = player.CountInv("BasicArmor");
-    result._old_secret_count = pInfo.secretcount;
+    result._old_secret_count = player_info.secretcount;
 
     BasicArmor armor = BasicArmor(player.FindInventory("BasicArmor"));
     if (armor) { result._old_armor_save = armor.SavePercent; }
@@ -69,7 +72,11 @@ class aas_event_source play
 
   void tick()
   {
-    on_event(aas_event.tick);
+    if (_save_timer.is_periodic_save())
+    {
+      on_event(aas_event.time_period);
+    }
+
     check_counter_events();
     check_map_events();
     check_player_events();
@@ -361,6 +368,7 @@ class aas_event_source play
   private aas_clock         _clock;
   private aas_event_handler _handler;
   private aas_game_action_scheduler _scheduler;
+  private aas_save_timer    _save_timer;
 
   private int     _old_active_count;
   private int     _old_active_big_count;

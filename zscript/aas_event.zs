@@ -12,7 +12,6 @@ class aas_event
     group_alert      =   3,
     boss_alert       =   4,
     all_items_found  =   5,
-    tick             =   6,
     time_period      =   7,
     teleport         =   8,
     manual           =   9,
@@ -44,7 +43,6 @@ class aas_event
       case group_alert      : return "New active enemies.";
       case boss_alert       : return "Boss alerted.";
       case all_items_found  : return "All items found.";
-      case tick             : return "Tick.";
       case time_period      : return "Time passed.";
       case teleport         : return "You are moved to another place.";
       case manual           : return "Manual save.";
@@ -78,7 +76,6 @@ class aas_event
       case group_alert      : return "m8f_aas_save_on_group_alert";
       case boss_alert       : return "m8f_aas_save_on_boss_alert";
       case all_items_found  : return "m8f_aas_save_on_all_items_found";
-      case tick             : return "m8f_aas_false";
       case time_period      : return "m8f_aas_save_on_time_period";
       case teleport         : return "m8f_aas_save_on_teleport";
       case manual           : return "m8f_aas_true";
@@ -112,7 +109,6 @@ class aas_event
       case group_alert      : return "m8f_aas_shot_on_group_alert";
       case boss_alert       : return "m8f_aas_shot_on_boss_alert";
       case all_items_found  : return "m8f_aas_shot_on_all_items_found";
-      case tick             : return "m8f_aas_shot_on_tick";
       case time_period      : return "m8f_aas_shot_on_time_period";
       case teleport         : return "m8f_aas_shot_on_teleport";
       case manual           : return "m8f_aas_shot_on_manual";
@@ -146,7 +142,6 @@ class aas_event
       case group_alert      : return "m8f_aas_voice_on_group_alert";
       case boss_alert       : return "m8f_aas_voice_on_boss_alert";
       case all_items_found  : return "m8f_aas_voice_on_all_items_found";
-      case tick             : return "m8f_aas_voice_on_tick";
       case time_period      : return "m8f_aas_voice_on_time_period";
       case teleport         : return "m8f_aas_voice_on_teleport";
       case manual           : return "m8f_aas_voice_on_manual";

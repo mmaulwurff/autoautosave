@@ -16,49 +16,50 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class aas_voice : aas_event_handler
+class aas_save_timer play
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_voice of(aas_clock clock)
+  aas_save_timer of(aas_clock clock, aas_timestamp timestamp)
   {
-    let result = new("aas_voice");
+    let result = new("aas_save_timer");
 
     result._clock          = clock;
-    result._last_save_time = 0;
-    result._voice_level    = aas_cvar.of("m8f_aas_voice_level");
+    result._last_save_time = timestamp;
+
+    result._autosave_period_s   = aas_cvar.of("m8f_aas_autosave_period");
+    result._save_on_time_period = aas_cvar.of("m8f_aas_save_on_time_period");
 
     return result;
   }
 
-  override
-  void on_event(int event_type)
+  bool is_periodic_save()
   {
     int current_time          = _clock.time();
-    int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
-    if (time_from_last_save_s < 1) { return; }
+    int time_from_last_save_s = (current_time - _last_save_time.get_time()) / TICRATE;
 
-    if (event_type <= _voice_level.get_int() && is_voice_enabled_for(event_type))
-    {
-      string voice_file = String.Format("aas/voice%d", event_type);
-      S_StartSound(voice_file, CHAN_AUTO);
-      _last_save_time = current_time;
-    }
+    return is_time_to_periodic_save(time_from_last_save_s);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
-  bool is_voice_enabled_for(int event_type)
+  private
+  bool is_time_to_periodic_save(int time_from_last_save_s)
   {
-    bool is_enabled = CVar.GetCVar(aas_event.voice_toggle_name(event_type)).GetInt();
-    return is_enabled;
+    int  is_second_start          = (_clock.time() % TICRATE == 0);
+    int  autosave_period_s        = _autosave_period_s.get_int();
+    bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
+    bool is_time_to_periodic_save = is_second_start && is_period && _save_on_time_period.get_int();
+
+    return is_time_to_periodic_save;
   }
 
-  private aas_clock _clock;
-  private int       _last_save_time;
-  private aas_cvar  _voice_level;
+  private aas_clock     _clock;
+  private aas_timestamp _last_save_time;
 
-} // class aas_voice
+  private aas_cvar _autosave_period_s;
+  private aas_cvar _save_on_time_period;
+
+} // class aas_save_timer

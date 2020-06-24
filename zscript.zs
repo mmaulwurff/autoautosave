@@ -23,3 +23,6 @@ version "4.4.2"
 
 #include "zscript/aas_clock.zs"
 #include "zscript/aas_level_clock.zs"
+
+#include "zscript/aas_timestamp.zs"
+#include "zscript/aas_save_timer.zs"
