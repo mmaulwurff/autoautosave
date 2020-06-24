@@ -51,7 +51,10 @@ class aas_save_timer play
     int  is_second_start          = (_clock.time() % TICRATE == 0);
     int  autosave_period_s        = _autosave_period_s.get_int();
     bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
-    bool is_time_to_periodic_save = is_second_start && is_period && _save_on_time_period.get_int();
+    bool is_time_to_periodic_save = is_second_start
+      && is_period
+      && _save_on_time_period.get_int()
+      && _clock.time() > 0;
 
     return is_time_to_periodic_save;
   }
