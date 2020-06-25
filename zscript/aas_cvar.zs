@@ -56,7 +56,7 @@ class aas_cvar
 
     if (!is_loaded())
     {
-      Console.Printf("Cvar %s not found.", _name);
+      aas_log.error(String.Format("cvar %s not found", _name));
     }
   }
 

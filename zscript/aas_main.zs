@@ -40,7 +40,7 @@ class aas_main : EventHandler
     }
     else if (command[0] == "aas_log")
     {
-      aas_log.log(command[1]);
+      aas_log.print(command[1]);
     }
   }
 

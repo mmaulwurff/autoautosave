@@ -20,9 +20,24 @@ class aas_log
 {
 
   static
-  void log(String s)
+  void print(String s)
   {
     Console.Printf("%s", StringTable.Localize(s, false));
   }
+
+  static
+  void error(String s)
+  {
+    Console.Printf("[ERROR] Autoautosave: %s.", s);
+  }
+
+  static
+  void debug(String s)
+  {
+    if (NO_DEBUG) return;
+    Console.Printf("[DEBUG] Autoautosave: %s.", s);
+  }
+
+  const NO_DEBUG = 1; // == true
 
 } // class aas_log

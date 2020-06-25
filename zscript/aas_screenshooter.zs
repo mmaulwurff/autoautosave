@@ -58,7 +58,7 @@ class aas_screenshooter : aas_event_handler
     CVar   variable    = CVar.GetCVar(toggle_name);
     if (variable == NULL)
     {
-      console.printf("Autoautosave Warning: variable %s not found", toggle_name);
+      aas_log.error(String.Format("variable %s not found", toggle_name));
       return false;
     }
 

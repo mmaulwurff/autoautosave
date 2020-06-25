@@ -165,7 +165,7 @@ class aas_event_source play
     int n_saveable_items_classes = saveable_item_classes.size();
     if (n_saveable_items_classes != types.size())
     {
-      console.printf("AAS Error: invalid saveable items.");
+      aas_log.error("invalid saveable items");
     }
 
     Actor   player = players[consolePlayer].mo;
@@ -227,7 +227,7 @@ class aas_event_source play
         ++activeCount;
       }
     }
-    //Console.Printf("Counts: %d, %d", activeCount, activeBigCount);
+    aas_log.debug(String.Format("active counts: %d, %d", activeCount, activeBigCount));
 
     if (activeCount > _max_active) { _max_active = activeCount; }
 
@@ -268,7 +268,7 @@ class aas_event_source play
       float dist = x_diff * x_diff + y_diff * y_diff;
       if (dist > 2000000.0)
       {
-        //Console.Printf("Distance: %f", dist);
+        aas_log.debug(String.Format("positions distance: %f", dist));
         on_event(aas_event.teleport);
       }
       _old_pos = pos;

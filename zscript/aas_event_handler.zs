@@ -34,7 +34,7 @@ class aas_event_handler play abstract
   virtual
   void on_event(int event_type)
   {
-    Console.Printf("Override aas_event_handler.on_event()!");
+    aas_log.error("override aas_event_handler.on_event()");
   }
 
 } // class aas_event_handler

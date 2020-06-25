@@ -24,13 +24,13 @@ class aas_game_actions abstract play
   virtual
   void save()
   {
-    Console.Printf("aas_game_action.save(): override this!");
+    aas_log.error("override aas_game_action.save()");
   }
 
   virtual
   void take_screenshot()
   {
-    Console.Printf("aas_game_action.take_screenshot(): override this!");
+    aas_log.error("override aas_game_action.take_screenshot()");
   }
 
 } // class aas_game_action

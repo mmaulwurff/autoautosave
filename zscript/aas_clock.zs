@@ -27,7 +27,7 @@ class aas_clock abstract play
   virtual
   int time()
   {
-    Console.Printf("aas_clock.time(): override this!");
+    aas_log.error("override aas_clock.time()");
     return 0;
   }
 

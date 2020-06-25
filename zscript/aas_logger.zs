@@ -34,7 +34,7 @@ class aas_logger : aas_event_handler
   {
     if (is_worth_logging(event_type))
     {
-      Console.Printf(aas_event.message(event_type));
+      aas_log.print(aas_event.message(event_type));
     }
   }
 
