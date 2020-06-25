@@ -7,3 +7,80 @@ AAS_TOGGLE_CONTROL_NAME = "Toggle Autoautosave";
 
 AAS_TOGGLE_ON_MESSAGE  = "Autoautosave enabled";
 AAS_TOGGLE_OFF_MESSAGE = "Autoautosave disabled";
+
+AAS_LEVEL_NOTHING     = "nothing";
+AAS_LEVEL_QUIET       = "quiet";
+AAS_LEVEL_VERBOSE     = "verbose";
+AAS_LEVEL_EVERYTHINGY = "everything";
+
+AAS_OPTIONS_TITLE = "Autoautosave Options";
+
+AAS_MUST_ALWAYS   = "This must be set to ALWAYS:";
+AAS_GLOBAL_TOGGLE = "Global toggle";
+AAS_CONTROLS      = "Controls";
+
+AAS_INDIVIDUAL_TOGGLES_TITLE = "Individual Event Toggles";
+AAS_SCREENSHOT_TOGGLES_TITLE = "Screenshot Toggles";
+AAS_EVENT_TUNING_TITLE       = "Event Tuning";
+AAS_REPORT_OPTIONS_TITLE     = "Log and Announcer Options";
+
+AAS_SCREENSHOTS_WARNING = "Warning: too many screenshot can use up disk space.";
+
+AAS_SCREENSHOTS_SCRIPT_NOTE = "This must be set to \"On\".";
+
+AAS_EVENT_MANUAL = "On manual autosave";
+AAS_EVENT_START  = "On level start";
+
+AAS_EVENT_ALL_CLEAR    = "All enemies are eliminated";
+AAS_EVENT_BOSS_KILLED  = "Boss is eliminated";
+AAS_EVENT_ACTIVE_CLEAR = "No more active enemies (group kill)";
+
+AAS_EVENT_NEW_ACTIVE   = "New active enemies (group alert)";
+AAS_EVENT_BOSS_ACTIVE  = "Boss is alerted";
+
+AAS_EVENT_ALL_ITEMS    = "All items are found";
+AAS_EVENT_PERIODIC     = "Time has passed";
+AAS_EVENT_TELEPORT     = "You are moved to another place";
+
+AAS_EVENT_HEALTH_LOW   = "Health drops low";
+AAS_EVENT_HEALTH_1     = "Health drops to 1%";
+AAS_EVENT_HEALTH_HIGH  = "Health rises high";
+AAS_EVENT_ARMOR_LOW    = "Armor drops low";
+AAS_EVENT_ARMOR_HIGH   = "Armor rises high";
+AAS_EVENT_SECRET       = "Secret is found";
+
+AAS_EVENT_POWERUP      = "Powerup is found";
+AAS_EVENT_WEAPON       = "Weapon is found";
+AAS_EVENT_KEY          = "Key is found";
+AAS_EVENT_ARMOR        = "Armor is found";
+AAS_EVENT_BACKPACK     = "Backpack is found";
+AAS_EVENT_IMPORTANT    = "Important item is found";
+AAS_IMPORTANT_NOTE_1   = "Important item list currently includes:";
+AAS_IMPORTANT_NOTE_2   = "The Golden Souls Big Coins.";
+AAS_EVENT_NEW_ARMOR    = "New armor type";
+AAS_EVENT_HEALING      = "Major healing";
+
+AAS_LOG_CONSOLE = "Log to console";
+AAS_LOG_SCREEN  = "Log to screen";
+AAS_LOG_VOICE   = "Voice";
+
+AAS_LOG_QUIET_NOTE_1   = "Quiet:";
+AAS_LOG_QUIET_NOTE_2   = "enemies time teleport items";
+AAS_LOG_VERBOSE_NOTE_1 = "Verbose:";
+AAS_LOG_VERBOSE_NOTE_2 = "enemies time teleport items health armor";
+AAS_VOICE_TELEPORT     = "Voice for teleport event";
+
+AAS_MIN_BOSS_HEALTH = "Enemy is a boss when health is at least";
+AAS_GROUP_NUMBER    = "Group is at least N enemies";
+AAS_HEALTH_LIMIT    = "Don't save when health is less than";
+
+AAS_LOW_HEALTH_THRESHOLD  = "Low health threshold";
+AAS_HIGH_HEALTH_THRESHOLD = "High health threshold";
+AAS_LOW_ARMOR_THRESHOLD   = "Low armor threshold";
+AAS_HIGH_ARMOR_THRESHOLD  = "High armor threshold";
+
+AAS_MIN_SAVE_WAIT = "Don't save until seconds passed";
+AAS_PERIOD        = "Autosave every N seconds";
+
+AAS_SAVE_ON_DROPPED      = "Save on dropped items";
+AAS_SAVE_ON_DROPPED_NOTE = "Also picking up Hideous Destructor keys.";

@@ -5,4 +5,5 @@ addmenukey $AAS_MANUAL_CONTROL_NAME m8f_aas_manual_autosave
 
 alias m8f_aas_on  "m8f_aas_enabled 1; netevent aas_log:AAS_TOGGLE_ON_MESSAGE"
 alias m8f_aas_off "m8f_aas_enabled 0; netevent aas_log:AAS_TOGGLE_OFF_MESSAGE"
-addmenukey $AAS_TOGGLE_CONTROL_NAME "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
+alias aas_toggle  "test $m8f_aas_enabled m8f_aas_off m8f_aas_on"
+addmenukey $AAS_TOGGLE_CONTROL_NAME aas_toggle
