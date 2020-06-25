@@ -30,13 +30,18 @@ class aas_main : EventHandler
     Array<String> command;
     event.Name.Split(command, ":");
 
-    if (command.Size() != 2 || command[0] != "aas_manual_save")
-    {
-      return;
-    }
+    // all known commands has 1 argument.
+    if (command.Size() != 2) return;
 
-    int event_type = command[1].ToInt();
-    _event_source.on_event(event_type);
+    if (command[0] == "aas_manual_save")
+    {
+      int event_type = command[1].ToInt();
+      _event_source.on_event(event_type);
+    }
+    else if (command[0] == "aas_log")
+    {
+      aas_log.log(command[1]);
+    }
   }
 
   override

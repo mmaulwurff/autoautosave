@@ -1,0 +1,9 @@
+[enu default]
+
+AAS_TITLE = "Autoautosave";
+
+AAS_MANUAL_CONTROL_NAME = "Manual autosave";
+AAS_TOGGLE_CONTROL_NAME = "Toggle Autoautosave";
+
+AAS_TOGGLE_ON_MESSAGE  = "Autoautosave enabled";
+AAS_TOGGLE_OFF_MESSAGE = "Autoautosave disabled";

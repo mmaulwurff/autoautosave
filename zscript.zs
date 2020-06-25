@@ -26,3 +26,5 @@ version "4.4.2"
 
 #include "zscript/aas_timestamp.zs"
 #include "zscript/aas_save_timer.zs"
+
+#include "zscript/aas_log.zs"
