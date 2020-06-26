@@ -37,27 +37,16 @@ class aas_save_timer play
 
   bool is_periodic_save()
   {
-    int current_time          = _clock.time();
-    int time_from_last_save_s = (current_time - _last_save_time.get_time()) / TICRATE;
+    int  time_from_last_save = _clock.time() - _last_save_time.get_time();
+    int  autosave_period     = _autosave_period_s.get_int() * TICRATE;
+    bool is_period           = (time_from_last_save % autosave_period) == 0;
 
-    return is_time_to_periodic_save(time_from_last_save_s);
+    return is_period
+      && _save_on_time_period.get_int()
+      && _clock.time() > 0;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private
-  bool is_time_to_periodic_save(int time_from_last_save_s)
-  {
-    int  is_second_start          = (_clock.time() % TICRATE == 0);
-    int  autosave_period_s        = _autosave_period_s.get_int();
-    bool is_period                = (time_from_last_save_s % autosave_period_s) == 0;
-    bool is_time_to_periodic_save = is_second_start
-      && is_period
-      && _save_on_time_period.get_int()
-      && _clock.time() > 0;
-
-    return is_time_to_periodic_save;
-  }
 
   private aas_clock     _clock;
   private aas_timestamp _last_save_time;
