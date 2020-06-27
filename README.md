@@ -5,27 +5,17 @@ GZDoom mod: universal autosaver.
 It works as a configurable checkpoint system.
 It is designed to be compatible with any monster and weapon mod, and any map.
 
-## Autosave on certain events:
+<img src="https://img.shields.io/github/downloads/mmaulwurff/autoautosave/total" />
 
-- All enemies are eliminated
-- Boss is eliminated
-- No more active enemies (group kill)
-- New active enemies (group alert)
-- Boss is alerted
-- All items are found
-- Time has passed
-- You are moved to another place
-- Health drops low
-- Health rises high
-- Armor drops low
-- Armor rises high
-- Secret is found
-- Powerup is found
-- Weapon is found
-- Key is found
-- Backpack is found
-- New armor type
-- Major healing
+## Features
+
+- autosave on various events: enemies alerted and killed, health or armor drops
+  or rises, items are found, etc.
+- periodic autosave.
+- autosave on every event is optional.
+- some events have fine-tuning options.
+- optional screenshot taking when events happen.
+- three options for event reporting: console, on-screen, and voice.
 
 ## Thanks to
 
@@ -39,4 +29,4 @@ Author: m8f
 
 License: GPLv3 (see copying.txt)
 
-This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox)
+This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox).
