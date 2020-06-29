@@ -39,15 +39,15 @@ class aas_event
     {
       case all_kill         : return "All enemies eliminated.";
       case boss_kill        : return "Boss eliminated.";
-      case group_kill       : return "No more active enemies.";
+      case group_kill       : return "No active enemies.";
       case group_alert      : return "New active enemies.";
       case boss_alert       : return "Boss alerted.";
       case all_items_found  : return "All items found.";
       case time_period      : return "Time passed.";
-      case teleport         : return "You are moved to another place.";
+      case teleport         : return "Moved to another place.";
       case manual           : return "Manual save.";
-      case pomodoro         : return "It's time to take a break.";
-      case gs_gold_coin     : return "Picked up a big coin, nice job!";
+      case pomodoro         : return "Take a break.";
+      case gs_gold_coin     : return "Somethin rare!";
       case level_start      : return "Level started.";
       case one_percent      : return "Last health percent!";
       case health_drop      : return "Health low.";
