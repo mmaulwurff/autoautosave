@@ -32,7 +32,7 @@ class aas_event_dispatcher : aas_event_handler
     result._handlers.Push(aas_saver        .of(game_actions, clock, timestamp));
     result._handlers.Push(aas_logger       .of());
     result._handlers.Push(aas_printer      .of());
-    result._handlers.Push(aas_voice        .of(clock));
+    result._handlers.Push(aas_voice        .of());
     result._handlers.Push(aas_screenshooter.of(game_actions));
 
     return result;

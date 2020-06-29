@@ -16,19 +16,21 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class implements aas_event_handler by playing a sound when an event happens.
+ */
 class aas_voice : aas_event_handler
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_voice of(aas_clock clock)
+  aas_voice of()
   {
     let result = new("aas_voice");
 
-    result._clock          = clock;
-    result._last_save_time = 0;
-    result._voice_level    = aas_cvar.of("m8f_aas_voice_level");
+    result._voice_level = aas_cvar.of("m8f_aas_voice_level");
+    result._queue       = aas_sound_queue.of();
 
     return result;
   }
@@ -36,15 +38,9 @@ class aas_voice : aas_event_handler
   override
   void on_event(int event_type)
   {
-    int current_time          = _clock.time();
-    int time_from_last_save_s = (current_time - _last_save_time) / TICRATE;
-    if (time_from_last_save_s < 1) { return; }
-
     if (event_type <= _voice_level.get_int() && is_voice_enabled_for(event_type))
     {
-      string voice_file = String.Format("aas/voice%d", event_type);
-      S_StartSound(voice_file, CHAN_AUTO);
-      _last_save_time = current_time;
+      _queue.add(event_type);
     }
   }
 
@@ -57,8 +53,54 @@ class aas_voice : aas_event_handler
     return is_enabled;
   }
 
-  private aas_clock _clock;
-  private int       _last_save_time;
-  private aas_cvar  _voice_level;
+  private aas_cvar        _voice_level;
+  private aas_sound_queue _queue;
 
 } // class aas_voice
+
+class aas_sound_queue : Thinker
+{
+  static
+    aas_sound_queue of()
+  {
+    let result = new("aas_sound_queue");
+    result._timeout = 0;
+    return result;
+  }
+
+  override
+  void tick()
+  {
+    // Should I play something now?
+    if (_timeout == 0)
+    {
+      // Yes, but is there something to play?
+      if (_queue.size() == 0) return;
+
+      int    event_type = _queue[0];
+      string voice_file = String.Format("aas/voice%d", event_type);
+      S_StartSound(voice_file, CHAN_AUTO);
+
+      _queue.delete(0);
+      _timeout = TIMEOUT;
+    }
+    else
+    {
+      // No, wait more.
+      --_timeout;
+    }
+  }
+
+  void add(int event_type)
+  {
+    _queue.push(event_type);
+  }
+
+  const TIMEOUT = 2500 * TICRATE / 1000;
+
+  /**
+   * Event queue stores event types.
+   */
+  private array<int> _queue;
+  private int        _timeout;
+}
