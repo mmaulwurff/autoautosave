@@ -12,7 +12,7 @@
 |   8 | teleport        | m8f_aas_save_on_teleport        | false   | Moved to another place. |
 |   9 | manual          | m8f_aas_true                    | true    | Manual save.            |
 |  10 | pomodoro        | m8f_aas_true                    | true    | Take a break.           |
-|  11 | gs_gold_coin    | m8f_aas_save_on_artefact        | true    | Somethin rare!          |
+|  11 | gs_gold_coin    | m8f_aas_save_on_artefact        | true    | Something rare!         |
 |  12 | level_start     | m8f_aas_save_on_level_start     | false   | Level started.          |
 |  13 | one_percent     | m8f_aas_save_on_one_percent     | false   | Last health percent!    |
 |-----+-----------------+---------------------------------+---------+-------------------------|
@@ -22,11 +22,11 @@
 | 103 | armor_rise      | m8f_aas_save_on_armor_rise      | false   | Armor high.             |
 | 104 | secret_found    | m8f_aas_save_on_secret_found    | true    | Secret found.           |
 |-----+-----------------+---------------------------------+---------+-------------------------|
-| 200 | powerup         | m8f_aas_save_on_powerup         | true    | Powerup is found.       |
-| 201 | weapon          | m8f_aas_save_on_weapon          | true    | Weapon is found.        |
+| 200 | powerup         | m8f_aas_save_on_powerup         | true    | Powerup found.          |
+| 201 | weapon          | m8f_aas_save_on_weapon          | true    | Weapon found.           |
 | 202 | key             | m8f_aas_save_on_key             | true    | Key found.              |
 | 203 | backpack        | m8f_aas_save_on_backpack        | true    | Backpack found.         |
-| 204 | new_armor       | m8f_aas_save_on_new_armor       | true    | New armor type.         |
+| 204 | new_armor       | m8f_aas_save_on_new_armor       | true    | New armor.              |
 | 205 | big_heal        | m8f_aas_save_on_big_heal        | true    | Major healing.          |
 | 206 | armor           | m8f_aas_save_on_armor           | false   | Armor found.            |
 |-----+-----------------+---------------------------------+---------+-------------------------|

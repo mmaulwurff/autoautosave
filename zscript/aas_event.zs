@@ -47,7 +47,7 @@ class aas_event
       case teleport         : return "Moved to another place.";
       case manual           : return "Manual save.";
       case pomodoro         : return "Take a break.";
-      case gs_gold_coin     : return "Somethin rare!";
+      case gs_gold_coin     : return "Something rare!";
       case level_start      : return "Level started.";
       case one_percent      : return "Last health percent!";
       case health_drop      : return "Health low.";
@@ -55,11 +55,11 @@ class aas_event
       case armor_drop       : return "Armor low.";
       case armor_rise       : return "Armor high.";
       case secret_found     : return "Secret found.";
-      case powerup          : return "Powerup is found.";
-      case weapon           : return "Weapon is found.";
+      case powerup          : return "Powerup found.";
+      case weapon           : return "Weapon found.";
       case key              : return "Key found.";
       case backpack         : return "Backpack found.";
-      case new_armor        : return "New armor type.";
+      case new_armor        : return "New armor.";
       case big_heal         : return "Major healing.";
       case armor            : return "Armor found.";
       default: return "Unknown event type.";
