@@ -45,12 +45,6 @@ class aas_main : EventHandler
   }
 
   override
-  void WorldTick()
-  {
-    _event_source.tick();
-  }
-
-  override
   void PlayerEntered(PlayerEvent event)
   {
     if (event.PlayerNumber != consolePlayer) { return; }

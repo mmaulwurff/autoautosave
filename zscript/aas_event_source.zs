@@ -19,7 +19,7 @@
 /**
  * This class represents the core of Autoautosave.
  */
-class aas_event_source play
+class aas_event_source : Thinker
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +70,7 @@ class aas_event_source play
     _handler.on_event(event_type);
   }
 
+  override
   void tick()
   {
     if (_save_timer.is_periodic_save())
