@@ -37,8 +37,8 @@ class aas_event_source : Thinker
     result._save_timer = aas_save_timer.of(result._clock, last_save_time);
 
     result._old_active_count = 0;
-    result._old_active_big_count = 0;
-    result._max_active = 0;
+    result._old_active_bosses_count = 0;
+    result._is_group = false;
 
     result._old_kill_count = 0;
     result._old_item_count = 0;
@@ -78,7 +78,13 @@ class aas_event_source : Thinker
       on_event(aas_event.time_period);
     }
 
-    check_counter_events();
+    check_active_enemies_count();
+    check_active_bosses_count();
+    aas_log.debug(String.Format( "active counts: %d, %d"
+                               , _old_active_count
+                               , _old_active_bosses_count)
+                               );
+
     check_map_events();
     check_player_events();
 
@@ -208,53 +214,85 @@ class aas_event_source : Thinker
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private
-  void check_counter_events()
+  private static
+  bool is_active(Actor a)
   {
-    // count active monsters
-    let i               = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
-    int activeCount     = 0;
-    int activeBigCount  = 0;
-    int min_boss_health = _min_boss_health.get_int();
+    return (a.bIsMonster && a.Target != NULL && a.Health > 0);
+  }
+
+  private static
+  int count_active_enemies()
+  {
+    int result = 0;
+    let i = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
     Actor a;
 
     while (a = Actor(i.Next()))
     {
-      if (a.bISMONSTER
-          && a.Target != NULL
-          && a.Health > 0)
-      {
-        if (a.SpawnHealth() >= min_boss_health) { ++activeBigCount; }
-        ++activeCount;
-      }
+      result += is_active(a);
     }
-    aas_log.debug(String.Format("active counts: %d, %d", activeCount, activeBigCount));
 
-    if (activeCount > _max_active) { _max_active = activeCount; }
+    return result;
+  }
 
-    if (activeCount >= _old_active_count + _group_number.get_int())
+  private
+  int count_active_bosses()
+  {
+    int result = 0;
+    let i = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
+    Actor a;
+    int min_boss_health = _min_boss_health.get_int();
+
+    while (a = Actor(i.Next()))
+    {
+      result += (is_active(a) && a.SpawnHealth() >= min_boss_health);
+    }
+
+    return result;
+  }
+
+  private
+  void check_active_enemies_count()
+  {
+    int active_enemies_count = count_active_enemies();
+    int group_count          = _group_number.get_int();
+
+    if (active_enemies_count >= group_count)
+    {
+      _is_group = true;
+    }
+
+    int newly_active_enemies = active_enemies_count - _old_active_count;
+    if (newly_active_enemies >= group_count)
     {
       on_event(aas_event.group_alert);
     }
-    else if (activeCount == 0)
+    else if (active_enemies_count == 0)
     {
-      if (_max_active >= _group_number.get_int())
+      if (_is_group)
       {
         on_event(aas_event.group_kill);
       }
-      _max_active = 0;
-    }
-    else if (activeBigCount > _old_active_big_count)
-    {
-      on_event(aas_event.boss_alert);
-    }
-    else if (activeBigCount < _old_active_big_count)
-    {
-      on_event(aas_event.boss_kill);
+      _is_group = false;
     }
 
-    _old_active_count = activeCount;
-    _old_active_big_count = activeBigCount;
+    _old_active_count = active_enemies_count;
+  }
+
+  private
+  void check_active_bosses_count()
+  {
+    int active_bosses_count = count_active_bosses();
+
+    // nothing changed, nothing to do.
+    if (active_bosses_count == _old_active_bosses_count) return;
+
+    bool is_now_more_active_bosses = (active_bosses_count > _old_active_bosses_count);
+    int  event = is_now_more_active_bosses ? aas_event.boss_alert : aas_event.boss_kill;
+
+    on_event(event);
+
+    _old_active_bosses_count = active_bosses_count;
   }
 
   private
@@ -372,8 +410,8 @@ class aas_event_source : Thinker
   private aas_save_timer    _save_timer;
 
   private int     _old_active_count;
-  private int     _old_active_big_count;
-  private int     _max_active;
+  private int     _old_active_bosses_count;
+  private int     _is_group;
 
   private int     _old_kill_count;
   private int     _old_item_count;
