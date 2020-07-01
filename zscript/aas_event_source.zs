@@ -85,7 +85,9 @@ class aas_event_source : Thinker
                                , _old_active_bosses_count)
                                );
 
-    check_map_events();
+    check_secrets();
+    check_all_killed();
+    check_all_found();
     check_player_events();
 
     _scheduler.tick();
@@ -366,36 +368,37 @@ class aas_event_source : Thinker
   }
 
   private
-  void check_map_events()
+  void check_secrets()
   {
     PlayerInfo player = players[consoleplayer];
-
+    int secret_count = player.secretcount;
+    if (secret_count > _old_secret_count)
     {
-      int secret_count = player.secretcount;
-      if (secret_count > _old_secret_count)
-      {
-        on_event(aas_event.secret_found);
-      }
-      _old_secret_count = secret_count;
+      on_event(aas_event.secret_found);
     }
+    _old_secret_count = secret_count;
+  }
 
+  private
+  void check_all_killed()
+  {
+    int kill_count = level.killed_monsters;
+    if (kill_count != _old_kill_count && kill_count == level.total_monsters)
     {
-      int kill_count = level.killed_monsters;
-      if (kill_count != _old_kill_count && kill_count == level.total_monsters)
-      {
-        on_event(aas_event.all_kill);
-      }
-      _old_kill_count = kill_count;
+      on_event(aas_event.all_kill);
     }
+    _old_kill_count = kill_count;
+  }
 
+  private
+  void check_all_found()
+  {
+    int item_count = level.found_items;
+    if (item_count != _old_item_count && item_count == level.total_items)
     {
-      int item_count = level.found_items;
-      if (item_count != _old_item_count && item_count == level.total_items)
-      {
-        on_event(aas_event.all_items_found);
-      }
-      _old_item_count = item_count;
+      on_event(aas_event.all_items_found);
     }
+    _old_item_count = item_count;
   }
 
   private
