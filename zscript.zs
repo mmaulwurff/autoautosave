@@ -28,3 +28,8 @@ version "4.4.2"
 #include "zscript/aas_save_timer.zs"
 
 #include "zscript/aas_log.zs"
+
+#include "zscript/checkers/aas_active_enemies_checker.zs"
+
+#include "zscript/counters/aas_enemies_counter.zs"
+#include "zscript/counters/aas_active_enemies_counter.zs"

@@ -36,9 +36,7 @@ class aas_event_source : Thinker
     result._handler    = aas_event_dispatcher.of(result._scheduler, result._clock, last_save_time);
     result._save_timer = aas_save_timer.of(result._clock, last_save_time);
 
-    result._old_active_count = 0;
     result._old_active_bosses_count = 0;
-    result._is_group = false;
 
     result._old_kill_count = 0;
     result._old_item_count = 0;
@@ -56,11 +54,15 @@ class aas_event_source : Thinker
 
     result._save_on_dropped = aas_cvar.of("m8f_aas_save_on_dropped");
     result._min_boss_health = aas_cvar.of("m8f_aas_min_boss_health");
-    result._group_number    = aas_cvar.of("m8f_aas_group_number");
     result._health_down     = aas_cvar.of("m8f_aas_health_threshold_down");
     result._health_up       = aas_cvar.of("m8f_aas_health_threshold_up");
     result._armor_down      = aas_cvar.of("m8f_aas_armor_threshold_down");
     result._armor_up        = aas_cvar.of("m8f_aas_armor_threshold_up");
+
+    let active_enemies_counter = aas_active_enemies_counter.of();
+    result._active_enemies_checker = aas_active_enemies_checker.of( result._handler
+                                                                  , active_enemies_counter
+                                                                  );
 
     return result;
   }
@@ -78,12 +80,8 @@ class aas_event_source : Thinker
       on_event(aas_event.time_period);
     }
 
-    check_active_enemies_count();
+    _active_enemies_checker.tick();
     check_active_bosses_count();
-    aas_log.debug(String.Format( "active counts: %d, %d"
-                               , _old_active_count
-                               , _old_active_bosses_count)
-                               );
 
     check_secrets();
     check_all_killed();
@@ -222,21 +220,6 @@ class aas_event_source : Thinker
     return (a.bIsMonster && a.Target != NULL && a.Health > 0);
   }
 
-  private static
-  int count_active_enemies()
-  {
-    int result = 0;
-    let i = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
-    Actor a;
-
-    while (a = Actor(i.Next()))
-    {
-      result += is_active(a);
-    }
-
-    return result;
-  }
-
   private
   int count_active_bosses()
   {
@@ -251,34 +234,6 @@ class aas_event_source : Thinker
     }
 
     return result;
-  }
-
-  private
-  void check_active_enemies_count()
-  {
-    int active_enemies_count = count_active_enemies();
-    int group_count          = _group_number.get_int();
-
-    if (active_enemies_count >= group_count)
-    {
-      _is_group = true;
-    }
-
-    int newly_active_enemies = active_enemies_count - _old_active_count;
-    if (newly_active_enemies >= group_count)
-    {
-      on_event(aas_event.group_alert);
-    }
-    else if (active_enemies_count == 0)
-    {
-      if (_is_group)
-      {
-        on_event(aas_event.group_kill);
-      }
-      _is_group = false;
-    }
-
-    _old_active_count = active_enemies_count;
   }
 
   private
@@ -412,9 +367,7 @@ class aas_event_source : Thinker
   private aas_game_action_scheduler _scheduler;
   private aas_save_timer    _save_timer;
 
-  private int     _old_active_count;
   private int     _old_active_bosses_count;
-  private int     _is_group;
 
   private int     _old_kill_count;
   private int     _old_item_count;
@@ -428,10 +381,11 @@ class aas_event_source : Thinker
 
   private aas_cvar _save_on_dropped;
   private aas_cvar _min_boss_health;
-  private aas_cvar _group_number;
   private aas_cvar _health_down;
   private aas_cvar _health_up;
   private aas_cvar _armor_down;
   private aas_cvar _armor_up;
+
+  private aas_active_enemies_checker _active_enemies_checker;
 
 } // class aas_event_source
