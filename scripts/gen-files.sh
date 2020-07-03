@@ -5,7 +5,7 @@
 # (sounds/*.ogg).
 #
 # Dependencies:
-# - espeak
+# - espeak-ng
 # - oggenc
 #
 # How to use:
@@ -96,14 +96,14 @@ rm -f sounds/*
 
 mkdir -p sounds
 
-params="-s140 -p0 -g1 -v english"
+params="-s140 -p0 -g1 -v en"
 filename="sounds/aas"
 
 while read -r line; do
     voice_string=$(echo "$line" | awk '{ print $10; for (i=11; i<NF; ++i) { printf(" %s", $i); } }')
     i=$(echo "$line" | awk '{ print $2 }')
     #echo $voice_string
-    espeak "$voice_string" $params -w "$filename$i.wav";
+    espeak-ng "$voice_string" $params -w "$filename$i.wav";
 done <<< "$filtered"
 
 for f in sounds/*.wav;
