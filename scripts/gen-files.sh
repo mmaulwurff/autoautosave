@@ -91,6 +91,10 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "\$pitchshiftrange 0"
     echo
     echo "$filtered" | awk '{ printf("aas/voice%s \"sounds/aas%s.ogg\"\n", $2, $2) }'
+    echo
+    echo "$filtered" | awk '{ printf("aas/voice-w%s \"sounds/aas-w%s.ogg\"\n", $2, $2) }'
+    echo
+    echo "$filtered" | awk '{ printf("aas/voice-f%s \"sounds/aas-f%s.ogg\"\n", $2, $2) }'
 } > $sndinfo_file
 
 # Generate code to precache sounds #################################################################
@@ -107,6 +111,10 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "  void precache_sounds()"
     echo "  {"
     echo "$filtered" | awk '{ printf("    MarkSound(\"aas/voice%s\");\n", $2) }'
+    echo
+    echo "$filtered" | awk '{ printf("    MarkSound(\"aas/voice-w%s\");\n", $2) }'
+    echo
+    echo "$filtered" | awk '{ printf("    MarkSound(\"aas/voice-f%s\");\n", $2) }'
     echo "  }"
     echo
     echo "} // class aas_precache_sounds"
@@ -118,14 +126,18 @@ rm -f sounds/*
 
 mkdir -p sounds
 
-params="-s140 -p0 -g1 -v en"
+params="        -s140 -p0 -g1 -v en"
+params_whisper="-s140     -g1 -v whisper"
+params_female=" -s140     -g1 -v f2"
 filename="sounds/aas"
 
 while read -r line; do
     voice_string=$(echo "$line" | awk '{ print $10; for (i=11; i<NF; ++i) { printf(" %s", $i); } }')
     i=$(echo "$line" | awk '{ print $2 }')
     #echo $voice_string
-    espeak-ng "$voice_string" $params -w "$filename$i.wav";
+    espeak-ng "$voice_string" $params         -w "$filename$i.wav";
+    espeak-ng "$voice_string" $params_whisper -w "$filename-w$i.wav";
+    espeak-ng "$voice_string" $params_female  -w "$filename-f$i.wav";
 done <<< "$filtered"
 
 for f in sounds/*.wav;

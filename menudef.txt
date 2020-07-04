@@ -11,6 +11,13 @@ OptionValue aas_log_level_options
   999, "$AAS_LEVEL_EVERYTHINGY"
 }
 
+OptionString aas_voice_types
+{
+  "-w" , "$AAS_VOICE_GHOST"
+  "-f" , "$AAS_VOICE_VIRTUAL"
+  ""   , "$AAS_VOICE_CLASSIC"
+}
+
 OptionMenu aas_Options
 {
   Title "$AAS_OPTIONS_TITLE"
@@ -104,6 +111,7 @@ OptionMenu aas_LogOptions
 
   StaticText ""
   Option     "$AAS_VOICE_TELEPORT" , m8f_aas_voice_on_teleport , OnOff
+  Option     "$AAS_VOICE_TYPE"     , aas_voice_type            , aas_voice_types
 }
 
 OptionMenu aas_EventTuningMenu

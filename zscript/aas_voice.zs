@@ -60,11 +60,15 @@ class aas_voice : aas_event_handler
 
 class aas_sound_queue : Thinker
 {
+
+// public: /////////////////////////////////////////////////////////////////////////////////////////
+
   static
-    aas_sound_queue of()
+  aas_sound_queue of()
   {
     let result = new("aas_sound_queue");
-    result._timeout = 0;
+    result._timeout    = 0;
+    result._voice_type = aas_cvar.of("aas_voice_type", players[consolePlayer]);
     return result;
   }
 
@@ -78,7 +82,7 @@ class aas_sound_queue : Thinker
       if (_queue.size() == 0) return;
 
       int    event_type = _queue[0];
-      string voice_file = String.Format("aas/voice%d", event_type);
+      string voice_file = String.Format("aas/voice%s%d", _voice_type.get_string(), event_type);
       S_StartSound(voice_file, CHAN_AUTO);
 
       _queue.delete(0);
@@ -96,6 +100,8 @@ class aas_sound_queue : Thinker
     _queue.push(event_type);
   }
 
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
   const TIMEOUT = 2500 * TICRATE / 1000;
 
   /**
@@ -103,4 +109,6 @@ class aas_sound_queue : Thinker
    */
   private array<int> _queue;
   private int        _timeout;
-}
+  private aas_cvar   _voice_type;
+
+} // class aas_sound_queue

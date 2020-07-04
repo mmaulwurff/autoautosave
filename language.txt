@@ -85,3 +85,8 @@ AAS_PERIOD        = "Autosave every N seconds";
 
 AAS_SAVE_ON_DROPPED      = "Save on dropped items";
 AAS_SAVE_ON_DROPPED_NOTE = "Also picking up Hideous Destructor keys.";
+
+AAS_VOICE_TYPE    = "Voice type";
+AAS_VOICE_CLASSIC = "Classic";
+AAS_VOICE_GHOST   = "Ghost";
+AAS_VOICE_VIRTUAL = "Virtual";
