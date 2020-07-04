@@ -2,6 +2,8 @@
 // All changed will be lost!
 // see gen-files.sh for details.
 
+$pitchshiftrange 0
+
 aas/voice0 "sounds/aas0.ogg"
 aas/voice1 "sounds/aas1.ogg"
 aas/voice2 "sounds/aas2.ogg"

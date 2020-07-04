@@ -87,6 +87,8 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "// All changed will be lost!"
     echo "// see gen-files.sh for details."
     echo
+    echo "\$pitchshiftrange 0"
+    echo
     echo "$filtered" | awk '{ printf("aas/voice%s \"sounds/aas%s.ogg\"\n", $2, $2) }'
 } > $sndinfo_file
 
