@@ -42,6 +42,10 @@ class aas_main : EventHandler
     {
       aas_log.print(command[1]);
     }
+    else if (command[0] == "aas_test")
+    {
+      aas_test(new(command[1])).run();
+    }
   }
 
   override

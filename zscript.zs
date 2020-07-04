@@ -33,3 +33,5 @@ version "4.4.2"
 
 #include "zscript/counters/aas_enemies_counter.zs"
 #include "zscript/counters/aas_active_enemies_counter.zs"
+
+#include "zscript/tests/aas_active_enemies_checker_test.zs"
