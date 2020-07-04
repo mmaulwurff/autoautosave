@@ -34,17 +34,23 @@ class aas_active_enemies_checker play
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_active_enemies_checker of(aas_event_handler handler, aas_enemies_counter counter)
+  aas_active_enemies_checker of( aas_event_handler   handler
+                               , aas_enemies_counter counter
+                               , aas_cvar            group_number
+                               , int alert_event
+                               , int kill_event
+                               )
   {
     let result = new("aas_active_enemies_checker");
 
-    result._group_number     = aas_cvar.of("m8f_aas_group_number");
-    result._is_group         = false;
-    result._old_active_count = 0;
+    result._handler      = handler;
+    result._counter      = counter;
+    result._group_number = group_number;
+    result._alert_event  = alert_event;
+    result._kill_event   = kill_event;
 
-    result._handler = handler;
-    result._counter = counter;
-
+    result._is_group            = false;
+    result._old_active_count    = 0;
     result._activity_statistics = aas_ring_buffer.of();
 
     return result;
@@ -72,14 +78,14 @@ class aas_active_enemies_checker play
       _activity_statistics.clear();
       _timeout = TIMEOUT;
 
-      on_event(aas_event.group_alert);
+      on_event(_alert_event);
     }
     else if (active_enemies_count == 0 && _is_group)
     {
       _is_group = false;
       _activity_statistics.clear();
 
-      on_event(aas_event.group_kill);
+      on_event(_kill_event);
     }
   }
 
@@ -102,6 +108,9 @@ class aas_active_enemies_checker play
 
   const TIMEOUT = 20;
   private int _timeout;
+
+  private int _alert_event;
+  private int _kill_event;
 
 } // class aas_active_enemies_checker
 

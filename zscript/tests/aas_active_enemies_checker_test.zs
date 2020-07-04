@@ -103,7 +103,13 @@ class aas_active_enemies_checker_test : aas_test
   {
     let handler = aas_mock_handler.of();
     let counter = aas_mock_counter.of();
-    let checker = aas_active_enemies_checker.of(handler, counter);
+    let enemies_group_cvar = aas_cvar.of("m8f_aas_group_number");
+    let checker = aas_active_enemies_checker.of( handler
+                                               , counter
+                                               , enemies_group_cvar
+                                               , aas_event.group_alert
+                                               , aas_event.group_kill
+                                               );
 
     for (int i = 0; i < 20; ++i)
     {

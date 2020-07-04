@@ -7,6 +7,7 @@ server int  m8f_aas_health_limit    = 25;
 server int  m8f_aas_min_save_wait   = 10;  // seconds
 server int  m8f_aas_autosave_period = 120; // seconds
 server int  m8f_aas_group_number    = 10;
+server int  aas_boss_group_number   = 1;
 
 server int  m8f_aas_health_threshold_down = 50;
 server int  m8f_aas_health_threshold_up   = 100;

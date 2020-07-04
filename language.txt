@@ -70,9 +70,10 @@ AAS_LOG_VERBOSE_NOTE_1 = "Verbose:";
 AAS_LOG_VERBOSE_NOTE_2 = "enemies time teleport items health armor";
 AAS_VOICE_TELEPORT     = "Voice for teleport event";
 
-AAS_MIN_BOSS_HEALTH = "Enemy is a boss when health is at least";
-AAS_GROUP_NUMBER    = "Group is at least N enemies";
-AAS_HEALTH_LIMIT    = "Don't save when health is less than";
+AAS_MIN_BOSS_HEALTH   = "Enemy is a boss when health is at least";
+AAS_GROUP_NUMBER      = "Group is at least N enemies";
+AAS_BOSS_GROUP_NUMBER = "Boss group is at least N enemies";
+AAS_HEALTH_LIMIT      = "Don't save when health is less than";
 
 AAS_LOW_HEALTH_THRESHOLD  = "Low health threshold";
 AAS_HIGH_HEALTH_THRESHOLD = "High health threshold";

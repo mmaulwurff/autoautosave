@@ -113,6 +113,7 @@ OptionMenu aas_EventTuningMenu
   StaticText ""
   Slider     "$AAS_MIN_BOSS_HEALTH"       , m8f_aas_min_boss_health , 0, 20000, 200, 0
   Slider     "$AAS_GROUP_NUMBER"          , m8f_aas_group_number    , 1, 50, 1, 0
+  Slider     "$AAS_BOSS_GROUP_NUMBER"     , aas_boss_group_number   , 1, 50, 1, 0
 
   StaticText ""
   Slider     "$AAS_HEALTH_LIMIT"          , m8f_aas_health_limit    , 0, 500, 5, 0

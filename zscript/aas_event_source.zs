@@ -36,8 +36,6 @@ class aas_event_source : Thinker
     result._handler    = aas_event_dispatcher.of(result._scheduler, result._clock, last_save_time);
     result._save_timer = aas_save_timer.of(result._clock, last_save_time);
 
-    result._old_active_bosses_count = 0;
-
     result._old_kill_count = 0;
     result._old_item_count = 0;
 
@@ -53,16 +51,27 @@ class aas_event_source : Thinker
     else       { result._old_armor_save = 0.0; }
 
     result._save_on_dropped = aas_cvar.of("m8f_aas_save_on_dropped");
-    result._min_boss_health = aas_cvar.of("m8f_aas_min_boss_health");
     result._health_down     = aas_cvar.of("m8f_aas_health_threshold_down");
     result._health_up       = aas_cvar.of("m8f_aas_health_threshold_up");
     result._armor_down      = aas_cvar.of("m8f_aas_armor_threshold_down");
     result._armor_up        = aas_cvar.of("m8f_aas_armor_threshold_up");
 
     let active_enemies_counter = aas_active_enemies_counter.of();
+    let enemies_group_cvar     = aas_cvar.of("m8f_aas_group_number");
     result._active_enemies_checker = aas_active_enemies_checker.of( result._handler
                                                                   , active_enemies_counter
+                                                                  , enemies_group_cvar
+                                                                  , aas_event.group_alert
+                                                                  , aas_event.group_kill
                                                                   );
+    let active_bosses_counter = aas_active_bosses_counter.of();
+    let bosses_group_cvar = aas_cvar.of("aas_boss_group_number");
+    result._active_bosses_checker = aas_active_enemies_checker.of( result._handler
+                                                                 , active_bosses_counter
+                                                                 , bosses_group_cvar
+                                                                 , aas_event.boss_alert
+                                                                 , aas_event.boss_kill
+                                                                 );
 
     return result;
   }
@@ -81,7 +90,7 @@ class aas_event_source : Thinker
     }
 
     _active_enemies_checker.tick();
-    check_active_bosses_count();
+    _active_bosses_checker.tick();
 
     check_secrets();
     check_all_killed();
@@ -214,44 +223,6 @@ class aas_event_source : Thinker
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
-  bool is_active(Actor a)
-  {
-    return (a.bIsMonster && a.Target != NULL && a.Health > 0);
-  }
-
-  private
-  int count_active_bosses()
-  {
-    int result = 0;
-    let i = ThinkerIterator.Create("Actor", Thinker.STAT_DEFAULT);
-    Actor a;
-    int min_boss_health = _min_boss_health.get_int();
-
-    while (a = Actor(i.Next()))
-    {
-      result += (is_active(a) && a.SpawnHealth() >= min_boss_health);
-    }
-
-    return result;
-  }
-
-  private
-  void check_active_bosses_count()
-  {
-    int active_bosses_count = count_active_bosses();
-
-    // nothing changed, nothing to do.
-    if (active_bosses_count == _old_active_bosses_count) return;
-
-    bool is_now_more_active_bosses = (active_bosses_count > _old_active_bosses_count);
-    int  event = is_now_more_active_bosses ? aas_event.boss_alert : aas_event.boss_kill;
-
-    on_event(event);
-
-    _old_active_bosses_count = active_bosses_count;
-  }
-
   private
   void check_player_events()
   {
@@ -367,8 +338,6 @@ class aas_event_source : Thinker
   private aas_game_action_scheduler _scheduler;
   private aas_save_timer    _save_timer;
 
-  private int     _old_active_bosses_count;
-
   private int     _old_kill_count;
   private int     _old_item_count;
   private int     _old_secret_count;
@@ -380,12 +349,12 @@ class aas_event_source : Thinker
   private double  _old_armor_save;
 
   private aas_cvar _save_on_dropped;
-  private aas_cvar _min_boss_health;
   private aas_cvar _health_down;
   private aas_cvar _health_up;
   private aas_cvar _armor_down;
   private aas_cvar _armor_up;
 
   private aas_active_enemies_checker _active_enemies_checker;
+  private aas_active_enemies_checker _active_bosses_checker;
 
 } // class aas_event_source
