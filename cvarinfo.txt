@@ -18,11 +18,11 @@ server bool m8f_aas_save_on_dropped = false;
 
 // Logs/Announcements
 
-// 0  - nothing
-// 8  - enemies/time/teleport/items
-// 13 - enemies/time/teleport/items/health/armor
-// 19 - enemies/time/teleport/items/health/armor/pickups (everything)
-server int  m8f_aas_console_log_level =  8;
+//  -1 - nothing;
+//  99 - quiet:   enemies, time, teleport, items;
+// 199 - verbose: enemies, time, teleport, items, health, armor;
+// 999 - everything.
+server int  m8f_aas_console_log_level = 99;
 server int  m8f_aas_screen_level      = -1;
 server int  m8f_aas_voice_level       = -1;
 
