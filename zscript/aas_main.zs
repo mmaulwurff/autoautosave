@@ -27,10 +27,12 @@ class aas_main : EventHandler
   override
   void NetworkProcess(ConsoleEvent event)
   {
+    if (is_titlemap()) return;
+
     Array<String> command;
     event.Name.Split(command, ":");
 
-    // all known commands has 1 argument.
+    // All known commands have 1 argument.
     if (command.Size() != 2) return;
 
     if (command[0] == "aas_manual_save")
@@ -51,7 +53,10 @@ class aas_main : EventHandler
   override
   void PlayerEntered(PlayerEvent event)
   {
-    if (event.PlayerNumber != consolePlayer) { return; }
+    if (is_titlemap()) return;
+
+    if (event.PlayerNumber != consolePlayer) return;
+
     aas_precache_sounds.precache_sounds();
     _event_source = aas_event_source.of();
 
@@ -61,13 +66,21 @@ class aas_main : EventHandler
   override
   void WorldThingSpawned(WorldEvent event)
   {
-    if (event == NULL || event.thing == NULL) { return; }
+    if (is_titlemap()) return;
+
+    if (event == NULL || event.thing == NULL) return;
 
     _event_source.on_thing_spawned(event.thing);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
+  private static
+  bool is_titlemap()
+  {
+    return (level.mapname == "TITLEMAP");
+  }
+
   private aas_event_source _event_source;
 
-} // class aas_main : EventHandler
+} // class aas_main
