@@ -37,6 +37,8 @@ class aas_cvar
     result._name   = name;
     result._cvar   = NULL;
 
+    result.load();
+
     return result;
   }
 

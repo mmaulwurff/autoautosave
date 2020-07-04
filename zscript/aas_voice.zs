@@ -29,7 +29,7 @@ class aas_voice : aas_event_handler
   {
     let result = new("aas_voice");
 
-    result._voice_level = aas_cvar.of("m8f_aas_voice_level");
+    result._voice_level = aas_cvar.of("m8f_aas_voice_level", players[consolePlayer]);
     result._queue       = aas_sound_queue.of();
 
     return result;

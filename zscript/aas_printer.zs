@@ -25,7 +25,7 @@ class aas_printer : aas_event_handler
   aas_printer of()
   {
     let result = new("aas_printer");
-    result._screen_level = aas_cvar.of("m8f_aas_screen_level");
+    result._screen_level = aas_cvar.of("m8f_aas_screen_level", players[consolePlayer]);
     return result;
   }
 

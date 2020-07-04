@@ -25,7 +25,7 @@ class aas_logger : aas_event_handler
   aas_logger of()
   {
     let result = new("aas_logger");
-    result._console_level = aas_cvar.of("m8f_aas_console_log_level");
+    result._console_level = aas_cvar.of("m8f_aas_console_log_level", players[consolePlayer]);
     return result;
   }
 

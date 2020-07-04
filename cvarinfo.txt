@@ -1,7 +1,9 @@
-// Global toggle
+// Global toggle ///////////////////////////////////////////////////////////////
+
 server bool m8f_aas_enabled = true;
 
-// Event tuning
+// Event tuning ////////////////////////////////////////////////////////////////
+
 server int  m8f_aas_min_boss_health = 2000;
 server int  m8f_aas_health_limit    = 25;
 server int  m8f_aas_min_save_wait   = 10;  // seconds
@@ -16,14 +18,14 @@ server int  m8f_aas_armor_threshold_up    = 100;
 
 server bool m8f_aas_save_on_dropped = false;
 
-// Logs/Announcements
+// Logs and voice //////////////////////////////////////////////////////////////
 
 //  -1 - nothing;
 //  99 - quiet:   enemies, time, teleport, items;
 // 199 - verbose: enemies, time, teleport, items, health, armor;
 // 999 - everything.
-server int  m8f_aas_console_log_level = 99;
-server int  m8f_aas_screen_level      = -1;
-server int  m8f_aas_voice_level       = -1;
+user int  m8f_aas_console_log_level = 99;
+user int  m8f_aas_screen_level      = -1;
+user int  m8f_aas_voice_level       = -1;
 
 user string aas_voice_type = "";
