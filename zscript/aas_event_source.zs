@@ -104,9 +104,6 @@ class aas_event_source : Thinker
   {
     string class_name = item.getClassName();
 
-    // spawn special actor that saves the game when picked up
-    // alongside inventory items.
-
     if (class_name == "aas_token") { return; }
 
     if (!_save_on_dropped.get_bool() && is_loading_finished()) { return; }

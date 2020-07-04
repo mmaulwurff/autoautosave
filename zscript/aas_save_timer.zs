@@ -39,7 +39,7 @@ class aas_save_timer play
   {
     int  time_from_last_save = _clock.time() - _last_save_time.get_time();
     int  autosave_period     = _autosave_period_s.get_int() * TICRATE;
-    bool is_period           = (time_from_last_save % autosave_period) == 0;
+    bool is_period           = (time_from_last_save % autosave_period) == (autosave_period - 1);
 
     return is_period
       && _save_on_time_period.get_int()

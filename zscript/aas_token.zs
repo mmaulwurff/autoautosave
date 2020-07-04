@@ -16,7 +16,9 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Creates an aas_event when pickup up
+/**
+ * Creates an aas_event when pickup up.
+ */
 class aas_token : Inventory
 {
 
