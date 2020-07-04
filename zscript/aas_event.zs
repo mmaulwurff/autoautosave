@@ -37,32 +37,32 @@ class aas_event
   {
     switch (type)
     {
-      case all_kill         : return "All enemies eliminated.";
-      case boss_kill        : return "Boss eliminated.";
-      case group_kill       : return "No active enemies.";
-      case group_alert      : return "New active enemies.";
-      case boss_alert       : return "Boss alerted.";
-      case all_items_found  : return "All items found.";
-      case time_period      : return "Time passed.";
-      case teleport         : return "Moved to another place.";
-      case manual           : return "Manual save.";
-      case pomodoro         : return "Take a break.";
-      case gs_gold_coin     : return "Something rare!";
-      case level_start      : return "Level started.";
-      case one_percent      : return "Last health percent!";
-      case health_drop      : return "Health low.";
-      case health_rise      : return "Health high.";
-      case armor_drop       : return "Armor low.";
-      case armor_rise       : return "Armor high.";
-      case secret_found     : return "Secret found.";
-      case powerup          : return "Powerup found.";
-      case weapon           : return "Weapon found.";
-      case key              : return "Key found.";
-      case backpack         : return "Backpack found.";
-      case new_armor        : return "New armor.";
-      case big_heal         : return "Major healing.";
-      case armor            : return "Armor found.";
-      default: return "Unknown event type.";
+      case aas_event.all_kill         : return "All enemies eliminated.";
+      case aas_event.boss_kill        : return "Boss eliminated.";
+      case aas_event.group_kill       : return "No active enemies.";
+      case aas_event.group_alert      : return "New active enemies.";
+      case aas_event.boss_alert       : return "Boss alerted.";
+      case aas_event.all_items_found  : return "All items found.";
+      case aas_event.time_period      : return "Time passed.";
+      case aas_event.teleport         : return "Moved to another place.";
+      case aas_event.manual           : return "Manual save.";
+      case aas_event.pomodoro         : return "Take a break.";
+      case aas_event.gs_gold_coin     : return "Something rare!";
+      case aas_event.level_start      : return "Level started.";
+      case aas_event.one_percent      : return "Last health percent!";
+      case aas_event.health_drop      : return "Health low.";
+      case aas_event.health_rise      : return "Health high.";
+      case aas_event.armor_drop       : return "Armor low.";
+      case aas_event.armor_rise       : return "Armor high.";
+      case aas_event.secret_found     : return "Secret found.";
+      case aas_event.powerup          : return "Powerup found.";
+      case aas_event.weapon           : return "Weapon found.";
+      case aas_event.key              : return "Key found.";
+      case aas_event.backpack         : return "Backpack found.";
+      case aas_event.new_armor        : return "New armor.";
+      case aas_event.big_heal         : return "Major healing.";
+      case aas_event.armor            : return "Armor found.";
+      default: aas_log.error(String.Format("unknown event: %d", type)); return "Unknown event type.";
     }
   }
 
@@ -70,32 +70,32 @@ class aas_event
   {
     switch (type)
     {
-      case all_kill         : return "m8f_aas_save_on_all_kill";
-      case boss_kill        : return "m8f_aas_save_on_boss_kill";
-      case group_kill       : return "m8f_aas_save_on_group_kill";
-      case group_alert      : return "m8f_aas_save_on_group_alert";
-      case boss_alert       : return "m8f_aas_save_on_boss_alert";
-      case all_items_found  : return "m8f_aas_save_on_all_items_found";
-      case time_period      : return "m8f_aas_save_on_time_period";
-      case teleport         : return "m8f_aas_save_on_teleport";
-      case manual           : return "m8f_aas_true";
-      case pomodoro         : return "m8f_aas_true";
-      case gs_gold_coin     : return "m8f_aas_save_on_artefact";
-      case level_start      : return "m8f_aas_save_on_level_start";
-      case one_percent      : return "m8f_aas_save_on_one_percent";
-      case health_drop      : return "m8f_aas_save_on_health_drop";
-      case health_rise      : return "m8f_aas_save_on_health_rise";
-      case armor_drop       : return "m8f_aas_save_on_armor_drop";
-      case armor_rise       : return "m8f_aas_save_on_armor_rise";
-      case secret_found     : return "m8f_aas_save_on_secret_found";
-      case powerup          : return "m8f_aas_save_on_powerup";
-      case weapon           : return "m8f_aas_save_on_weapon";
-      case key              : return "m8f_aas_save_on_key";
-      case backpack         : return "m8f_aas_save_on_backpack";
-      case new_armor        : return "m8f_aas_save_on_new_armor";
-      case big_heal         : return "m8f_aas_save_on_big_heal";
-      case armor            : return "m8f_aas_save_on_armor";
-      default: return "m8f_aas_false";
+      case aas_event.all_kill         : return "m8f_aas_save_on_all_kill";
+      case aas_event.boss_kill        : return "m8f_aas_save_on_boss_kill";
+      case aas_event.group_kill       : return "m8f_aas_save_on_group_kill";
+      case aas_event.group_alert      : return "m8f_aas_save_on_group_alert";
+      case aas_event.boss_alert       : return "m8f_aas_save_on_boss_alert";
+      case aas_event.all_items_found  : return "m8f_aas_save_on_all_items_found";
+      case aas_event.time_period      : return "m8f_aas_save_on_time_period";
+      case aas_event.teleport         : return "m8f_aas_save_on_teleport";
+      case aas_event.manual           : return "m8f_aas_true";
+      case aas_event.pomodoro         : return "m8f_aas_true";
+      case aas_event.gs_gold_coin     : return "m8f_aas_save_on_artefact";
+      case aas_event.level_start      : return "m8f_aas_save_on_level_start";
+      case aas_event.one_percent      : return "m8f_aas_save_on_one_percent";
+      case aas_event.health_drop      : return "m8f_aas_save_on_health_drop";
+      case aas_event.health_rise      : return "m8f_aas_save_on_health_rise";
+      case aas_event.armor_drop       : return "m8f_aas_save_on_armor_drop";
+      case aas_event.armor_rise       : return "m8f_aas_save_on_armor_rise";
+      case aas_event.secret_found     : return "m8f_aas_save_on_secret_found";
+      case aas_event.powerup          : return "m8f_aas_save_on_powerup";
+      case aas_event.weapon           : return "m8f_aas_save_on_weapon";
+      case aas_event.key              : return "m8f_aas_save_on_key";
+      case aas_event.backpack         : return "m8f_aas_save_on_backpack";
+      case aas_event.new_armor        : return "m8f_aas_save_on_new_armor";
+      case aas_event.big_heal         : return "m8f_aas_save_on_big_heal";
+      case aas_event.armor            : return "m8f_aas_save_on_armor";
+      default: aas_log.error(String.Format("unknown event: %d", type)); return "aas_unknown";
     }
   }
 
@@ -103,32 +103,32 @@ class aas_event
   {
     switch (type)
     {
-      case all_kill         : return "m8f_aas_shot_on_all_kill";
-      case boss_kill        : return "m8f_aas_shot_on_boss_kill";
-      case group_kill       : return "m8f_aas_shot_on_group_kill";
-      case group_alert      : return "m8f_aas_shot_on_group_alert";
-      case boss_alert       : return "m8f_aas_shot_on_boss_alert";
-      case all_items_found  : return "m8f_aas_shot_on_all_items_found";
-      case time_period      : return "m8f_aas_shot_on_time_period";
-      case teleport         : return "m8f_aas_shot_on_teleport";
-      case manual           : return "m8f_aas_shot_on_manual";
-      case pomodoro         : return "m8f_aas_shot_on_pomodoro";
-      case gs_gold_coin     : return "m8f_aas_shot_on_gs_gold_coin";
-      case level_start      : return "m8f_aas_shot_on_level_start";
-      case one_percent      : return "m8f_aas_shot_on_one_percent";
-      case health_drop      : return "m8f_aas_shot_on_health_drop";
-      case health_rise      : return "m8f_aas_shot_on_health_rise";
-      case armor_drop       : return "m8f_aas_shot_on_armor_drop";
-      case armor_rise       : return "m8f_aas_shot_on_armor_rise";
-      case secret_found     : return "m8f_aas_shot_on_secret_found";
-      case powerup          : return "m8f_aas_shot_on_powerup";
-      case weapon           : return "m8f_aas_shot_on_weapon";
-      case key              : return "m8f_aas_shot_on_key";
-      case backpack         : return "m8f_aas_shot_on_backpack";
-      case new_armor        : return "m8f_aas_shot_on_new_armor";
-      case big_heal         : return "m8f_aas_shot_on_big_heal";
-      case armor            : return "m8f_aas_shot_on_armor";
-      default: return "m8f_aas_false";
+      case aas_event.all_kill         : return "m8f_aas_shot_on_all_kill";
+      case aas_event.boss_kill        : return "m8f_aas_shot_on_boss_kill";
+      case aas_event.group_kill       : return "m8f_aas_shot_on_group_kill";
+      case aas_event.group_alert      : return "m8f_aas_shot_on_group_alert";
+      case aas_event.boss_alert       : return "m8f_aas_shot_on_boss_alert";
+      case aas_event.all_items_found  : return "m8f_aas_shot_on_all_items_found";
+      case aas_event.time_period      : return "m8f_aas_shot_on_time_period";
+      case aas_event.teleport         : return "m8f_aas_shot_on_teleport";
+      case aas_event.manual           : return "m8f_aas_shot_on_manual";
+      case aas_event.pomodoro         : return "m8f_aas_shot_on_pomodoro";
+      case aas_event.gs_gold_coin     : return "m8f_aas_shot_on_gs_gold_coin";
+      case aas_event.level_start      : return "m8f_aas_shot_on_level_start";
+      case aas_event.one_percent      : return "m8f_aas_shot_on_one_percent";
+      case aas_event.health_drop      : return "m8f_aas_shot_on_health_drop";
+      case aas_event.health_rise      : return "m8f_aas_shot_on_health_rise";
+      case aas_event.armor_drop       : return "m8f_aas_shot_on_armor_drop";
+      case aas_event.armor_rise       : return "m8f_aas_shot_on_armor_rise";
+      case aas_event.secret_found     : return "m8f_aas_shot_on_secret_found";
+      case aas_event.powerup          : return "m8f_aas_shot_on_powerup";
+      case aas_event.weapon           : return "m8f_aas_shot_on_weapon";
+      case aas_event.key              : return "m8f_aas_shot_on_key";
+      case aas_event.backpack         : return "m8f_aas_shot_on_backpack";
+      case aas_event.new_armor        : return "m8f_aas_shot_on_new_armor";
+      case aas_event.big_heal         : return "m8f_aas_shot_on_big_heal";
+      case aas_event.armor            : return "m8f_aas_shot_on_armor";
+      default: aas_log.error(String.Format("unknown event: %d", type)); return "aas_unknown";
     }
   }
 
@@ -136,32 +136,32 @@ class aas_event
   {
     switch (type)
     {
-      case all_kill         : return "m8f_aas_voice_on_all_kill";
-      case boss_kill        : return "m8f_aas_voice_on_boss_kill";
-      case group_kill       : return "m8f_aas_voice_on_group_kill";
-      case group_alert      : return "m8f_aas_voice_on_group_alert";
-      case boss_alert       : return "m8f_aas_voice_on_boss_alert";
-      case all_items_found  : return "m8f_aas_voice_on_all_items_found";
-      case time_period      : return "m8f_aas_voice_on_time_period";
-      case teleport         : return "m8f_aas_voice_on_teleport";
-      case manual           : return "m8f_aas_voice_on_manual";
-      case pomodoro         : return "m8f_aas_voice_on_pomodoro";
-      case gs_gold_coin     : return "m8f_aas_voice_on_gs_gold_coin";
-      case level_start      : return "m8f_aas_voice_on_level_start";
-      case one_percent      : return "m8f_aas_voice_on_one_percent";
-      case health_drop      : return "m8f_aas_voice_on_health_drop";
-      case health_rise      : return "m8f_aas_voice_on_health_rise";
-      case armor_drop       : return "m8f_aas_voice_on_armor_drop";
-      case armor_rise       : return "m8f_aas_voice_on_armor_rise";
-      case secret_found     : return "m8f_aas_voice_on_secret_found";
-      case powerup          : return "m8f_aas_voice_on_powerup";
-      case weapon           : return "m8f_aas_voice_on_weapon";
-      case key              : return "m8f_aas_voice_on_key";
-      case backpack         : return "m8f_aas_voice_on_backpack";
-      case new_armor        : return "m8f_aas_voice_on_new_armor";
-      case big_heal         : return "m8f_aas_voice_on_big_heal";
-      case armor            : return "m8f_aas_voice_on_armor";
-      default: return "m8f_aas_true";
+      case aas_event.all_kill         : return "m8f_aas_voice_on_all_kill";
+      case aas_event.boss_kill        : return "m8f_aas_voice_on_boss_kill";
+      case aas_event.group_kill       : return "m8f_aas_voice_on_group_kill";
+      case aas_event.group_alert      : return "m8f_aas_voice_on_group_alert";
+      case aas_event.boss_alert       : return "m8f_aas_voice_on_boss_alert";
+      case aas_event.all_items_found  : return "m8f_aas_voice_on_all_items_found";
+      case aas_event.time_period      : return "m8f_aas_voice_on_time_period";
+      case aas_event.teleport         : return "m8f_aas_voice_on_teleport";
+      case aas_event.manual           : return "m8f_aas_voice_on_manual";
+      case aas_event.pomodoro         : return "m8f_aas_voice_on_pomodoro";
+      case aas_event.gs_gold_coin     : return "m8f_aas_voice_on_gs_gold_coin";
+      case aas_event.level_start      : return "m8f_aas_voice_on_level_start";
+      case aas_event.one_percent      : return "m8f_aas_voice_on_one_percent";
+      case aas_event.health_drop      : return "m8f_aas_voice_on_health_drop";
+      case aas_event.health_rise      : return "m8f_aas_voice_on_health_rise";
+      case aas_event.armor_drop       : return "m8f_aas_voice_on_armor_drop";
+      case aas_event.armor_rise       : return "m8f_aas_voice_on_armor_rise";
+      case aas_event.secret_found     : return "m8f_aas_voice_on_secret_found";
+      case aas_event.powerup          : return "m8f_aas_voice_on_powerup";
+      case aas_event.weapon           : return "m8f_aas_voice_on_weapon";
+      case aas_event.key              : return "m8f_aas_voice_on_key";
+      case aas_event.backpack         : return "m8f_aas_voice_on_backpack";
+      case aas_event.new_armor        : return "m8f_aas_voice_on_new_armor";
+      case aas_event.big_heal         : return "m8f_aas_voice_on_big_heal";
+      case aas_event.armor            : return "m8f_aas_voice_on_armor";
+      default: aas_log.error(String.Format("unknown event: %d", type)); return "aas_unknown";
     }
   }
 

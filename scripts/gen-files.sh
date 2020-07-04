@@ -35,8 +35,8 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "  {"
     echo "    switch (type)"
     echo "    {"
-    echo "$filtered" | awk '{ printf("      case %-16s : return \"%s", $4, $10); for (i=11; i<NF; ++i) { printf(" %s", $i); }; printf("\";\n") }'
-    echo "      default: return \"Unknown event type.\";"
+    echo "$filtered" | awk '{ printf("      case aas_event.%-16s : return \"%s", $4, $10); for (i=11; i<NF; ++i) { printf(" %s", $i); }; printf("\";\n") }'
+    echo "      default: aas_log.error(String.Format(\"unknown event: %d\", type)); return \"Unknown event type.\";"
     echo "    }"
     echo "  }"
     echo
@@ -44,8 +44,8 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "  {"
     echo "    switch (type)"
     echo "    {"
-    echo "$filtered" | awk '{ printf("      case %-16s : return \"%s\";\n", $4, $6) }'
-    echo "      default: return \"m8f_aas_false\";"
+    echo "$filtered" | awk '{ printf("      case aas_event.%-16s : return \"%s\";\n", $4, $6) }'
+    echo "      default: aas_log.error(String.Format(\"unknown event: %d\", type)); return \"aas_unknown\";"
     echo "    }"
     echo "  }"
     echo
@@ -53,8 +53,8 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "  {"
     echo "    switch (type)"
     echo "    {"
-    echo "$filtered" | awk '{ printf("      case %-16s : return \"m8f_aas_shot_on_%s\";\n", $4, $4) }'
-    echo "      default: return \"m8f_aas_false\";"
+    echo "$filtered" | awk '{ printf("      case aas_event.%-16s : return \"m8f_aas_shot_on_%s\";\n", $4, $4) }'
+    echo "      default: aas_log.error(String.Format(\"unknown event: %d\", type)); return \"aas_unknown\";"
     echo "    }"
     echo "  }"
     echo
@@ -62,8 +62,8 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "  {"
     echo "    switch (type)"
     echo "    {"
-    echo "$filtered" | awk '{ printf("      case %-16s : return \"m8f_aas_voice_on_%s\";\n", $4, $4) }'
-    echo "      default: return \"m8f_aas_true\";"
+    echo "$filtered" | awk '{ printf("      case aas_event.%-16s : return \"m8f_aas_voice_on_%s\";\n", $4, $4) }'
+    echo "      default: aas_log.error(String.Format(\"unknown event: %d\", type)); return \"aas_unknown\";"
     echo "    }"
     echo "  }"
     echo
