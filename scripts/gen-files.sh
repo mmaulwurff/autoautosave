@@ -14,6 +14,7 @@
 class_file=zscript/aas_event.zs
 cvar_file=cvarinfo.toggles.txt
 sndinfo_file=sndinfo.txt
+precache_file=zscript/aas_precache_sounds.zs
 
 filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
 
@@ -91,6 +92,25 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo
     echo "$filtered" | awk '{ printf("aas/voice%s \"sounds/aas%s.ogg\"\n", $2, $2) }'
 } > $sndinfo_file
+
+# Generate code to precache sounds #################################################################
+
+{
+    echo "// This file is generated automatically!"
+    echo "// All changed will be lost!"
+    echo "// see gen-files.sh for details."
+    echo
+    echo "class aas_precache_sounds"
+    echo "{"
+    echo
+    echo "  static"
+    echo "  void precache_sounds()"
+    echo "  {"
+    echo "$filtered" | awk '{ printf("    MarkSound(\"aas/voice%s\");\n", $2) }'
+    echo "  }"
+    echo
+    echo "} // class aas_precache_sounds"
+} > $precache_file
 
 # Generate ogg sounds ##############################################################################
 

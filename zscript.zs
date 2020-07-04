@@ -36,3 +36,5 @@ version "4.4.2"
 #include "zscript/counters/aas_active_bosses_counter.zs"
 
 #include "zscript/tests/aas_active_enemies_checker_test.zs"
+
+#include "zscript/aas_precache_sounds.zs"

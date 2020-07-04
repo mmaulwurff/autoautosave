@@ -52,7 +52,9 @@ class aas_main : EventHandler
   void PlayerEntered(PlayerEvent event)
   {
     if (event.PlayerNumber != consolePlayer) { return; }
+    aas_precache_sounds.precache_sounds();
     _event_source = aas_event_source.of();
+
     _event_source.on_event(aas_event.level_start);
   }
 
