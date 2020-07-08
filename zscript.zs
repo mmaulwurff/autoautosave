@@ -5,11 +5,9 @@ version "4.4.2"
 #include "zscript/aas_event.zs"
 #include "zscript/aas_token.zs"
 
-#include "zscript/aas_event_dispatcher.zs"
-
 #include "zscript/aas_event_source.zs"
 #include "zscript/aas_event_handler.zs"
-#include "zscript/aas_event_dispatcher.zs"
+#include "zscript/aas_event_handlers.zs"
 #include "zscript/aas_logger.zs"
 #include "zscript/aas_printer.zs"
 #include "zscript/aas_saver.zs"

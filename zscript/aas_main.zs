@@ -73,6 +73,15 @@ class aas_main : EventHandler
     _event_source.on_thing_spawned(event.thing);
   }
 
+  override
+  void WorldTick()
+  {
+    if (_event_source)
+    {
+      _event_source.tick();
+    }
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private static

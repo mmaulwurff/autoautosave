@@ -44,6 +44,11 @@ class aas_voice : aas_event_handler
     }
   }
 
+  void tick()
+  {
+    _queue.tick();
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private static
@@ -58,7 +63,7 @@ class aas_voice : aas_event_handler
 
 } // class aas_voice
 
-class aas_sound_queue : Thinker
+class aas_sound_queue play
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +77,6 @@ class aas_sound_queue : Thinker
     return result;
   }
 
-  override
   void tick()
   {
     // Should I play something now?

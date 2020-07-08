@@ -17,24 +17,19 @@
  */
 
 /**
- * This class implements aas_event_handler by storing and activating several event handlers.
+ * This class implements aas_event_handler by storing and activating several
+ * event handlers.
  */
-class aas_event_dispatcher : aas_event_handler
+class aas_event_handlers : aas_event_handler
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_event_dispatcher of(aas_game_actions game_actions, aas_clock clock, aas_timestamp timestamp)
+  aas_event_handlers of(array<aas_event_handler> handlers)
   {
-    let result = new("aas_event_dispatcher");
-
-    result._handlers.Push(aas_saver        .of(game_actions, clock, timestamp));
-    result._handlers.Push(aas_logger       .of());
-    result._handlers.Push(aas_printer      .of());
-    result._handlers.Push(aas_voice        .of());
-    result._handlers.Push(aas_screenshooter.of(game_actions));
-
+    let result = new("aas_event_handlers");
+    result._handlers.move(handlers);
     return result;
   }
 
@@ -51,6 +46,6 @@ class aas_event_dispatcher : aas_event_handler
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private Array<aas_event_handler> _handlers;
+  private array<aas_event_handler> _handlers;
 
-} // class aas_event_dispatcher
+} // class aas_event_handlers

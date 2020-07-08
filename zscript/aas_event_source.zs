@@ -19,7 +19,7 @@
 /**
  * This class represents the core of Autoautosave.
  */
-class aas_event_source : Thinker
+class aas_event_source play
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,16 @@ class aas_event_source : Thinker
 
     result._clock      = aas_level_clock.of();
     result._scheduler  = aas_game_action_scheduler.of();
-    result._handler    = aas_event_dispatcher.of(result._scheduler, result._clock, last_save_time);
+    result._voice      = aas_voice.of();
+
+    array<aas_event_handler> handlers;
+    handlers.push(aas_saver  .of(result._scheduler, result._clock, last_save_time));
+    handlers.push(aas_logger .of());
+    handlers.push(aas_printer.of());
+    handlers.push(result._voice);
+    handlers.push(aas_screenshooter.of(result._scheduler));
+    result._handler = aas_event_handlers.of(handlers);
+
     result._save_timer = aas_save_timer.of(result._clock, last_save_time);
 
     result._old_kill_count = 0;
@@ -81,7 +90,6 @@ class aas_event_source : Thinker
     _handler.on_event(event_type);
   }
 
-  override
   void tick()
   {
     if (_save_timer.is_periodic_save())
@@ -89,6 +97,7 @@ class aas_event_source : Thinker
       on_event(aas_event.time_period);
     }
 
+    _voice.tick();
     _active_enemies_checker.tick();
     _active_bosses_checker.tick();
 
@@ -334,6 +343,7 @@ class aas_event_source : Thinker
   private aas_event_handler _handler;
   private aas_game_action_scheduler _scheduler;
   private aas_save_timer    _save_timer;
+  private aas_voice         _voice;
 
   private int     _old_kill_count;
   private int     _old_item_count;
