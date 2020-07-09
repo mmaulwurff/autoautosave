@@ -28,12 +28,15 @@ class aas_token : Inventory
   {
     +Inventory.Quiet;
     +DONTGIB;
+    +NOGRAVITY;
   }
 
-  aas_token init(int type, aas_event_handler handler)
+  aas_token init(int type, aas_event_handler handler, Actor save_reason)
   {
     _event_type = type;
     _handler    = handler;
+
+    bNoGravity = save_reason.bNoGravity;
 
     return self;
   }

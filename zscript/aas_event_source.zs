@@ -205,7 +205,7 @@ class aas_event_source play
 
       if (owner == NULL)
       {
-        aas_token(Actor.Spawn("aas_token", point)).init(types[i], _handler);
+        aas_token(Actor.Spawn("aas_token", point)).init(types[i], _handler, item);
       }
       else if (owner == player && is_loading_finished())
       {
