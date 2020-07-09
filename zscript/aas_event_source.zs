@@ -45,8 +45,8 @@ class aas_event_source play
 
     result._save_timer = aas_save_timer.of(result._clock, last_save_time);
 
-    result._old_kill_count = 0;
-    result._old_item_count = 0;
+    result._old_kill_count = level.killed_monsters;
+    result._old_item_count = level.found_items;
 
     PlayerInfo player_info  = players[consolePlayer];
     let player = PlayerPawn(player_info.mo);
