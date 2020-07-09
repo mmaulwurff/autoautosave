@@ -64,6 +64,7 @@ class aas_event_source play
     result._health_up       = aas_cvar.of("m8f_aas_health_threshold_up");
     result._armor_down      = aas_cvar.of("m8f_aas_armor_threshold_down");
     result._armor_up        = aas_cvar.of("m8f_aas_armor_threshold_up");
+    result._major_healing   = aas_cvar.of("aas_big_heal");
 
     let active_enemies_counter = aas_active_enemies_counter.of();
     let enemies_group_cvar     = aas_cvar.of("m8f_aas_group_number");
@@ -259,7 +260,7 @@ class aas_event_source play
       {
         on_event(aas_event.health_rise);
       }
-      else if (health >= _old_health + 50 && _old_health > 0)
+      else if (health >= _old_health + _major_healing.get_int() && _old_health > 0)
       {
         on_event(aas_event.big_heal);
       }
@@ -360,6 +361,7 @@ class aas_event_source play
   private aas_cvar _health_up;
   private aas_cvar _armor_down;
   private aas_cvar _armor_up;
+  private aas_cvar _major_healing;
 
   private aas_active_enemies_checker _active_enemies_checker;
   private aas_active_enemies_checker _active_bosses_checker;

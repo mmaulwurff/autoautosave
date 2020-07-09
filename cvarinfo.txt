@@ -18,6 +18,8 @@ server int  m8f_aas_armor_threshold_up    = 100;
 
 server bool m8f_aas_save_on_dropped = false;
 
+server int aas_big_heal = 50;
+
 // Logs and voice //////////////////////////////////////////////////////////////
 
 //  -1 - nothing;

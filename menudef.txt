@@ -125,6 +125,7 @@ OptionMenu aas_EventTuningMenu
 
   StaticText ""
   Slider     "$AAS_HEALTH_LIMIT"          , m8f_aas_health_limit    , 0, 500, 5, 0
+  Slider     "$AAS_BIG_HEAL_SIZE"         , aas_big_heal            , 5, 200, 5, 0
 
   StaticText ""
   TextField  "$AAS_LOW_HEALTH_THRESHOLD"  , m8f_aas_health_threshold_down
