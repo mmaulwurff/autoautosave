@@ -37,10 +37,10 @@ OptionMenu aas_Options
   Control    "$AAS_TOGGLE_CONTROL_NAME" , aas_toggle
 
   StaticText ""
-  SubMenu    "$AAS_INDIVIDUAL_TOGGLES_TITLE" , aas_EventTogglesMenu
-  SubMenu    "$AAS_SCREENSHOT_TOGGLES_TITLE" , aas_ScreenshotOptions
-  SubMenu    "$AAS_EVENT_TUNING_TITLE"       , aas_EventTuningMenu
-  SubMenu    "$AAS_REPORT_OPTIONS_TITLE"     , aas_LogOptions
+  Submenu    "$AAS_INDIVIDUAL_TOGGLES_TITLE" , aas_EventTogglesMenu
+  Submenu    "$AAS_SCREENSHOT_TOGGLES_TITLE" , aas_ScreenshotOptions
+  Submenu    "$AAS_EVENT_TUNING_TITLE"       , aas_EventTuningMenu
+  Submenu    "$AAS_REPORT_OPTIONS_TITLE"     , aas_LogOptions
 }
 
 OptionMenu aas_ScreenshotOptions
@@ -120,8 +120,59 @@ OptionMenu aas_LogOptions
   StaticText "$AAS_LOG_VERBOSE_NOTE_2" , Black
 
   StaticText ""
-  Option     "$AAS_VOICE_TELEPORT" , m8f_aas_voice_on_teleport , OnOff
-  Option     "$AAS_VOICE_TYPE"     , aas_voice_type            , aas_voice_types
+  Option     "$AAS_VOICE_TYPE"          , aas_voice_type , aas_voice_types
+  Submenu    "$AAS_VOICE_OPTIONS_TITLE" , aas_VoiceToggles
+}
+
+OptionMenu aas_VoiceToggles
+{
+  Title "$AAS_VOICE_OPTIONS_TITLE"
+
+  Option     "$AAS_EVENT_MANUAL" , m8f_aas_voice_on_manual           , OnOff
+  Option     "$AAS_EVENT_START"  , m8f_aas_voice_on_level_start      , OnOff
+
+  StaticText ""
+  Option     "$AAS_EVENT_BOSS_ACTIVE"  , m8f_aas_voice_on_boss_alert       , OnOff
+  Option     "$AAS_EVENT_BOSS_KILLED"  , m8f_aas_voice_on_boss_kill        , OnOff
+  Option     "$AAS_EVENT_NEW_ACTIVE"   , m8f_aas_voice_on_group_alert      , OnOff
+  Option     "$AAS_EVENT_ACTIVE_CLEAR" , m8f_aas_voice_on_group_kill       , OnOff
+  Option     "$AAS_EVENT_ALL_CLEAR"    , m8f_aas_voice_on_all_kill         , OnOff
+
+  StaticText ""
+  Option     "$AAS_EVENT_ALL_ITEMS"    , m8f_aas_voice_on_all_items_found  , OnOff
+  Option     "$AAS_EVENT_PERIODIC"     , m8f_aas_voice_on_time_period      , OnOff
+  Option     "$AAS_EVENT_TELEPORT"     , m8f_aas_voice_on_teleport         , OnOff
+  Option     "$AAS_EVENT_SECRET"       , m8f_aas_voice_on_secret_found     , OnOff
+
+  StaticText ""
+  Option     "$AAS_EVENT_HEALTH_LOW"   , m8f_aas_voice_on_health_drop      , OnOff
+  Option     "$AAS_EVENT_HEALTH_1"     , m8f_aas_voice_on_one_percent      , OnOff
+  Option     "$AAS_EVENT_HEALTH_HIGH"  , m8f_aas_voice_on_health_rise      , OnOff
+  Option     "$AAS_EVENT_HEALING"      , m8f_aas_voice_on_big_heal         , OnOff
+
+  StaticText ""
+  Option     "$AAS_EVENT_NEW_ARMOR"    , m8f_aas_voice_on_new_armor        , OnOff
+  Option     "$AAS_EVENT_ARMOR"        , m8f_aas_voice_on_armor            , OnOff
+  Option     "$AAS_EVENT_ARMOR_LOW"    , m8f_aas_voice_on_armor_drop       , OnOff
+  Option     "$AAS_EVENT_ARMOR_HIGH"   , m8f_aas_voice_on_armor_rise       , OnOff
+
+  StaticText ""
+  Option     "$AAS_EVENT_POWERUP"      , m8f_aas_voice_on_powerup          , OnOff
+  Option     "$AAS_EVENT_WEAPON"       , m8f_aas_voice_on_weapon           , OnOff
+  Option     "$AAS_EVENT_KEY"          , m8f_aas_voice_on_key              , OnOff
+  Option     "$AAS_EVENT_BACKPACK"     , m8f_aas_voice_on_backpack         , OnOff
+  Option     "$AAS_EVENT_IMPORTANT"    , m8f_aas_voice_on_gs_gold_coin     , OnOff
+
+  StaticText ""
+  Option     "$AAS_EVENT_10_DOWN" , m8f_aas_voice_on_enemies_10 , OnOff
+  Option     "$AAS_EVENT_20_DOWN" , m8f_aas_voice_on_enemies_20 , OnOff
+  Option     "$AAS_EVENT_30_DOWN" , m8f_aas_voice_on_enemies_30 , OnOff
+  Option     "$AAS_EVENT_40_DOWN" , m8f_aas_voice_on_enemies_40 , OnOff
+  Option     "$AAS_EVENT_50_DOWN" , m8f_aas_voice_on_enemies_50 , OnOff
+  Option     "$AAS_EVENT_60_DOWN" , m8f_aas_voice_on_enemies_60 , OnOff
+  Option     "$AAS_EVENT_70_DOWN" , m8f_aas_voice_on_enemies_70 , OnOff
+  Option     "$AAS_EVENT_80_DOWN" , m8f_aas_voice_on_enemies_80 , OnOff
+  Option     "$AAS_EVENT_90_DOWN" , m8f_aas_voice_on_enemies_90 , OnOff
 }
 
 OptionMenu aas_EventTuningMenu
