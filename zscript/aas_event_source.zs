@@ -119,6 +119,18 @@ class aas_event_source play
 
     if (class_name == "aas_token") { return; }
 
+    if (class_name.left(11) == "aas_pickup_")
+    {
+      aas_token(Actor.Spawn("aas_token", item.pos)).init(aas_event.gs_gold_coin, _handler, item);
+      return;
+    }
+
+    if (class_name.left(12) == "aas_instant_")
+    {
+      on_event(aas_event.gs_gold_coin);
+      return;
+    }
+
     if (!_save_on_dropped.get_bool() && is_loading_finished()) { return; }
 
     static const string saveable_item_classes[] =
@@ -194,9 +206,8 @@ class aas_event_source play
       aas_log.error("invalid saveable items");
     }
 
-    Actor   player = players[consolePlayer].mo;
-    Actor   owner  = (item is "Inventory") ? Inventory(item).owner : NULL;
-    Vector3 point  = item.pos;
+    Actor player = players[consolePlayer].mo;
+    Actor owner  = (item is "Inventory") ? Inventory(item).owner : NULL;
 
     for (int i = 0; i < n_saveable_items_classes; ++i)
     {
@@ -209,7 +220,7 @@ class aas_event_source play
 
       if (owner == NULL)
       {
-        aas_token(Actor.Spawn("aas_token", point)).init(types[i], _handler, item);
+        aas_token(Actor.Spawn("aas_token", item.pos)).init(types[i], _handler, item);
       }
       else if (owner == player && is_loading_finished())
       {

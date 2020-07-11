@@ -4,6 +4,7 @@ version "4.4.2"
 
 #include "zscript/aas_event.zs"
 #include "zscript/aas_token.zs"
+#include "zscript/aas_token_example.zs"
 
 #include "zscript/aas_event_source.zs"
 
