@@ -15,15 +15,16 @@ AAS_LEVEL_EVERYTHINGY = "everything";
 
 AAS_OPTIONS_TITLE = "Autoautosave Options";
 
-AAS_MUST_ALWAYS   = "This must be set to ALWAYS:";
+AAS_MUST_ALWAYS   = "This must be set to";
 AAS_GLOBAL_TOGGLE = "Global toggle";
 AAS_CONTROLS      = "Controls";
 
-AAS_INDIVIDUAL_TOGGLES_TITLE = "Individual Event Toggles";
-AAS_SCREENSHOT_TOGGLES_TITLE = "Screenshot Toggles";
-AAS_EVENT_TUNING_TITLE       = "Event Tuning";
+AAS_EVENT_TUNING_TITLE       = "Event Options";
 AAS_REPORT_OPTIONS_TITLE     = "Log Options";
-AAS_VOICE_OPTIONS_TITLE      = "Voice Options";
+
+AAS_INDIVIDUAL_TOGGLES_TITLE = "Autosave Toggles";
+AAS_SCREENSHOT_TOGGLES_TITLE = "Screenshot Toggles";
+AAS_VOICE_OPTIONS_TITLE      = "Voice Toggles";
 
 AAS_SCREENSHOTS_WARNING = "Warning: too many screenshot can use up disk space.";
 

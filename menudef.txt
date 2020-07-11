@@ -24,6 +24,7 @@ OptionMenu aas_Options
 
   StaticText ""
   StaticText "$AAS_MUST_ALWAYS"         , Black
+  StaticText "$OPTVAL_ALWAYS"           , Black
   Option     "$MISCMNU_ENABLEAUTOSAVES" , disableautosave, Autosave
   Slider     "$MISCMNU_AUTOSAVECOUNT"   , autosavecount, 1, 20, 1, 0
 
@@ -37,10 +38,12 @@ OptionMenu aas_Options
   Control    "$AAS_TOGGLE_CONTROL_NAME" , aas_toggle
 
   StaticText ""
-  Submenu    "$AAS_INDIVIDUAL_TOGGLES_TITLE" , aas_EventTogglesMenu
-  Submenu    "$AAS_SCREENSHOT_TOGGLES_TITLE" , aas_ScreenshotOptions
   Submenu    "$AAS_EVENT_TUNING_TITLE"       , aas_EventTuningMenu
   Submenu    "$AAS_REPORT_OPTIONS_TITLE"     , aas_LogOptions
+
+  StaticText ""
+  Submenu    "$AAS_INDIVIDUAL_TOGGLES_TITLE" , aas_EventTogglesMenu
+  Submenu    "$AAS_SCREENSHOT_TOGGLES_TITLE" , aas_ScreenshotOptions
   Submenu    "$AAS_VOICE_OPTIONS_TITLE"      , aas_VoiceOptions
 }
 
