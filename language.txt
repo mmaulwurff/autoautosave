@@ -22,7 +22,8 @@ AAS_CONTROLS      = "Controls";
 AAS_INDIVIDUAL_TOGGLES_TITLE = "Individual Event Toggles";
 AAS_SCREENSHOT_TOGGLES_TITLE = "Screenshot Toggles";
 AAS_EVENT_TUNING_TITLE       = "Event Tuning";
-AAS_REPORT_OPTIONS_TITLE     = "Log and Voice Options";
+AAS_REPORT_OPTIONS_TITLE     = "Log Options";
+AAS_VOICE_OPTIONS_TITLE      = "Voice Options";
 
 AAS_SCREENSHOTS_WARNING = "Warning: too many screenshot can use up disk space.";
 
@@ -62,7 +63,6 @@ AAS_EVENT_HEALING      = "Major healing";
 
 AAS_LOG_CONSOLE = "Log to console";
 AAS_LOG_SCREEN  = "Log to screen";
-AAS_LOG_VOICE   = "Voice";
 
 AAS_LOG_QUIET_NOTE_1   = "Quiet:";
 AAS_LOG_QUIET_NOTE_2   = "enemies time teleport items";
@@ -100,5 +100,3 @@ AAS_EVENT_60_DOWN = "Enemies 60% down";
 AAS_EVENT_70_DOWN = "Enemies 70% down";
 AAS_EVENT_80_DOWN = "Enemies 80% down";
 AAS_EVENT_90_DOWN = "Enemies 90% down";
-
-AAS_VOICE_OPTIONS_TITLE = "Voice Toggles";

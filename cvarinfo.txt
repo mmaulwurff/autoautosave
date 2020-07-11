@@ -28,6 +28,5 @@ server int aas_big_heal = 50;
 // 999 - everything.
 user int  m8f_aas_console_log_level = 99;
 user int  m8f_aas_screen_level      = -1;
-user int  m8f_aas_voice_level       = -1;
 
 user string aas_voice_type = "";

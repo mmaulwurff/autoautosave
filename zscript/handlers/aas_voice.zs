@@ -28,17 +28,14 @@ class aas_voice : aas_event_handler
   aas_voice of()
   {
     let result = new("aas_voice");
-
-    result._voice_level = aas_cvar.of("m8f_aas_voice_level", players[consolePlayer]);
-    result._queue       = aas_sound_queue.of();
-
+    result._queue = aas_sound_queue.of();
     return result;
   }
 
   override
   void on_event(int event_type)
   {
-    if (event_type <= _voice_level.get_int() && is_voice_enabled_for(event_type))
+    if (is_voice_enabled_for(event_type))
     {
       _queue.add(event_type);
     }
@@ -58,7 +55,6 @@ class aas_voice : aas_event_handler
     return is_enabled;
   }
 
-  private aas_cvar        _voice_level;
   private aas_sound_queue _queue;
 
 } // class aas_voice
