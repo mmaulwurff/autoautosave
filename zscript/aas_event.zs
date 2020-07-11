@@ -37,8 +37,8 @@ class aas_event
   {
     switch (type)
     {
-      case aas_event.all_kill         : return "All enemies eliminated.";
-      case aas_event.boss_kill        : return "Boss eliminated.";
+      case aas_event.all_kill         : return "All enemies down.";
+      case aas_event.boss_kill        : return "Boss down.";
       case aas_event.group_kill       : return "No active enemies.";
       case aas_event.group_alert      : return "New active enemies.";
       case aas_event.boss_alert       : return "Boss alerted.";
