@@ -15,7 +15,6 @@ class aas_event
     time_period      =   7,
     teleport         =   8,
     manual           =   9,
-    pomodoro         =  10,
     gs_gold_coin     =  11,
     level_start      =  12,
     one_percent      =  13,
@@ -55,7 +54,6 @@ class aas_event
       case aas_event.time_period      : return "Time passed.";
       case aas_event.teleport         : return "Moved to another place.";
       case aas_event.manual           : return "Manual save.";
-      case aas_event.pomodoro         : return "Take a break.";
       case aas_event.gs_gold_coin     : return "Something rare!";
       case aas_event.level_start      : return "Level started.";
       case aas_event.one_percent      : return "Last health percent!";
@@ -97,7 +95,6 @@ class aas_event
       case aas_event.time_period      : return "m8f_aas_save_on_time_period";
       case aas_event.teleport         : return "m8f_aas_save_on_teleport";
       case aas_event.manual           : return "m8f_aas_true";
-      case aas_event.pomodoro         : return "m8f_aas_true";
       case aas_event.gs_gold_coin     : return "m8f_aas_save_on_artefact";
       case aas_event.level_start      : return "m8f_aas_save_on_level_start";
       case aas_event.one_percent      : return "m8f_aas_save_on_one_percent";
@@ -139,7 +136,6 @@ class aas_event
       case aas_event.time_period      : return "m8f_aas_shot_on_time_period";
       case aas_event.teleport         : return "m8f_aas_shot_on_teleport";
       case aas_event.manual           : return "m8f_aas_shot_on_manual";
-      case aas_event.pomodoro         : return "m8f_aas_shot_on_pomodoro";
       case aas_event.gs_gold_coin     : return "m8f_aas_shot_on_gs_gold_coin";
       case aas_event.level_start      : return "m8f_aas_shot_on_level_start";
       case aas_event.one_percent      : return "m8f_aas_shot_on_one_percent";
@@ -181,7 +177,6 @@ class aas_event
       case aas_event.time_period      : return "m8f_aas_voice_on_time_period";
       case aas_event.teleport         : return "m8f_aas_voice_on_teleport";
       case aas_event.manual           : return "m8f_aas_voice_on_manual";
-      case aas_event.pomodoro         : return "m8f_aas_voice_on_pomodoro";
       case aas_event.gs_gold_coin     : return "m8f_aas_voice_on_gs_gold_coin";
       case aas_event.level_start      : return "m8f_aas_voice_on_level_start";
       case aas_event.one_percent      : return "m8f_aas_voice_on_one_percent";

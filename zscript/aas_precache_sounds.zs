@@ -17,7 +17,6 @@ class aas_precache_sounds
     MarkSound("aas/voice7");
     MarkSound("aas/voice8");
     MarkSound("aas/voice9");
-    MarkSound("aas/voice10");
     MarkSound("aas/voice11");
     MarkSound("aas/voice12");
     MarkSound("aas/voice13");
@@ -52,7 +51,6 @@ class aas_precache_sounds
     MarkSound("aas/voice-w7");
     MarkSound("aas/voice-w8");
     MarkSound("aas/voice-w9");
-    MarkSound("aas/voice-w10");
     MarkSound("aas/voice-w11");
     MarkSound("aas/voice-w12");
     MarkSound("aas/voice-w13");
@@ -87,7 +85,6 @@ class aas_precache_sounds
     MarkSound("aas/voice-f7");
     MarkSound("aas/voice-f8");
     MarkSound("aas/voice-f9");
-    MarkSound("aas/voice-f10");
     MarkSound("aas/voice-f11");
     MarkSound("aas/voice-f12");
     MarkSound("aas/voice-f13");

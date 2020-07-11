@@ -11,7 +11,6 @@
 |   7 | time_period     | m8f_aas_save_on_time_period     | false   | Time passed.            |
 |   8 | teleport        | m8f_aas_save_on_teleport        | false   | Moved to another place. |
 |   9 | manual          | m8f_aas_true                    | true    | Manual save.            |
-|  10 | pomodoro        | m8f_aas_true                    | true    | Take a break.           |
 |  11 | gs_gold_coin    | m8f_aas_save_on_artefact        | true    | Something rare!         |
 |  12 | level_start     | m8f_aas_save_on_level_start     | false   | Level started.          |
 |  13 | one_percent     | m8f_aas_save_on_one_percent     | false   | Last health percent!    |
