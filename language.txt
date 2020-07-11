@@ -100,3 +100,6 @@ AAS_EVENT_60_DOWN = "Enemies 60% down";
 AAS_EVENT_70_DOWN = "Enemies 70% down";
 AAS_EVENT_80_DOWN = "Enemies 80% down";
 AAS_EVENT_90_DOWN = "Enemies 90% down";
+
+AAS_ENABLE_ALL  = "Enable all";
+AAS_DISABLE_ALL = "Disable all";

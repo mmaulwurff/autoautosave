@@ -82,6 +82,12 @@ filtered=$(grep -v "|--" event_types.org | grep "|" | grep -v "N |")
     echo "$filtered" | awk '{ printf("server bool m8f_aas_voice_on_%-16s = true;\n", $4) }' | sort | uniq
 } > $cvar_file
 
+sed -i "s/alias aas_set_voice_on.*/alias aas_set_voice_on \"$(echo "$filtered" | awk '{ printf("m8f_aas_voice_on_%s 1;", $4) }')\"/" keyconf.txt
+sed -i "s/alias aas_set_voice_off.*/alias aas_set_voice_off \"$(echo "$filtered" | awk '{ printf("m8f_aas_voice_on_%s 0;", $4) }')\"/" keyconf.txt
+
+sed -i "s/alias aas_set_screenshots_on.*/alias aas_set_screenshots_on \"$(echo "$filtered" | awk '{ printf("m8f_aas_shot_on_%s 1;", $4) }')\"/" keyconf.txt
+sed -i "s/alias aas_set_screenshots_off.*/alias aas_set_screenshots_off \"$(echo "$filtered" | awk '{ printf("m8f_aas_shot_on_%s 0;", $4) }')\"/" keyconf.txt
+
 # Generate sndinfo #################################################################################
 {
     echo "// This file is generated automatically!"

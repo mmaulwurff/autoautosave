@@ -55,6 +55,10 @@ OptionMenu aas_ScreenshotOptions
   StaticText "$AAS_SCREENSHOTS_SCRIPT_NOTE"     , Black
 
   StaticText ""
+  SafeCommand "$AAS_ENABLE_ALL"        , aas_set_screenshots_on
+  SafeCommand "$AAS_DISABLE_ALL"       , aas_set_screenshots_off
+
+  StaticText ""
   Option     "$AAS_EVENT_MANUAL"       , m8f_aas_shot_on_manual          , OnOff
   Option     "$AAS_EVENT_START"        , m8f_aas_shot_on_level_start     , OnOff
 
@@ -125,6 +129,10 @@ OptionMenu aas_VoiceOptions
   Title "$AAS_VOICE_OPTIONS_TITLE"
 
   Option     "$AAS_VOICE_TYPE"         , aas_voice_type , aas_voice_types
+
+  StaticText ""
+  SafeCommand "$AAS_ENABLE_ALL"        , aas_set_voice_on
+  SafeCommand "$AAS_DISABLE_ALL"       , aas_set_voice_off
 
   StaticText ""
   Option     "$AAS_EVENT_MANUAL"       , m8f_aas_voice_on_manual          , OnOff
