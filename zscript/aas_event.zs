@@ -19,6 +19,15 @@ class aas_event
     gs_gold_coin     =  11,
     level_start      =  12,
     one_percent      =  13,
+    enemies_10       =  14,
+    enemies_20       =  15,
+    enemies_30       =  16,
+    enemies_40       =  17,
+    enemies_50       =  18,
+    enemies_60       =  19,
+    enemies_70       =  20,
+    enemies_80       =  21,
+    enemies_90       =  22,
     health_drop      = 100,
     health_rise      = 101,
     armor_drop       = 102,
@@ -50,6 +59,15 @@ class aas_event
       case aas_event.gs_gold_coin     : return "Something rare!";
       case aas_event.level_start      : return "Level started.";
       case aas_event.one_percent      : return "Last health percent!";
+      case aas_event.enemies_10       : return "10% down.";
+      case aas_event.enemies_20       : return "20% down.";
+      case aas_event.enemies_30       : return "30% down.";
+      case aas_event.enemies_40       : return "40% down.";
+      case aas_event.enemies_50       : return "50% down.";
+      case aas_event.enemies_60       : return "60% down.";
+      case aas_event.enemies_70       : return "70% down.";
+      case aas_event.enemies_80       : return "80% down.";
+      case aas_event.enemies_90       : return "90% down.";
       case aas_event.health_drop      : return "Health low.";
       case aas_event.health_rise      : return "Health high.";
       case aas_event.armor_drop       : return "Armor low.";
@@ -83,6 +101,15 @@ class aas_event
       case aas_event.gs_gold_coin     : return "m8f_aas_save_on_artefact";
       case aas_event.level_start      : return "m8f_aas_save_on_level_start";
       case aas_event.one_percent      : return "m8f_aas_save_on_one_percent";
+      case aas_event.enemies_10       : return "m8f_aas_save_on_enemies_10";
+      case aas_event.enemies_20       : return "m8f_aas_save_on_enemies_20";
+      case aas_event.enemies_30       : return "m8f_aas_save_on_enemies_30";
+      case aas_event.enemies_40       : return "m8f_aas_save_on_enemies_40";
+      case aas_event.enemies_50       : return "m8f_aas_save_on_enemies_50";
+      case aas_event.enemies_60       : return "m8f_aas_save_on_enemies_60";
+      case aas_event.enemies_70       : return "m8f_aas_save_on_enemies_70";
+      case aas_event.enemies_80       : return "m8f_aas_save_on_enemies_80";
+      case aas_event.enemies_90       : return "m8f_aas_save_on_enemies_90";
       case aas_event.health_drop      : return "m8f_aas_save_on_health_drop";
       case aas_event.health_rise      : return "m8f_aas_save_on_health_rise";
       case aas_event.armor_drop       : return "m8f_aas_save_on_armor_drop";
@@ -116,6 +143,15 @@ class aas_event
       case aas_event.gs_gold_coin     : return "m8f_aas_shot_on_gs_gold_coin";
       case aas_event.level_start      : return "m8f_aas_shot_on_level_start";
       case aas_event.one_percent      : return "m8f_aas_shot_on_one_percent";
+      case aas_event.enemies_10       : return "m8f_aas_shot_on_enemies_10";
+      case aas_event.enemies_20       : return "m8f_aas_shot_on_enemies_20";
+      case aas_event.enemies_30       : return "m8f_aas_shot_on_enemies_30";
+      case aas_event.enemies_40       : return "m8f_aas_shot_on_enemies_40";
+      case aas_event.enemies_50       : return "m8f_aas_shot_on_enemies_50";
+      case aas_event.enemies_60       : return "m8f_aas_shot_on_enemies_60";
+      case aas_event.enemies_70       : return "m8f_aas_shot_on_enemies_70";
+      case aas_event.enemies_80       : return "m8f_aas_shot_on_enemies_80";
+      case aas_event.enemies_90       : return "m8f_aas_shot_on_enemies_90";
       case aas_event.health_drop      : return "m8f_aas_shot_on_health_drop";
       case aas_event.health_rise      : return "m8f_aas_shot_on_health_rise";
       case aas_event.armor_drop       : return "m8f_aas_shot_on_armor_drop";
@@ -149,6 +185,15 @@ class aas_event
       case aas_event.gs_gold_coin     : return "m8f_aas_voice_on_gs_gold_coin";
       case aas_event.level_start      : return "m8f_aas_voice_on_level_start";
       case aas_event.one_percent      : return "m8f_aas_voice_on_one_percent";
+      case aas_event.enemies_10       : return "m8f_aas_voice_on_enemies_10";
+      case aas_event.enemies_20       : return "m8f_aas_voice_on_enemies_20";
+      case aas_event.enemies_30       : return "m8f_aas_voice_on_enemies_30";
+      case aas_event.enemies_40       : return "m8f_aas_voice_on_enemies_40";
+      case aas_event.enemies_50       : return "m8f_aas_voice_on_enemies_50";
+      case aas_event.enemies_60       : return "m8f_aas_voice_on_enemies_60";
+      case aas_event.enemies_70       : return "m8f_aas_voice_on_enemies_70";
+      case aas_event.enemies_80       : return "m8f_aas_voice_on_enemies_80";
+      case aas_event.enemies_90       : return "m8f_aas_voice_on_enemies_90";
       case aas_event.health_drop      : return "m8f_aas_voice_on_health_drop";
       case aas_event.health_rise      : return "m8f_aas_voice_on_health_rise";
       case aas_event.armor_drop       : return "m8f_aas_voice_on_armor_drop";

@@ -103,9 +103,12 @@ class aas_event_source play
     _active_bosses_checker.tick();
 
     check_secrets();
-    check_all_killed();
     check_all_found();
     check_player_events();
+
+    check_all_killed();
+    check_kill_percents();
+    _old_kill_count = level.killed_monsters;
 
     _scheduler.tick();
   }
@@ -320,7 +323,34 @@ class aas_event_source play
     {
       on_event(aas_event.all_kill);
     }
-    _old_kill_count = kill_count;
+  }
+
+  private
+  void check_kill_percents()
+  {
+    int kill_count = level.killed_monsters;
+    static const int events[] =
+    {
+      aas_event.enemies_10,
+      aas_event.enemies_20,
+      aas_event.enemies_30,
+      aas_event.enemies_40,
+      aas_event.enemies_50,
+      aas_event.enemies_60,
+      aas_event.enemies_70,
+      aas_event.enemies_80,
+      aas_event.enemies_90
+    };
+
+    for (int i = 0; i < 9; ++i)
+    {
+      int percent = (i + 1) * 10;
+      int ratio   = int(ceil(level.total_monsters * percent / 100.0));
+      if (_old_kill_count < ratio && kill_count >= ratio)
+      {
+        on_event(events[i]);
+      }
+    }
   }
 
   private

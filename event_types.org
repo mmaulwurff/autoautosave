@@ -15,6 +15,15 @@
 |  11 | gs_gold_coin    | m8f_aas_save_on_artefact        | true    | Something rare!         |
 |  12 | level_start     | m8f_aas_save_on_level_start     | false   | Level started.          |
 |  13 | one_percent     | m8f_aas_save_on_one_percent     | false   | Last health percent!    |
+|  14 | enemies_10      | m8f_aas_save_on_enemies_10      | false   | 10% down.               |
+|  15 | enemies_20      | m8f_aas_save_on_enemies_20      | false   | 20% down.               |
+|  16 | enemies_30      | m8f_aas_save_on_enemies_30      | false   | 30% down.               |
+|  17 | enemies_40      | m8f_aas_save_on_enemies_40      | false   | 40% down.               |
+|  18 | enemies_50      | m8f_aas_save_on_enemies_50      | false   | 50% down.               |
+|  19 | enemies_60      | m8f_aas_save_on_enemies_60      | false   | 60% down.               |
+|  20 | enemies_70      | m8f_aas_save_on_enemies_70      | false   | 70% down.               |
+|  21 | enemies_80      | m8f_aas_save_on_enemies_80      | false   | 80% down.               |
+|  22 | enemies_90      | m8f_aas_save_on_enemies_90      | false   | 90% down.               |
 |-----+-----------------+---------------------------------+---------+-------------------------|
 | 100 | health_drop     | m8f_aas_save_on_health_drop     | false   | Health low.             |
 | 101 | health_rise     | m8f_aas_save_on_health_rise     | false   | Health high.            |

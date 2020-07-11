@@ -21,7 +21,7 @@ It is designed to be compatible with any monster and weapon mod, and any map.
 
 insightguy, Someone64, 4thcharacter, Tesculpture, SiFi270, ShockwaveS08, Rowsol,
 Zhs2, dawnbreez, namsan, Crimsondrgn, Captain J, Spaceman333, retronutcase,
-HexaDoken, Tapwave, and IKA for help, suggestions, and bug reports.
+HexaDoken, Tapwave, IKA, and darkness for help, suggestions, and bug reports.
 
 ## Info
 

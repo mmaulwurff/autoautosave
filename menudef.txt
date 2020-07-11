@@ -88,9 +88,19 @@ OptionMenu aas_ScreenshotOptions
   Option     "$AAS_EVENT_KEY"          , m8f_aas_shot_on_key             , OnOff
   Option     "$AAS_EVENT_BACKPACK"     , m8f_aas_shot_on_backpack        , OnOff
   Option     "$AAS_EVENT_IMPORTANT"    , m8f_aas_shot_on_gs_gold_coin    , OnOff
-
   StaticText "$AAS_IMPORTANT_NOTE_1" , Black
   StaticText "$AAS_IMPORTANT_NOTE_2" , Black
+
+  StaticText ""
+  Option     "$AAS_EVENT_10_DOWN" , m8f_aas_shot_on_enemies_10 , OnOff
+  Option     "$AAS_EVENT_20_DOWN" , m8f_aas_shot_on_enemies_20 , OnOff
+  Option     "$AAS_EVENT_30_DOWN" , m8f_aas_shot_on_enemies_30 , OnOff
+  Option     "$AAS_EVENT_40_DOWN" , m8f_aas_shot_on_enemies_40 , OnOff
+  Option     "$AAS_EVENT_50_DOWN" , m8f_aas_shot_on_enemies_50 , OnOff
+  Option     "$AAS_EVENT_60_DOWN" , m8f_aas_shot_on_enemies_60 , OnOff
+  Option     "$AAS_EVENT_70_DOWN" , m8f_aas_shot_on_enemies_70 , OnOff
+  Option     "$AAS_EVENT_80_DOWN" , m8f_aas_shot_on_enemies_80 , OnOff
+  Option     "$AAS_EVENT_90_DOWN" , m8f_aas_shot_on_enemies_90 , OnOff
 }
 
 OptionMenu aas_LogOptions
@@ -175,7 +185,17 @@ OptionMenu aas_EventTogglesMenu
   Option     "$AAS_EVENT_KEY"          , m8f_aas_save_on_key             , OnOff
   Option     "$AAS_EVENT_BACKPACK"     , m8f_aas_save_on_backpack        , OnOff
   Option     "$AAS_EVENT_IMPORTANT"    , m8f_aas_save_on_artefact        , OnOff
-
   StaticText "$AAS_IMPORTANT_NOTE_1"   , Black
   StaticText "$AAS_IMPORTANT_NOTE_2"   , Black
+
+  StaticText ""
+  Option     "$AAS_EVENT_10_DOWN" , m8f_aas_save_on_enemies_10 , OnOff
+  Option     "$AAS_EVENT_20_DOWN" , m8f_aas_save_on_enemies_20 , OnOff
+  Option     "$AAS_EVENT_30_DOWN" , m8f_aas_save_on_enemies_30 , OnOff
+  Option     "$AAS_EVENT_40_DOWN" , m8f_aas_save_on_enemies_40 , OnOff
+  Option     "$AAS_EVENT_50_DOWN" , m8f_aas_save_on_enemies_50 , OnOff
+  Option     "$AAS_EVENT_60_DOWN" , m8f_aas_save_on_enemies_60 , OnOff
+  Option     "$AAS_EVENT_70_DOWN" , m8f_aas_save_on_enemies_70 , OnOff
+  Option     "$AAS_EVENT_80_DOWN" , m8f_aas_save_on_enemies_80 , OnOff
+  Option     "$AAS_EVENT_90_DOWN" , m8f_aas_save_on_enemies_90 , OnOff
 }
