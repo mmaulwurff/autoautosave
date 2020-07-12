@@ -16,6 +16,9 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This is a generic interface for reporting how much enemies are on the level.
+ */
 class aas_enemies_counter abstract
 {
 

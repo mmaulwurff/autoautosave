@@ -16,6 +16,9 @@
  * Autoautosave.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class implements aas_enemies_counter by counting active bosses.
+ */
 class aas_active_bosses_counter : aas_enemies_counter
 {
 
