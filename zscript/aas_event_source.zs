@@ -262,8 +262,9 @@ class aas_event_source play
       _old_pos = pos;
     }
 
+    int health = player.mo.health;
+
     {
-      int health      = player.mo.health;
       int health_down = _health_down.get_int();
       int health_up   = _health_up.get_int();
       if (health < health_down && _old_health >= health_down && health > 0)
@@ -289,7 +290,7 @@ class aas_event_source play
       int armor_count = player.mo.CountInv("BasicArmor");
       int armor_down  = _armor_down.get_int();
       int armor_up    = _armor_up.get_int();
-      if (armor_count < armor_down && _old_armor >= armor_down)
+      if (armor_count < armor_down && _old_armor >= armor_down && health > 0)
       {
         on_event(aas_event.armor_drop);
       }
