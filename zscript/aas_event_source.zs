@@ -266,7 +266,7 @@ class aas_event_source play
       int health      = player.mo.health;
       int health_down = _health_down.get_int();
       int health_up   = _health_up.get_int();
-      if (health < health_down && _old_health >= health_down)
+      if (health < health_down && _old_health >= health_down && health > 0)
       {
         on_event(aas_event.health_drop);
       }
