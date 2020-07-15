@@ -56,6 +56,7 @@ version "4.4.2"
 #include "zscript/aas_log.zs"
 #include "zscript/aas_cvar.zs"
 #include "zscript/aas_precache_sounds.zs"
+#include "zscript/aas_consts.zs"
 
 /**
  * Tests.

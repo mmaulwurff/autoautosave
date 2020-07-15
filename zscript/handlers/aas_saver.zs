@@ -58,7 +58,8 @@ class aas_saver : aas_event_handler
     if (event_type == aas_event.manual) return false;
 
     int current_time          = _clock.time();
-    int time_from_last_save_s = (current_time - _last_save_time.get_time()) / TICRATE;
+    int time_from_last_save_s = (current_time - _last_save_time.get_time())
+                              / aas_consts.TICKS_IN_SECOND;
 
     return time_from_last_save_s < _min_save_wait_s.get_int();
   }

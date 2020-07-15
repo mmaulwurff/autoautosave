@@ -102,7 +102,10 @@ class aas_sound_queue play
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  const TIMEOUT = 2500 * TICRATE / 1000;
+  /**
+   * 2.5 seconds in ticks.
+   */
+  const TIMEOUT = 2500 * aas_consts.TICKS_IN_SECOND / 1000;
 
   /**
    * Event queue stores event types.
