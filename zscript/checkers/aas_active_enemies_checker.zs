@@ -58,6 +58,8 @@ class aas_active_enemies_checker play
 
   void tick()
   {
+    if (is_player_dead()) return;
+
     int active_enemies_count = _counter.count();
     int group_count          = _group_number.get_int();
     int newly_active_enemies = max(0, active_enemies_count - _old_active_count);
@@ -95,6 +97,12 @@ class aas_active_enemies_checker play
   void on_event(int event_type)
   {
     _handler.on_event(event_type);
+  }
+
+  private
+  bool is_player_dead()
+  {
+    return players[consolePlayer].Health <= 0;
   }
 
   private aas_cvar _group_number;
