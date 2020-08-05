@@ -36,9 +36,9 @@ class aas_event_source play
     result._voice      = aas_voice.of();
 
     array<aas_event_handler> handlers;
-    handlers.push(aas_saver  .of(result._scheduler, result._clock, last_save_time));
-    handlers.push(aas_logger .of());
-    handlers.push(aas_printer.of());
+    handlers.push(aas_saver .of(result._scheduler, result._clock, last_save_time));
+    handlers.push(aas_logger.of(aas_log_function.of(), "m8f_aas_console_log_level"));
+    handlers.push(aas_logger.of(aas_print_function.of(), "m8f_aas_screen_level"));
     handlers.push(result._voice);
     handlers.push(aas_screenshooter.of(result._scheduler));
     result._handler = aas_event_handlers.of(handlers);

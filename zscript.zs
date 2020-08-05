@@ -25,7 +25,6 @@ version "4.4.2"
 #include "zscript/handlers/aas_event_handler.zs"
 #include "zscript/handlers/aas_event_handlers.zs"
 #include "zscript/handlers/aas_logger.zs"
-#include "zscript/handlers/aas_printer.zs"
 #include "zscript/handlers/aas_saver.zs"
 #include "zscript/handlers/aas_screenshooter.zs"
 #include "zscript/handlers/aas_voice.zs"
@@ -57,6 +56,7 @@ version "4.4.2"
 #include "zscript/aas_cvar.zs"
 #include "zscript/aas_precache_sounds.zs"
 #include "zscript/aas_consts.zs"
+#include "zscript/aas_function.zs"
 
 /**
  * Tests.
