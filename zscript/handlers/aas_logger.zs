@@ -31,8 +31,13 @@ class aas_logger : aas_event_handler
   aas_logger of(aas_function log_function, String level_cvar_name)
   {
     let result = new("aas_logger");
-    result._level        = aas_cvar.of(level_cvar_name, players[consolePlayer]);
+
+    PlayerInfo player = players[consolePlayer];
+
+    result._level        = aas_cvar.of(level_cvar_name, player);
+    result._color        = aas_cvar.of("aas_print_color", player);
     result._log_function = log_function;
+
     return result;
   }
 
@@ -41,7 +46,9 @@ class aas_logger : aas_event_handler
   {
     if (is_worth_logging(event_type, _level.get_int()))
     {
-      _log_function.f1(event_type);
+      int    color   = _color.get_int() + 97; // 97 == 'a'
+      String message = String.Format("\c%c%s", color, aas_event.message(event_type));
+      _log_function.f1(message);
     }
   }
 
@@ -54,6 +61,7 @@ class aas_logger : aas_event_handler
   }
 
   private aas_cvar     _level;
+  private aas_cvar     _color;
   private aas_function _log_function;
 
 } // class aas_logger
@@ -61,21 +69,11 @@ class aas_logger : aas_event_handler
 class aas_log_function : aas_function
 {
   static aas_log_function of() { return new("aas_log_function"); }
-
-  override
-  void f1(int event_type)
-  {
-    aas_log.print(aas_event.message(event_type));
-  }
+  override void f1(String s) { aas_log.print(s); }
 }
 
 class aas_print_function : aas_function
 {
   static aas_print_function of() { return new("aas_print_function"); }
-
-  override
-  void f1(int event_type)
-  {
-    Console.MidPrint("smallfont", aas_event.message(event_type), true);
-  }
+  override void f1(String s) { Console.MidPrint("smallfont", s, true); }
 }

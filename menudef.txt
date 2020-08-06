@@ -125,6 +125,9 @@ OptionMenu aas_LogOptions
   StaticText ""
   StaticText "$AAS_LOG_VERBOSE_NOTE_1" , Black
   StaticText "$AAS_LOG_VERBOSE_NOTE_2" , Black
+
+  StaticText ""
+  Option     "$AAS_PRINT_COLOR" , aas_print_color , TextColors
 }
 
 OptionMenu aas_VoiceOptions

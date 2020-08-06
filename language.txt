@@ -65,10 +65,12 @@ AAS_EVENT_HEALING      = "Major healing";
 AAS_LOG_CONSOLE = "Log to console";
 AAS_LOG_SCREEN  = "Log to screen";
 
+AAS_PRINT_COLOR = "Log color";
+
 AAS_LOG_QUIET_NOTE_1   = "Quiet:";
-AAS_LOG_QUIET_NOTE_2   = "enemies time teleport items";
+AAS_LOG_QUIET_NOTE_2   = "enemies, time, teleport, items.";
 AAS_LOG_VERBOSE_NOTE_1 = "Verbose:";
-AAS_LOG_VERBOSE_NOTE_2 = "enemies time teleport items health armor";
+AAS_LOG_VERBOSE_NOTE_2 = "enemies, time, teleport, items, % kills, health, armor.";
 
 AAS_MIN_BOSS_HEALTH   = "Enemy is a boss when health is at least";
 AAS_GROUP_NUMBER      = "Group is at least N enemies";

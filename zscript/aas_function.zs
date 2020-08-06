@@ -22,5 +22,5 @@
 class aas_function
 {
   virtual
-  void f1(int value) {}
+  void f1(String s) {}
 }
