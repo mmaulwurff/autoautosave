@@ -24,7 +24,7 @@ class aas_logger : aas_event_handler
   /**
    * Create aas_logger instance.
    *
-   * @param log_function a function that receives one parameter of type int.
+   * @param log_function a function that receives one parameter of type String.
    * @param level_cvar_name a name of int CVar that controls verbosity level.
    */
   static
