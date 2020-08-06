@@ -38,4 +38,4 @@
 | 205 | big_heal        | m8f_aas_save_on_big_heal        | true    | Major healing.          |
 | 206 | armor           | m8f_aas_save_on_armor           | false   | Armor found.            |
 |-----+-----------------+---------------------------------+---------+-------------------------|
-|   N | Enum            | CVar                            |         | Text                    |
+|   N | Enum            | CVar                            | Default | Text                    |

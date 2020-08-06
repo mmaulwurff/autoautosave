@@ -6,7 +6,7 @@ AddOptionMenu OptionsMenu
 OptionValue aas_log_level_options
 {
    -1, "$AAS_LEVEL_NOTHING"
-   99, "$AAS_LEVEL_QUIET"
+   13, "$AAS_LEVEL_QUIET"
   199, "$AAS_LEVEL_VERBOSE"
   999, "$AAS_LEVEL_EVERYTHINGY"
 }
