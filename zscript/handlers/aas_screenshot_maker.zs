@@ -19,15 +19,15 @@
 /**
  * This class implements aas_event_handler by making a screenshots on events.
  */
-class aas_screenshooter : aas_event_handler
+class aas_screenshot_maker : aas_event_handler
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  aas_screenshooter of(aas_game_actions game_actions)
+  aas_screenshot_maker of(aas_game_actions game_actions)
   {
-    let result = new("aas_screenshooter");
+    let result = new("aas_screenshot_maker");
 
     result._game_actions   = game_actions;
     result._shot_on_manual = aas_cvar.of("m8f_aas_shot_on_manual");
@@ -70,4 +70,4 @@ class aas_screenshooter : aas_event_handler
   private aas_cvar _shot_on_manual;
   private aas_cvar _is_enabled;
 
-} // class aas_screenshooter
+} // class aas_screenshot_maker

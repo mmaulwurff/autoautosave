@@ -8,12 +8,12 @@
 !.gitignore
 !.gitattributes
 
-!**.md
-!**.ogg
-!**.org
-!**.sh
-!**.txt
-!**.zs
+!*.md
+!*.ogg
+!*.org
+!*.sh
+!*.txt
+!*.zs
 
 # But do ignore this:
 

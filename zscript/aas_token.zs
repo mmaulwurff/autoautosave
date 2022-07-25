@@ -27,7 +27,7 @@ class aas_token : Inventory
   Default
   {
     +Inventory.Quiet;
-    +DONTGIB;
+    +DontGib;
   }
 
   aas_token init(int type, aas_event_handler handler, Actor save_reason)

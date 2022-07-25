@@ -33,7 +33,7 @@ class aas_level_clock : aas_clock
   override
   int time()
   {
-    return level.maptime;
+    return level.mapTime;
   }
 
 } // class aas_level_clock

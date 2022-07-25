@@ -40,7 +40,7 @@ class aas_event_source play
     handlers.push(aas_logger.of(aas_log_function.of(), "m8f_aas_console_log_level"));
     handlers.push(aas_logger.of(aas_print_function.of(), "m8f_aas_screen_level"));
     handlers.push(result._voice);
-    handlers.push(aas_screenshooter.of(result._scheduler));
+    handlers.push(aas_screenshot_maker.of(result._scheduler));
     result._handler = aas_event_handlers.of(handlers);
 
     result._save_timer = aas_save_timer.of(result._clock, last_save_time);
@@ -53,7 +53,7 @@ class aas_event_source play
     result._old_pos    = player.Pos;
     result._old_health = player.Health;
     result._old_armor  = player.CountInv("BasicArmor");
-    result._old_secret_count = player_info.secretcount;
+    result._old_secret_count = player_info.secretCount;
 
     BasicArmor armor = BasicArmor(player.FindInventory("BasicArmor"));
     if (armor) { result._old_armor_save = armor.SavePercent; }
@@ -133,7 +133,7 @@ class aas_event_source play
 
     if (!_save_on_dropped.get_bool() && is_loading_finished()) { return; }
 
-    static const string saveable_item_classes[] =
+    static const string saving_item_classes[] =
     {
       "Key",             // keys
       "FDKeyBase",
@@ -200,20 +200,20 @@ class aas_event_source play
       aas_event.armor
     };
 
-    int n_saveable_items_classes = saveable_item_classes.size();
-    if (n_saveable_items_classes != types.size())
+    int n_saving_items_classes = saving_item_classes.size();
+    if (n_saving_items_classes != types.size())
     {
-      aas_log.error("invalid saveable items");
+      aas_log.error("invalid saving items");
     }
 
     Actor player = players[consolePlayer].mo;
     Actor owner  = (item is "Inventory") ? Inventory(item).owner : NULL;
 
-    for (int i = 0; i < n_saveable_items_classes; ++i)
+    for (int i = 0; i < n_saving_items_classes; ++i)
     {
-      string saveable_class = saveable_item_classes[i];
+      string saving_class = saving_item_classes[i];
 
-      if (!(item is saveable_class || Actor.GetReplacee(class_name) is saveable_class))
+      if (!(item is saving_class || Actor.GetReplacee(class_name) is saving_class))
       {
         continue;
       }
@@ -230,7 +230,7 @@ class aas_event_source play
 
         // don't save on BackpackItem for Netronian Chaos, save on
         // Netronian Backpack instead
-        if (saveable_class == "BackpackItem" && netronianBackpackClass)
+        if (saving_class == "BackpackItem" && netronianBackpackClass)
         {
           return;
         }
@@ -247,7 +247,7 @@ class aas_event_source play
   private
   void check_player_events()
   {
-    PlayerInfo player = players[consoleplayer];
+    PlayerInfo player = players[consolePlayer];
 
     {
       vector3 pos = player.mo.Pos;
@@ -318,8 +318,8 @@ class aas_event_source play
   private
   void check_secrets()
   {
-    PlayerInfo player = players[consoleplayer];
-    int secret_count = player.secretcount;
+    PlayerInfo player = players[consolePlayer];
+    int secret_count = player.secretCount;
     if (secret_count > _old_secret_count)
     {
       on_event(aas_event.secret_found);

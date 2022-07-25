@@ -8,7 +8,7 @@ OptionValue aas_log_level_options
    -1, "$AAS_LEVEL_NOTHING"
    13, "$AAS_LEVEL_QUIET"
   199, "$AAS_LEVEL_VERBOSE"
-  999, "$AAS_LEVEL_EVERYTHINGY"
+  999, "$AAS_LEVEL_EVERYTHING"
 }
 
 OptionString aas_voice_types
@@ -25,8 +25,8 @@ OptionMenu aas_Options
   StaticText ""
   StaticText "$AAS_MUST_ALWAYS"         , Black
   StaticText "$OPTVAL_ALWAYS"           , Black
-  Option     "$MISCMNU_ENABLEAUTOSAVES" , disableautosave, Autosave
-  Slider     "$MISCMNU_AUTOSAVECOUNT"   , autosavecount, 1, 20, 1, 0
+  Option     "$MISCMNU_EnableAutosaves" , disableAutosave, Autosave
+  Slider     "$MISCMNU_AutosaveCount"   , autosaveCount, 1, 20, 1, 0
 
   StaticText ""
   StaticText "$AAS_GLOBAL_TOGGLE" , 1
@@ -54,7 +54,7 @@ OptionMenu aas_ScreenshotOptions
   StaticText "$AAS_SCREENSHOTS_WARNING" , Black
 
   StaticText ""
-  Option     "$MISCMNU_ENABLESCRIPTSCREENSHOTS" , enablescriptscreenshot , OnOff
+  Option     "$MISCMNU_EnableScriptScreenshots" , enableScriptScreenshot , OnOff
   StaticText "$AAS_SCREENSHOTS_SCRIPT_NOTE"     , Black
 
   StaticText ""

@@ -11,7 +11,7 @@ AAS_TOGGLE_OFF_MESSAGE = "Autoautosave disabled";
 AAS_LEVEL_NOTHING     = "nothing";
 AAS_LEVEL_QUIET       = "quiet";
 AAS_LEVEL_VERBOSE     = "verbose";
-AAS_LEVEL_EVERYTHINGY = "everything";
+AAS_LEVEL_EVERYTHING  = "everything";
 
 AAS_OPTIONS_TITLE = "Autoautosave Options";
 

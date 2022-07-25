@@ -26,7 +26,7 @@ version "4.4.2"
 #include "zscript/handlers/aas_event_handlers.zs"
 #include "zscript/handlers/aas_logger.zs"
 #include "zscript/handlers/aas_saver.zs"
-#include "zscript/handlers/aas_screenshooter.zs"
+#include "zscript/handlers/aas_screenshot_maker.zs"
 #include "zscript/handlers/aas_voice.zs"
 
 /**
@@ -37,7 +37,7 @@ version "4.4.2"
 #include "zscript/counters/aas_active_bosses_counter.zs"
 
 /**
- * These classes call engine's save and screenshoting functions.
+ * These classes call engine's save and screenshot functions.
  */
 #include "zscript/aas_game_actions.zs"
 #include "zscript/aas_game_action_scheduler.zs"
@@ -55,7 +55,6 @@ version "4.4.2"
 #include "zscript/aas_log.zs"
 #include "zscript/aas_cvar.zs"
 #include "zscript/aas_precache_sounds.zs"
-#include "zscript/aas_consts.zs"
 #include "zscript/aas_function.zs"
 
 /**

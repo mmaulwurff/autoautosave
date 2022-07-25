@@ -41,7 +41,7 @@ class aas_game_action_scheduler : aas_game_actions
 
   void tick()
   {
-    if (gameaction != ga_nothing)
+    if (gameAction != ga_nothing)
     {
       return;
     }

@@ -1,4 +1,4 @@
-/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020
+/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020, 2022
  *
  * This file is a part of Autoautosave.
  *
@@ -87,7 +87,7 @@ class aas_main : EventHandler
   private static
   bool is_titlemap()
   {
-    return (level.mapname == "TITLEMAP");
+    return (level.mapName ~== "TITLEMAP");
   }
 
   private aas_event_source _event_source;

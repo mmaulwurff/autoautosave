@@ -132,18 +132,18 @@ rm -f sounds/*
 
 mkdir -p sounds
 
-params="        -s140 -p0 -g1 -v en"
-params_whisper="-s140     -g1 -v whisper"
-params_female=" -s140     -g1 -v f2"
+parameters="        -s140 -p0 -g1 -v en"
+parameters_whisper="-s140     -g1 -v whisper"
+parameters_female=" -s140     -g1 -v f2"
 filename="sounds/aas"
 
 while read -r line; do
     voice_string=$(echo "$line" | awk '{ print $10; for (i=11; i<NF; ++i) { printf(" %s", $i); } }')
     i=$(echo "$line" | awk '{ print $2 }')
     #echo $voice_string
-    espeak-ng "$voice_string" $params         -w "$filename$i.wav";
-    espeak-ng "$voice_string" $params_whisper -w "$filename-w$i.wav";
-    espeak-ng "$voice_string" $params_female  -w "$filename-f$i.wav";
+    espeak-ng "$voice_string" $parameters         -w "$filename$i.wav";
+    espeak-ng "$voice_string" $parameters_whisper -w "$filename-w$i.wav";
+    espeak-ng "$voice_string" $parameters_female  -w "$filename-f$i.wav";
 done <<< "$filtered"
 
 for f in sounds/*.wav;
