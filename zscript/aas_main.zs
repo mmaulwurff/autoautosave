@@ -27,8 +27,6 @@ class aas_main : EventHandler
   override
   void NetworkProcess(ConsoleEvent event)
   {
-    if (is_titlemap()) return;
-
     Array<String> command;
     event.Name.Split(command, ":");
 
@@ -53,7 +51,11 @@ class aas_main : EventHandler
   override
   void PlayerEntered(PlayerEvent event)
   {
-    if (is_titlemap()) return;
+    if (is_titlemap())
+    {
+      destroy();
+      return;
+    }
 
     if (event.PlayerNumber != consolePlayer) return;
 
@@ -66,8 +68,6 @@ class aas_main : EventHandler
   override
   void WorldThingSpawned(WorldEvent event)
   {
-    if (is_titlemap()) return;
-
     if (event == NULL || event.thing == NULL) return;
 
     _event_source.on_thing_spawned(event.thing);
