@@ -93,7 +93,7 @@ class aas_event_source play
 
   void tick()
   {
-    if (_save_timer.is_periodic_save())
+    if (_save_timer.is_periodic_save() && players[consolePlayer].mo.health > 0)
     {
       on_event(aas_event.time_period);
     }
@@ -249,6 +249,9 @@ class aas_event_source play
   {
     PlayerInfo player = players[consolePlayer];
 
+    int health = player.mo.health;
+    if (health <= 0) return;
+
     {
       vector3 pos = player.mo.Pos;
       float x_diff = (pos.x - _old_pos.x);
@@ -262,12 +265,10 @@ class aas_event_source play
       _old_pos = pos;
     }
 
-    int health = player.mo.health;
-
     {
       int health_down = _health_down.get_int();
       int health_up   = _health_up.get_int();
-      if (health < health_down && _old_health >= health_down && health > 0)
+      if (health < health_down && _old_health >= health_down)
       {
         on_event(aas_event.health_drop);
       }
