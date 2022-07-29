@@ -128,7 +128,7 @@ sed -i "s/alias aas_set_screenshots_off.*/alias aas_set_screenshots_off \"$(echo
 
 # Generate ogg sounds ##############################################################################
 
-rm -f sounds/*
+rm -f sounds/*.ogg
 
 mkdir -p sounds
 

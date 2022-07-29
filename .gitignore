@@ -10,10 +10,12 @@
 
 !*.md
 !*.ogg
+!*.mp3
 !*.org
 !*.sh
 !*.txt
 !*.zs
+!sndinfo.*
 
 # But do ignore this:
 

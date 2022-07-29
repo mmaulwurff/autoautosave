@@ -93,6 +93,8 @@ AAS_VOICE_TYPE    = "Voice type";
 AAS_VOICE_CLASSIC = "Classic";
 AAS_VOICE_GHOST   = "Ghost";
 AAS_VOICE_VIRTUAL = "Virtual";
+AAS_VOICE_MALE    = "Male";
+AAS_VOICE_FEMALE  = "Female";
 
 AAS_EVENT_10_DOWN = "Enemies 10% down";
 AAS_EVENT_20_DOWN = "Enemies 20% down";

@@ -16,6 +16,8 @@ OptionString aas_voice_types
   "-w" , "$AAS_VOICE_GHOST"
   "-f" , "$AAS_VOICE_VIRTUAL"
   ""   , "$AAS_VOICE_CLASSIC"
+  "-m" , "$AAS_VOICE_MALE"
+  "-e" , "$AAS_VOICE_FEMALE"
 }
 
 OptionMenu aas_Options
