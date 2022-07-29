@@ -1,4 +1,4 @@
-/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020
+/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020, 2022
  *
  * This file is a part of Autoautosave.
  *
@@ -42,30 +42,22 @@ class aas_cvar
     return result;
   }
 
-  String get_string() { load(); return _cvar.GetString(); }
-  bool   get_bool()   { load(); return _cvar.GetInt();    }
-  int    get_int()    { load(); return _cvar.GetInt();    }
-  double get_double() { load(); return _cvar.GetFloat();  }
+  String get_string() { if (_cvar == NULL) load(); return _cvar.GetString(); }
+  bool   get_bool()   { if (_cvar == NULL) load(); return _cvar.GetInt();    }
+  int    get_int()    { if (_cvar == NULL) load(); return _cvar.GetInt();    }
+  double get_double() { if (_cvar == NULL) load(); return _cvar.GetFloat();  }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
   void load()
   {
-    if (is_loaded()) return;
-
     _cvar = Cvar.GetCvar(_name, _player);
 
-    if (!is_loaded())
+    if (_cvar == NULL)
     {
       aas_log.error(String.Format("cvar %s not found", _name));
     }
-  }
-
-  private
-  bool is_loaded()
-  {
-    return (_cvar != NULL);
   }
 
   private PlayerInfo     _player;
