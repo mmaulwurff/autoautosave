@@ -86,7 +86,7 @@ class aas_sound_queue play
       S_StartSound(voice_file, CHAN_AUTO);
 
       _queue.delete(0);
-      _timeout = TIMEOUT;
+      _timeout = S_GetLength(voice_file) * TICRATE;
     }
     else
     {
@@ -101,11 +101,6 @@ class aas_sound_queue play
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * 2.5 seconds in ticks.
-   */
-  const TIMEOUT = 2500 * TICRATE / 1000;
 
   /**
    * Event queue stores event types.
