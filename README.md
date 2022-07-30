@@ -24,6 +24,7 @@ Rowsol, Zhs2, dawnbreez, namsan, Crimsondrgn, Captain J, Spaceman333,
 retronutcase, HexaDoken, Tapwave, IKA, and darkness for help, suggestions, and
 bug reports.
 - Tapwave for excellent voice packs!
+- generic name guy for Brazilian Portuguese localization.
 
 ## Info
 

@@ -108,3 +108,112 @@ AAS_EVENT_90_DOWN = "Enemies 90% down";
 
 AAS_ENABLE_ALL  = "Enable all";
 AAS_DISABLE_ALL = "Disable all";
+
+[ptb]
+
+AAS_MANUAL_CONTROL_NAME = "Autosave manual";
+AAS_TOGGLE_CONTROL_NAME = "Alternar Autoautosave";
+
+AAS_TOGGLE_ON_MESSAGE  = "Autoautosave ligado";
+AAS_TOGGLE_OFF_MESSAGE = "Autoautosave desligado";
+
+AAS_LEVEL_NOTHING     = "nada";
+AAS_LEVEL_QUIET       = "quieto";
+AAS_LEVEL_VERBOSE     = "verboso";
+AAS_LEVEL_EVERYTHING  = "tudo";
+
+AAS_OPTIONS_TITLE = "Opções do Autoautosave";
+
+AAS_MUST_ALWAYS   = "Isto deve estar definido como";
+AAS_GLOBAL_TOGGLE = "Alternar Global";
+AAS_CONTROLS      = "Controles";
+
+AAS_EVENT_TUNING_TITLE       = "Opções de Evento";
+AAS_REPORT_OPTIONS_TITLE     = "Opções de registramento";
+
+AAS_INDIVIDUAL_TOGGLES_TITLE = "Alternações do Autosave";
+AAS_SCREENSHOT_TOGGLES_TITLE = "Alternações da Captura de Tela";
+AAS_VOICE_OPTIONS_TITLE      = "Alternações de Voz";
+
+AAS_SCREENSHOTS_WARNING = "Aviso: Muitas capturas de tela podem usar espaço no disco.";
+
+AAS_SCREENSHOTS_SCRIPT_NOTE = "Isto deve estar definido como \"Sim\".";
+
+AAS_EVENT_MANUAL = "No autosave manual";
+AAS_EVENT_START  = "No começo do nível";
+
+AAS_EVENT_ALL_CLEAR    = "Todos os inimigos foram eliminados.";
+AAS_EVENT_BOSS_KILLED  = "O chefão foi eliminado.";
+AAS_EVENT_ACTIVE_CLEAR = "Sem mais inimigos ativos. (abate em grupo)";
+
+AAS_EVENT_NEW_ACTIVE   = "Novos inimigos ativos. (alerta de grupo)";
+AAS_EVENT_BOSS_ACTIVE  = "O chefão foi alertado.";
+
+AAS_EVENT_ALL_ITEMS    = "Todos os ítens foram descobertos.";
+AAS_EVENT_PERIODIC     = "Tempo movido.";
+AAS_EVENT_TELEPORT     = "Você foi movido para outro lugar.";
+
+AAS_EVENT_HEALTH_LOW   = "Sua vida caiu baixo.";
+AAS_EVENT_HEALTH_1     = "Sua vida caiu para 1%.";
+AAS_EVENT_HEALTH_HIGH  = "Sua vida subiu alto.";
+AAS_EVENT_ARMOR_LOW    = "Sua armadura caiu baixo.";
+AAS_EVENT_ARMOR_HIGH   = "Sua armadura subiu alto.";
+AAS_EVENT_SECRET       = "Um segredo foi encontrado.";
+
+AAS_EVENT_POWERUP      = "Um poder foi encontrado.";
+AAS_EVENT_WEAPON       = "Uma arma foi encontrada.";
+AAS_EVENT_KEY          = "Uma chave foi encontrada.";
+AAS_EVENT_ARMOR        = "Armadura foi encontrada.";
+AAS_EVENT_BACKPACK     = "Uma mochila foi encontrada.";
+AAS_EVENT_IMPORTANT    = "Um item importante foi encontrado.";
+AAS_IMPORTANT_NOTE_1   = "Lista de ítens importantes inclui:";
+AAS_IMPORTANT_NOTE_2   = "Moedas grandes do The Golden Souls.";
+AAS_EVENT_NEW_ARMOR    = "Novo tipo de armadura.";
+AAS_EVENT_HEALING      = "Grande cura.";
+
+AAS_LOG_CONSOLE = "Registrar no Console";
+AAS_LOG_SCREEN  = "Registrar na Tela";
+
+AAS_PRINT_COLOR = "Cor do registro";
+
+AAS_LOG_QUIET_NOTE_1   = "Quieto:";
+AAS_LOG_QUIET_NOTE_2   = "Inimigos, tempo, teleporte, ítens.";
+AAS_LOG_VERBOSE_NOTE_1 = "Verboso:";
+AAS_LOG_VERBOSE_NOTE_2 = "Inimigos, tempo, teleporte, ítens, % de vítmas, vida, armadura.";
+
+AAS_MIN_BOSS_HEALTH   = "Inimigo é um chefão quando a vida for";
+AAS_GROUP_NUMBER      = "Grupo é pelo menos N inimigos";
+AAS_BOSS_GROUP_NUMBER = "Grupo de chefão é pelo menos N inimigos";
+AAS_HEALTH_LIMIT      = "Não salve quando a vida for menos de";
+AAS_BIG_HEAL_SIZE     = "Tanto de cura grande";
+
+AAS_LOW_HEALTH_THRESHOLD  = "Cota de vida baoxa";
+AAS_HIGH_HEALTH_THRESHOLD = "Cota de vida alta";
+AAS_LOW_ARMOR_THRESHOLD   = "Cota de armadura baixa";
+AAS_HIGH_ARMOR_THRESHOLD  = "Cota de armadura alta";
+
+AAS_MIN_SAVE_WAIT = "Não salve até segundos passados";
+AAS_PERIOD        = "Autosalvar todos N segundos";
+
+AAS_SAVE_ON_DROPPED      = "Salvar nos ítens derrubados";
+AAS_SAVE_ON_DROPPED_NOTE = "Também pegando chaves do Hideous Destructor";
+
+AAS_VOICE_TYPE    = "Tipo de voz";
+AAS_VOICE_CLASSIC = "Clássico";
+AAS_VOICE_GHOST   = "Fantasma";
+AAS_VOICE_VIRTUAL = "Virtual";
+AAS_VOICE_MALE    = "Homem";
+AAS_VOICE_FEMALE  = "Mulher";
+
+AAS_EVENT_10_DOWN = "Inimigos 10% mortos";
+AAS_EVENT_20_DOWN = "Inimigos 20% mortos";
+AAS_EVENT_30_DOWN = "Inimigos 30% mortos";
+AAS_EVENT_40_DOWN = "Inimigos 40% mortos";
+AAS_EVENT_50_DOWN = "Inimigos 50% mortos";
+AAS_EVENT_60_DOWN = "Inimigos 60% mortos";
+AAS_EVENT_70_DOWN = "Inimigos 70% mortos";
+AAS_EVENT_80_DOWN = "Inimigos 80% mortos";
+AAS_EVENT_90_DOWN = "Inimigos 90% mortos";
+
+AAS_ENABLE_ALL  = "Habilitar todos";
+AAS_DISABLE_ALL = "Desabilitar todos";
