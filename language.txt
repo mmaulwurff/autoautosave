@@ -13,7 +13,7 @@ AAS_LEVEL_QUIET       = "quiet";
 AAS_LEVEL_VERBOSE     = "verbose";
 AAS_LEVEL_EVERYTHING  = "everything";
 
-AAS_OPTIONS_TITLE = "Autoautosave Options";
+AAS_OPTIONS_TITLE = "\ct⍗\c- Autoautosave Options";
 
 AAS_MUST_ALWAYS   = "This must be set to";
 AAS_GLOBAL_TOGGLE = "Global toggle";
@@ -122,7 +122,7 @@ AAS_LEVEL_QUIET       = "quieto";
 AAS_LEVEL_VERBOSE     = "verboso";
 AAS_LEVEL_EVERYTHING  = "tudo";
 
-AAS_OPTIONS_TITLE = "Opções do Autoautosave";
+AAS_OPTIONS_TITLE = "\ct⍗\c- Opções do Autoautosave";
 
 AAS_MUST_ALWAYS   = "Isto deve estar definido como";
 AAS_GLOBAL_TOGGLE = "Alternar Global";
