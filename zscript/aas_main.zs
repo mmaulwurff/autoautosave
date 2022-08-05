@@ -60,6 +60,8 @@ class aas_main : EventHandler
     if (event.PlayerNumber != consolePlayer) return;
 
     aas_precache_sounds.precache_sounds();
+    aas_precache_other_sounds_too.precache_sounds();
+
     _event_source = aas_event_source.of();
 
     _event_source.on_event(aas_event.level_start);
