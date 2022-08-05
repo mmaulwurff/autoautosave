@@ -137,6 +137,7 @@ OptionMenu aas_VoiceOptions
   Title "$AAS_VOICE_OPTIONS_TITLE"
 
   Option     "$AAS_VOICE_TYPE"         , aas_voice_type , aas_voice_types
+  Slider     "$AAS_VOICE_VOLUME"       , aas_voice_volume, 1, 10, 1, 0
 
   StaticText ""
   SafeCommand "$AAS_ENABLE_ALL"        , aas_set_voice_on

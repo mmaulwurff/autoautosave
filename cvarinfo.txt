@@ -30,5 +30,6 @@ user int  m8f_aas_console_log_level = 99;
 user int  m8f_aas_screen_level      = -1;
 
 user string aas_voice_type = "";
+user int    aas_voice_volume = 1;
 
 user int aas_print_color = 0;

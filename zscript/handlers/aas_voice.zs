@@ -1,4 +1,4 @@
-/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020
+/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020, 2022
  *
  * This file is a part of Autoautosave.
  *
@@ -70,6 +70,7 @@ class aas_sound_queue play
     let result = new("aas_sound_queue");
     result._timeout    = 0;
     result._voice_type = aas_cvar.of("aas_voice_type", players[consolePlayer]);
+    result._voice_volume = aas_cvar.of("aas_voice_volume", players[consolePlayer]);
     return result;
   }
 
@@ -83,7 +84,12 @@ class aas_sound_queue play
 
       int    event_type = _queue[0];
       string voice_file = String.Format("aas/voice%s%d", _voice_type.get_string(), event_type);
-      S_StartSound(voice_file, CHAN_AUTO);
+
+      int volume = clamp(_voice_volume.get_int(), 1, 10);
+      for (int i = 0; i < volume; ++i)
+      {
+        S_StartSound(voice_file, CHAN_BODY, CHANF_OVERLAP);
+      }
 
       _queue.delete(0);
       _timeout = S_GetLength(voice_file) * TICRATE;
@@ -108,5 +114,6 @@ class aas_sound_queue play
   private array<int> _queue;
   private int        _timeout;
   private aas_cvar   _voice_type;
+  private aas_cvar   _voice_volume;
 
 } // class aas_sound_queue
