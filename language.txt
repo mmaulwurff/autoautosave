@@ -199,6 +199,7 @@ AAS_PERIOD        = "Autosalvar todos N segundos";
 AAS_SAVE_ON_DROPPED      = "Salvar nos ítens derrubados";
 AAS_SAVE_ON_DROPPED_NOTE = "Também pegando chaves do Hideous Destructor";
 
+AAS_VOICE_VOLUME  = "Volume de voz";
 AAS_VOICE_TYPE    = "Tipo de voz";
 AAS_VOICE_CLASSIC = "Clássico";
 AAS_VOICE_GHOST   = "Fantasma";
