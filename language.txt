@@ -110,7 +110,7 @@ AAS_EVENT_90_DOWN = "Enemies 90% down";
 AAS_ENABLE_ALL  = "Enable all";
 AAS_DISABLE_ALL = "Disable all";
 
-[ptb]
+[pt]
 
 AAS_MANUAL_CONTROL_NAME = "Autosave manual";
 AAS_TOGGLE_CONTROL_NAME = "Alternar Autoautosave";
