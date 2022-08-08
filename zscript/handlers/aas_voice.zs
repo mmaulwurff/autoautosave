@@ -61,7 +61,7 @@ class aas_voice : aas_event_handler
       }
 
       _queue.delete(0);
-      _timeout = S_GetLength(voice_file) * TICRATE;
+      _timeout = int(ceil(S_GetLength(voice_file) * TICRATE));
     }
     else
     {
