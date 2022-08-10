@@ -43,7 +43,7 @@ class aas_token : Inventory
   override
   bool TryPickup(Actor toucher)
   {
-    _handler.on_event(_event_type);
+    if (_handler != NULL) _handler.on_event(_event_type);
     GoAwayAndDie();
     return true;
   }
