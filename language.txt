@@ -110,10 +110,14 @@ AAS_EVENT_90_DOWN = "Enemies 90% down";
 AAS_ENABLE_ALL  = "Enable all";
 AAS_DISABLE_ALL = "Disable all";
 
+AAS_EVENT_MANUALSAVE = "Manual save";
+AAS_EVENT_RAREITEMGET = "Something rare!";
+AAS_EVENT_LEVELSTARTED = "Level started";
+
 [pt]
 
 AAS_MANUAL_CONTROL_NAME = "Autosave manual";
-AAS_TOGGLE_CONTROL_NAME = "Alternar Autoautosave";
+AAS_TOGGLE_CONTROL_NAME = "Ligar Autoautosave";
 
 AAS_TOGGLE_ON_MESSAGE  = "Autoautosave ligado";
 AAS_TOGGLE_OFF_MESSAGE = "Autoautosave desligado";
@@ -126,15 +130,15 @@ AAS_LEVEL_EVERYTHING  = "tudo";
 AAS_OPTIONS_TITLE = "\ct⍗\c- Opções do Autoautosave";
 
 AAS_MUST_ALWAYS   = "Isto deve estar definido como";
-AAS_GLOBAL_TOGGLE = "Alternar Global";
+AAS_GLOBAL_TOGGLE = "Ligar Mod";
 AAS_CONTROLS      = "Controles";
 
 AAS_EVENT_TUNING_TITLE       = "Opções de Evento";
 AAS_REPORT_OPTIONS_TITLE     = "Opções de registramento";
 
-AAS_INDIVIDUAL_TOGGLES_TITLE = "Alternações do Autosave";
-AAS_SCREENSHOT_TOGGLES_TITLE = "Alternações da Captura de Tela";
-AAS_VOICE_OPTIONS_TITLE      = "Alternações de Voz";
+AAS_INDIVIDUAL_TOGGLES_TITLE = "Opções de Autosave";
+AAS_SCREENSHOT_TOGGLES_TITLE = "Opções de Captura de Tela";
+AAS_VOICE_OPTIONS_TITLE      = "Opções de Voz";
 
 AAS_SCREENSHOTS_WARNING = "Aviso: Muitas capturas de tela podem usar espaço no disco.";
 
@@ -143,34 +147,34 @@ AAS_SCREENSHOTS_SCRIPT_NOTE = "Isto deve estar definido como \"Sim\".";
 AAS_EVENT_MANUAL = "No autosave manual";
 AAS_EVENT_START  = "No começo do nível";
 
-AAS_EVENT_ALL_CLEAR    = "Todos os inimigos foram eliminados.";
-AAS_EVENT_BOSS_KILLED  = "O chefão foi eliminado.";
-AAS_EVENT_ACTIVE_CLEAR = "Sem mais inimigos ativos. (abate em grupo)";
+AAS_EVENT_ALL_CLEAR    = "Todos os inimigos foram eliminados";
+AAS_EVENT_BOSS_KILLED  = "O chefão foi eliminado";
+AAS_EVENT_ACTIVE_CLEAR = "Sem mais inimigos ativos (abate em grupo)";
 
-AAS_EVENT_NEW_ACTIVE   = "Novos inimigos ativos. (alerta de grupo)";
-AAS_EVENT_BOSS_ACTIVE  = "O chefão foi alertado.";
+AAS_EVENT_NEW_ACTIVE   = "Novos inimigos ativos (alerta de grupo)";
+AAS_EVENT_BOSS_ACTIVE  = "O chefão foi alertado";
 
-AAS_EVENT_ALL_ITEMS    = "Todos os ítens foram descobertos.";
-AAS_EVENT_PERIODIC     = "Tempo movido.";
-AAS_EVENT_TELEPORT     = "Você foi movido para outro lugar.";
+AAS_EVENT_ALL_ITEMS    = "Todos os ítens foram descobertos";
+AAS_EVENT_PERIODIC     = "Tempo movido";
+AAS_EVENT_TELEPORT     = "Você foi movido para outro lugar";
 
-AAS_EVENT_HEALTH_LOW   = "Sua vida caiu baixo.";
-AAS_EVENT_HEALTH_1     = "Sua vida caiu para 1%.";
-AAS_EVENT_HEALTH_HIGH  = "Sua vida subiu alto.";
-AAS_EVENT_ARMOR_LOW    = "Sua armadura caiu baixo.";
-AAS_EVENT_ARMOR_HIGH   = "Sua armadura subiu alto.";
-AAS_EVENT_SECRET       = "Um segredo foi encontrado.";
+AAS_EVENT_HEALTH_LOW   = "Sua vida caiu baixo";
+AAS_EVENT_HEALTH_1     = "Sua vida caiu para 1%";
+AAS_EVENT_HEALTH_HIGH  = "Sua vida subiu alto";
+AAS_EVENT_ARMOR_LOW    = "Sua armadura caiu baixo";
+AAS_EVENT_ARMOR_HIGH   = "Sua armadura subiu alto";
+AAS_EVENT_SECRET       = "Um segredo foi encontrado";
 
-AAS_EVENT_POWERUP      = "Um poder foi encontrado.";
-AAS_EVENT_WEAPON       = "Uma arma foi encontrada.";
-AAS_EVENT_KEY          = "Uma chave foi encontrada.";
-AAS_EVENT_ARMOR        = "Armadura foi encontrada.";
-AAS_EVENT_BACKPACK     = "Uma mochila foi encontrada.";
-AAS_EVENT_IMPORTANT    = "Um item importante foi encontrado.";
+AAS_EVENT_POWERUP      = "Um poder foi encontrado";
+AAS_EVENT_WEAPON       = "Uma arma foi encontrada";
+AAS_EVENT_KEY          = "Uma chave foi encontrada";
+AAS_EVENT_ARMOR        = "Armadura foi encontrada";
+AAS_EVENT_BACKPACK     = "Uma mochila foi encontrada";
+AAS_EVENT_IMPORTANT    = "Um item importante foi encontrado";
 AAS_IMPORTANT_NOTE_1   = "Lista de ítens importantes inclui:";
 AAS_IMPORTANT_NOTE_2   = "Moedas grandes do The Golden Souls.";
-AAS_EVENT_NEW_ARMOR    = "Novo tipo de armadura.";
-AAS_EVENT_HEALING      = "Grande cura.";
+AAS_EVENT_NEW_ARMOR    = "Novo tipo de armadura";
+AAS_EVENT_HEALING      = "Grande cura";
 
 AAS_LOG_CONSOLE = "Registrar no Console";
 AAS_LOG_SCREEN  = "Registrar na Tela";
@@ -219,3 +223,7 @@ AAS_EVENT_90_DOWN = "Inimigos 90% mortos";
 
 AAS_ENABLE_ALL  = "Habilitar todos";
 AAS_DISABLE_ALL = "Desabilitar todos";
+
+AAS_EVENT_MANUALSAVE = "Save manual";
+AAS_EVENT_RAREITEMGET = "Algo raro!";
+AAS_EVENT_LEVELSTARTED = "Nível começado";
